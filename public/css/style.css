@@ -159,13 +159,14 @@ a:hover {
 
 /* Hero Section */
 .hero {
-    height: 100vh;
-    min-height: 600px;
-    max-height: 800px;
-    color: white;
     position: relative;
+    height: 80vh;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
     overflow: hidden;
-    margin-bottom: 0;
+    margin-bottom: 2rem;
+    background-color: var(--primary-color);
 }
 
 .hero-bg-image {
@@ -180,6 +181,7 @@ a:hover {
     transform: scale(1.05);
     transition: transform 0.5s ease-out;
     filter: brightness(0.6);
+    background-color: var(--primary-color); /* Fallback if image doesn't load */
 }
 
 .hero:hover .hero-bg-image {

@@ -20,6 +20,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="public/css/style.css">
     
+    <!-- Image Placeholder CSS -->
+    <link rel="stylesheet" href="public/css/image-placeholders.css">
+    
     <!-- Additional Inline Styles -->
     <style>
         /* Any page-specific styles can go here */
@@ -85,16 +88,16 @@
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="marketplace.php">Marketplace</a>
+                        <a class="nav-link" href="AgroSmart Market/marketplace.php">Marketplace</a>
                     </li>
                     <?php if (is_logged_in()): ?>
                         <?php if (is_farmer()): ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="controllers/product.php">My Products</a>
+                                <a class="nav-link" href="product.php?action=manage">My Products</a>
                             </li>
                         <?php endif; ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="controllers/order.php">Orders</a>
+                            <a class="nav-link" href="order.php">Orders</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="message.php">
@@ -124,18 +127,22 @@
                                 <i class="fas fa-user-circle me-1"></i><?php echo $_SESSION['user_name']; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="dashboard.php">Dashboard</a></li>
+                                <?php if (is_farmer()): ?>
+                                <li><a class="dropdown-item" href="farmer-dashboard.php">Farmer Dashboard</a></li>
+                                <?php elseif (is_buyer()): ?>
+                                <li><a class="dropdown-item" href="buyer-dashboard.php">Buyer Dashboard</a></li>
+                                <?php endif; ?>
                                 <li><a class="dropdown-item" href="profile.php">My Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="controllers/auth.php?action=logout">Logout</a></li>
+                                <li><a class="dropdown-item" href="auth.php?action=logout">Logout</a></li>
                             </ul>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="controllers/auth.php?action=login">Login</a>
+                            <a class="nav-link" href="auth.php?action=login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="controllers/auth.php?action=register">Register</a>
+                            <a class="nav-link" href="auth.php?action=register">Register</a>
                         </li>
                     <?php endif; ?>
                 </ul>

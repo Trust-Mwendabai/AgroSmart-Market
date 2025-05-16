@@ -121,9 +121,9 @@
                         <i class="fas fa-inbox me-2"></i>Inbox
                         <?php 
                         // Count unread messages
-                        require_once '../models/Message.php';
-                        $message_model = new Message($conn);
-                        $unread_count = $message_model->count_unread_messages($_SESSION['user_id']);
+                        // We already have the Message model from the controller
+                        // No need to require it again
+                        $unread_count = $message->count_unread_messages($_SESSION['user_id']);
                         
                         if ($unread_count > 0): 
                         ?>

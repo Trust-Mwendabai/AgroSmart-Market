@@ -8,11 +8,28 @@ class Message {
     
     // Send a new message
     public function send_message($sender_id, $receiver_id, $subject, $message, $product_id = null) {
-        $sql = "INSERT INTO messages (sender_id, receiver_id, subject, message, related_product_id, date_sent) 
-                VALUES (?, ?, ?, ?, ?, NOW())";
+        // Check if related_product_id column exists in the messages table
+        $check_column = mysqli_query($this->conn, "SHOW COLUMNS FROM messages LIKE 'related_product_id'");
         
-        $stmt = mysqli_prepare($this->conn, $sql);
-        mysqli_stmt_bind_param($stmt, "iissi", $sender_id, $receiver_id, $subject, $message, $product_id);
+        if (mysqli_num_rows($check_column) > 0) {
+            // Column exists, use it
+            $sql = "INSERT INTO messages (sender_id, receiver_id, subject, message, related_product_id, date_sent) 
+                    VALUES (?, ?, ?, ?, ?, NOW())";
+            
+            $stmt = mysqli_prepare($this->conn, $sql);
+            mysqli_stmt_bind_param($stmt, "iissi", $sender_id, $receiver_id, $subject, $message, $product_id);
+        } else {
+            // Column doesn't exist, skip it
+            $sql = "INSERT INTO messages (sender_id, receiver_id, subject, message, date_sent) 
+                    VALUES (?, ?, ?, ?, NOW())";
+            
+            $stmt = mysqli_prepare($this->conn, $sql);
+            mysqli_stmt_bind_param($stmt, "iiss", $sender_id, $receiver_id, $subject, $message);
+            
+            // Try to add the column for future use
+            $alter_query = "ALTER TABLE messages ADD COLUMN related_product_id INT NULL DEFAULT NULL";
+            mysqli_query($this->conn, $alter_query);
+        }
         
         if (mysqli_stmt_execute($stmt)) {
             return [

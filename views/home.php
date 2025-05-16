@@ -1,6 +1,7 @@
 <!-- Hero Section with Parallax Effect -->
 <section class="hero position-relative overflow-hidden">
-    <div class="hero-bg-image" style="background-image: url('public/images/hero-bg.jpg');"></div>
+    <!-- Using CSS for the background instead of relying on the image -->
+    <div class="hero-bg-image"></div>
     <div class="container position-relative z-index-1 h-100 d-flex align-items-center">
         <div class="row align-items-center py-5">
             <div class="col-lg-6" data-aos="fade-right">
@@ -16,7 +17,9 @@
                 </div>
             </div>
             <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left" data-aos-delay="200">
-                <img src="public/images/farmer-illustration.png" alt="Farmer with produce" class="img-fluid hero-image">
+                <div class="hero-image img-fluid">
+                    <!-- CSS Placeholder will display here -->
+                </div>
             </div>
         </div>
     </div>
@@ -92,11 +95,16 @@
                     <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 50; ?>">
                         <div class="product-card h-100">
                             <div class="img-container">
-                                <?php if (!empty($product['image'])): ?>
-                                    <img src="public/uploads/products/<?php echo $product['image']; ?>" class="product-img" alt="<?php echo $product['name']; ?>">
-                                <?php else: ?>
-                                    <img src="public/images/<?php echo strtolower(str_replace(' ', '_', $product['category'])); ?>.jpg" class="product-img" alt="<?php echo $product['name']; ?>" onerror="this.src='public/images/default-product.jpg'">
-                                <?php endif; ?>
+                                <div class="product-image">
+                                    <?php if (!empty($product['image'])): ?>
+                                        <img src="public/uploads/products/<?php echo $product['image']; ?>" class="product-img" alt="<?php echo $product['name']; ?>" onerror="this.style.display='none';this.parentNode.classList.add('category-<?php echo strtolower(str_replace(' ', '_', $product['category'])); ?>')">
+                                    <?php else: ?>
+                                        <!-- CSS-based placeholder will show when no image is available -->
+                                        <div class="category-<?php echo strtolower(str_replace(' ', '_', $product['category'])); ?> img-placeholder" style="height:200px;">
+                                            <?php echo $product['name']; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
                                 
                                 <?php if (isset($product['is_organic']) && $product['is_organic']): ?>
                                     <span class="organic-badge card-badge">Organic</span>
@@ -266,7 +274,7 @@
         <div class="row align-items-center g-5">
             <div class="col-lg-6" data-aos="fade-right">
                 <div class="about-image-wrapper position-relative">
-                    <img src="public/images/farming-in-zambia.jpg" alt="Farming" class="img-fluid rounded-4 shadow about-main-image">
+                    <!-- No image required - using CSS placeholder -->
                     <div class="about-image-accent" data-aos="fade-up" data-aos-delay="300"></div>
                     <div class="about-stats-card" data-aos="fade-up" data-aos-delay="200">
                         <div class="d-flex align-items-center">
@@ -330,7 +338,8 @@
 
 <!-- CTA Section -->
 <section class="py-5 bg-primary text-white position-relative overflow-hidden cta-section">
-    <div class="position-absolute top-0 start-0 w-100 h-100 cta-bg-overlay" style="background-image: url('public/images/cta-bg.jpg');"></div>
+    <!-- Using CSS for background instead of image -->
+    <div class="position-absolute top-0 start-0 w-100 h-100 cta-bg-overlay"></div>
     <div class="container py-5 position-relative">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center" data-aos="fade-up">

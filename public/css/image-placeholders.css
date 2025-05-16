@@ -1,0 +1,140 @@
+/* Image Placeholder CSS for AgroSmart Market */
+
+/* Generic placeholder styles */
+.img-placeholder {
+    background-color: #f0f0f0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Hero background placeholder */
+.hero {
+    background: linear-gradient(45deg, #4CAF50, #8BC34A) !important;
+    position: relative;
+}
+
+.hero:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-10v10h4v-6h6zM4 4h22v22H4V4zm6 6h10v10H10V10zm20 0h10v10H30V10zm20 0h10v10H50V10zm-20 20h10v10H30V30zm20 0h10v10H50V30zM10 30h10v10H10V30zm40 40h10v10H50V70zm-20 0h10v10H30V70zm-20 0h10v10H10V70z'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.2;
+}
+
+/* Default image placeholders for product cards */
+.product-card .product-image {
+    min-height: 200px;
+    background: linear-gradient(135deg, #f5f5f5 25%, #e0e0e0 25%, #e0e0e0 50%, #f5f5f5 50%, #f5f5f5 75%, #e0e0e0 75%, #e0e0e0 100%);
+    background-size: 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-card .product-image:before {
+    content: 'Product Image';
+    color: #777;
+    font-size: 14px;
+}
+
+/* Colored placeholders for category images */
+.category-vegetables {
+    background-color: #4CAF50 !important;
+}
+
+.category-fruits {
+    background-color: #FF9800 !important;
+}
+
+.category-dairy {
+    background-color: #2196F3 !important;
+}
+
+.category-grains {
+    background-color: #FFC107 !important;
+}
+
+/* CTA section background */
+.cta-bg-overlay {
+    background: linear-gradient(45deg, #388E3C, #1B5E20) !important;
+}
+
+/* About image */
+.about-image-wrapper {
+    position: relative;
+    height: 350px;
+    background: linear-gradient(135deg, #8BC34A 0%, #4CAF50 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.8);
+    font-size: 16px;
+    overflow: hidden;
+}
+
+.about-image-wrapper:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20z' fill='%23FFFFFF' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.about-image-wrapper:after {
+    content: 'Farming in Zambia';
+    position: absolute;
+    font-weight: bold;
+}
+
+/* Testimonial avatars */
+.testimonial-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    color: #555;
+    font-size: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-avatar:before {
+    content: 'User';
+    position: absolute;
+}
+
+/* Farmer illustration placeholder */
+.hero-image {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    height: 400px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-image:before {
+    content: 'Farmer Illustration';
+    font-size: 16px;
+    position: absolute;
+}
