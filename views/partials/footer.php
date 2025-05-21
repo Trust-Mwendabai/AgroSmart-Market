@@ -61,10 +61,54 @@
     
     <!-- Custom Scripts -->
     <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+        
         // Enable Bootstrap tooltips
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+        
+        // Enhanced Hero Section Parallax Effect
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            window.addEventListener('scroll', function() {
+                let scrollPosition = window.scrollY;
+                if (scrollPosition < heroSection.offsetHeight) {
+                    const bgImage = heroSection.querySelector('.hero-bg-image');
+                    if (bgImage) {
+                        bgImage.style.transform = `scale(1.05) translateY(${scrollPosition * 0.15}px)`;
+                    }
+                }
+            });
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add animation class to navbar on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('navbar-scrolled');
+                } else {
+                    navbar.classList.remove('navbar-scrolled');
+                }
+            }
         });
         
         // Image preview for product uploads

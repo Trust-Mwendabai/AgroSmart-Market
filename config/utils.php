@@ -19,17 +19,17 @@ function is_logged_in() {
 
 // Function to check if user is a farmer
 function is_farmer() {
-    return is_logged_in() && $_SESSION['user_type'] === 'farmer';
+    return is_logged_in() && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'farmer';
 }
 
 // Function to check if user is a buyer
 function is_buyer() {
-    return is_logged_in() && $_SESSION['user_type'] === 'buyer';
+    return is_logged_in() && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'buyer';
 }
 
 // Function to check if user is an admin
 function is_admin() {
-    return is_logged_in() && $_SESSION['user_type'] === 'admin';
+    return is_logged_in() && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin';
 }
 
 // Function to redirect user

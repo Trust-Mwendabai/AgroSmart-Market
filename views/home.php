@@ -1,178 +1,307 @@
-<!-- Hero Section with Parallax Effect -->
-<section class="hero position-relative overflow-hidden">
-    <!-- Using CSS for the background instead of relying on the image -->
-    <div class="hero-bg-image"></div>
-    <div class="container position-relative z-index-1 h-100 d-flex align-items-center">
-        <div class="row align-items-center py-5">
-            <div class="col-lg-6" data-aos="fade-right">
-                <h1 class="display-3 fw-bold text-white mb-3 hero-animated">Farm Fresh,<br>Direct to You</h1>
-                <p class="lead text-white mb-4 hero-animated">AgroSmart Market connects farmers directly with buyers, eliminating middlemen and creating better prices for everyone.</p>
-                <div class="d-flex flex-wrap gap-3 hero-animated">
-                    <a href="auth.php?action=register" class="btn btn-primary btn-lg px-4 py-3">
-                        <i class="fas fa-user-plus me-2"></i>Join as Farmer
-                    </a>
-                    <a href="marketplace.php" class="btn btn-light btn-lg px-4 py-3">
-                        <i class="fas fa-shopping-basket me-2"></i>Start Shopping
-                    </a>
+<!-- Modern Hero Section with Split Design -->
+<section class="hero-v2 position-relative overflow-hidden">
+    <!-- Animated Background Elements -->
+    <div class="animated-bg">
+        <div class="circle-1"></div>
+        <div class="circle-2"></div>
+        <div class="circle-3"></div>
+        <div class="leaf-1"><i class="fas fa-leaf"></i></div>
+        <div class="leaf-2"><i class="fas fa-seedling"></i></div>
+        <div class="grain"><i class="fas fa-wheat-awn"></i></div>
+    </div>
+    
+    <div class="container position-relative z-index-1 h-100">
+        <div class="row align-items-center hero-row">
+            <!-- Left Column: Text Content -->
+            <div class="col-lg-5" data-aos="fade-up">
+                <div class="hero-text-container">
+                    <div class="highlight-badge" data-aos="fade-right" data-aos-delay="200">
+                        <div class="badge-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <span>Farm to Table Marketplace</span>
+                    </div>
+                    
+                    <h1 class="hero-title" data-aos="fade-up" data-aos-delay="300">
+                        <span class="text-light">Connect</span> with
+                        <span class="text-primary">Local Farmers</span>
+                        <span class="text-light">Get</span>
+                        <span class="text-warning">Fresh Produce</span>
+                    </h1>
+                    
+                    <p class="hero-description" data-aos="fade-up" data-aos-delay="400">
+                        Discover the freshest produce directly from farmers in your area. No middlemen, just pure quality and better prices.                        
+                    </p>
+                    
+                    <div class="hero-stats" data-aos="fade-up" data-aos-delay="500">
+                        <div class="stat-card">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Farmers</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">30k+</span>
+                            <span class="stat-label">Products</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">4.9</span>
+                            <span class="stat-label"><i class="fas fa-star text-warning"></i> Rating</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-cta" data-aos="fade-up" data-aos-delay="600">
+                        <a href="marketplace.php" class="btn btn-primary btn-lg btn-glow">
+                            <i class="fas fa-shopping-basket me-2"></i>Start Shopping
+                        </a>
+                        <a href="auth.php?action=register" class="btn btn-outline-light btn-lg ms-3">
+                            <i class="fas fa-user-plus me-2"></i>Join Us
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left" data-aos-delay="200">
-                <div class="hero-image img-fluid">
-                    <!-- CSS Placeholder will display here -->
+            
+            <!-- Right Column: Interactive Visuals -->
+            <div class="col-lg-7" data-aos="fade-left" data-aos-delay="300">
+                <div class="hero-visual-container">
+                    <!-- Main Visual -->
+                    <div class="hero-main-visual">
+                        <div class="visual-product">
+                            <img src="https://images.unsplash.com/photo-1626906722163-bd4c03cb3b9b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" class="img-fluid rounded-4 shadow-lg" alt="Fresh Farm Produce">
+                            <div class="product-badge best-price">
+                                <span>Best Prices</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Visual Elements -->
+                    <div class="float-element organic-badge" data-aos="fade-up" data-aos-delay="400">
+                        <div class="float-icon bg-success">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="float-text">
+                            <strong>100% Organic</strong>
+                            <span>Farm Verified</span>
+                        </div>
+                    </div>
+                    
+                    <div class="float-element local-farms" data-aos="fade-up" data-aos-delay="500">
+                        <div class="float-icon bg-warning">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="float-text">
+                            <strong>Local Farms</strong>
+                            <span>Near You</span>
+                        </div>
+                    </div>
+                    
+                    <div class="float-element direct-delivery" data-aos="fade-up" data-aos-delay="600">
+                        <div class="float-icon bg-primary">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="float-text">
+                            <strong>Direct Delivery</strong>
+                            <span>Farm to Table</span>
+                        </div>
+                    </div>
+                    
+                    <div class="user-reviews" data-aos="fade-up" data-aos-delay="700">
+                        <div class="review-profiles">
+                            <div class="profile" style="background-image: url('https://randomuser.me/api/portraits/women/43.jpg')"></div>
+                            <div class="profile" style="background-image: url('https://randomuser.me/api/portraits/men/32.jpg')"></div>
+                            <div class="profile" style="background-image: url('https://randomuser.me/api/portraits/women/26.jpg')"></div>
+                        </div>
+                        <div class="review-text">
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="review-quote">"The freshest produce I've ever had!"</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-wave">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,154.7C384,149,480,107,576,117.3C672,128,768,192,864,202.7C960,213,1056,171,1152,149.3C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+    
+    <div class="hero-shape-divider">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,192L60,181.3C120,171,240,149,360,149.3C480,149,600,171,720,186.7C840,203,960,213,1080,202.7C1200,192,1320,160,1380,144L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
     </div>
 </section>
 
 <!-- How It Works Section -->
-<section class="py-5">
-    <div class="container py-4">
+<section class="py-5 bg-light">
+    <div class="container py-5">
         <div class="row justify-content-center mb-5">
-            <div class="col-lg-6 text-center">
-                <h2 class="fw-bold mb-3" data-aos="fade-up">How It Works</h2>
-                <p class="text-muted" data-aos="fade-up" data-aos-delay="100">Simple steps to connect farmers with buyers and create a sustainable agricultural marketplace</p>
+            <div class="col-lg-7 text-center">
+                <span class="badge bg-primary text-white mb-3 px-3 py-2">Simple Process</span>
+                <h2 class="display-5 fw-bold mb-3" data-aos="fade-up">How It Works</h2>
+                <p class="lead text-muted" data-aos="fade-up" data-aos-delay="100">Three simple steps to connect farmers with buyers and create a sustainable agricultural marketplace</p>
             </div>
         </div>
         
-        <div class="row g-4">
+        <div class="row g-5 position-relative">
+            <!-- Connection line between steps -->
+            <div class="process-line position-absolute"></div>
+            
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="feature-box text-center h-100">
-                    <div class="feature-icon mx-auto">
-                        <i class="fas fa-user-plus"></i>
+                <div class="feature-box h-100 p-4 rounded-lg border-0 shadow-sm bg-white">
+                    <div class="feature-icon-wrapper mb-4">
+                        <div class="feature-icon mx-auto bg-primary-light text-primary">
+                            <span class="step-number">1</span>
+                            <i class="fas fa-user-plus"></i>
+                        </div>
                     </div>
                     <h3 class="h4 mb-3">Create an Account</h3>
                     <p class="text-muted mb-0">Register as a farmer to sell your products or as a buyer to purchase fresh produce directly from farms.</p>
+                    <a href="auth.php?action=register" class="mt-3 icon-link d-inline-flex align-items-center">
+                        <span>Get Started</span>
+                        <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
                 </div>
             </div>
             
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="feature-box text-center h-100">
-                    <div class="feature-icon mx-auto">
-                        <i class="fas fa-store"></i>
+                <div class="feature-box h-100 p-4 rounded-lg border-0 shadow-sm bg-white">
+                    <div class="feature-icon-wrapper mb-4">
+                        <div class="feature-icon mx-auto bg-primary-light text-primary">
+                            <span class="step-number">2</span>
+                            <i class="fas fa-store"></i>
+                        </div>
                     </div>
                     <h3 class="h4 mb-3">List or Shop</h3>
                     <p class="text-muted mb-0">Farmers can list their products with details and photos. Buyers can browse, search, and filter to find what they need.</p>
+                    <a href="marketplace.php" class="mt-3 icon-link d-inline-flex align-items-center">
+                        <span>View Marketplace</span>
+                        <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
                 </div>
             </div>
             
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="feature-box text-center h-100">
-                    <div class="feature-icon mx-auto">
-                        <i class="fas fa-handshake"></i>
+                <div class="feature-box h-100 p-4 rounded-lg border-0 shadow-sm bg-white">
+                    <div class="feature-icon-wrapper mb-4">
+                        <div class="feature-icon mx-auto bg-primary-light text-primary">
+                            <span class="step-number">3</span>
+                            <i class="fas fa-handshake"></i>
+                        </div>
                     </div>
                     <h3 class="h4 mb-3">Connect & Trade</h3>
                     <p class="text-muted mb-0">Communicate directly through our platform, arrange orders, and build relationships with local farmers.</p>
+                    <a href="message.php" class="mt-3 icon-link d-inline-flex align-items-center">
+                        <span>Start Messaging</span>
+                        <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
                 </div>
             </div>
-        </div>
-        
-        <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="400">
-            <a href="marketplace.php" class="btn btn-primary btn-lg">
-                <i class="fas fa-shopping-basket me-2"></i>Explore the Marketplace
-            </a>
         </div>
     </div>
 </section>
 
 <!-- Featured Products Section -->
-<section class="py-5 bg-light">
-    <div class="container py-4">
-        <div class="row justify-content-center mb-2">
-            <div class="col-lg-6 text-center">
-                <h2 class="fw-bold mb-3" data-aos="fade-up">Featured Products</h2>
-                <p class="text-muted mb-5" data-aos="fade-up" data-aos-delay="100">Explore our handpicked selection of fresh farm produce</p>
+<section class="py-5 bg-white">
+    <div class="container py-5">
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-7 text-center">
+                <span class="badge bg-success text-white mb-3 px-3 py-2">Market Highlights</span>
+                <h2 class="display-5 fw-bold mb-3" data-aos="fade-up">Featured Products</h2>
+                <p class="lead text-muted mb-5" data-aos="fade-up" data-aos-delay="100">Explore our handpicked selection of fresh farm produce</p>
             </div>
         </div>
         
-        <div class="row g-4 mb-4">
-            <?php if (!empty($latest_products)): ?>
-                <?php foreach ($latest_products as $index => $product): ?>
-                    <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 50; ?>">
-                        <div class="product-card h-100">
-                            <div class="img-container">
-                                <div class="product-image">
-                                    <?php if (!empty($product['image'])): ?>
-                                        <img src="public/uploads/products/<?php echo $product['image']; ?>" class="product-img" alt="<?php echo $product['name']; ?>" onerror="this.style.display='none';this.parentNode.classList.add('category-<?php echo strtolower(str_replace(' ', '_', $product['category'])); ?>')">
-                                    <?php else: ?>
-                                        <!-- CSS-based placeholder will show when no image is available -->
-                                        <div class="category-<?php echo strtolower(str_replace(' ', '_', $product['category'])); ?> img-placeholder" style="height:200px;">
-                                            <?php echo $product['name']; ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                                
-                                <?php if (isset($product['is_organic']) && $product['is_organic']): ?>
-                                    <span class="organic-badge card-badge">Organic</span>
-                                <?php endif; ?>
-                                
-                                <div class="product-overlay">
-                                    <a href="product.php?action=view&id=<?php echo $product['id']; ?>" class="overlay-btn">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <?php if (is_logged_in() && is_buyer()): ?>
-                                        <a href="order.php?action=create&product=<?php echo $product['id']; ?>" class="overlay-btn">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </a>
-                                        <a href="message.php?action=compose&to=<?php echo $product['farmer_id']; ?>&product_id=<?php echo $product['id']; ?>" class="overlay-btn">
-                                            <i class="fas fa-comment"></i>
-                                        </a>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            
-                            <div class="card-body">
-                                <span class="product-category"><?php echo $product['category']; ?></span>
-                                <h5 class="product-title"><?php echo $product['name']; ?></h5>
-                                <p class="card-text text-truncate"><?php echo $product['description']; ?></p>
-                                <div class="product-price mb-3">
-                                    <?php echo format_price($product['price']); ?>
-                                </div>
-                                <div class="product-location">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span><?php echo $product['location']; ?></span>
-                                </div>
-                                
-                                <div class="product-meta">
-                                    <div class="farmer-info">
-                                        <?php if (!empty($product['farmer_image'])): ?>
-                                            <img src="public/uploads/<?php echo $product['farmer_image']; ?>" class="farmer-avatar" alt="Farmer">
+        <div class="featured-products-slider position-relative mb-5">
+            <div class="row g-4">
+                <?php if (!empty($latest_products)): ?>
+                    <?php foreach ($latest_products as $index => $product): ?>
+                        <div class="col-sm-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 50; ?>">
+                            <div class="product-card h-100 rounded-lg border-0 shadow-hover">
+                                <div class="img-container position-relative">
+                                    <div class="product-image rounded-top">
+                                        <?php if (!empty($product['image'])): ?>
+                                            <img src="public/uploads/products/<?php echo $product['image']; ?>" class="product-img rounded-top" alt="<?php echo $product['name']; ?>" onerror="this.style.display='none';this.parentNode.classList.add('category-<?php echo strtolower(str_replace(' ', '_', $product['category'])); ?>')">
                                         <?php else: ?>
-                                            <div class="farmer-avatar bg-primary text-white d-flex align-items-center justify-content-center">
-                                                <?php echo strtoupper(substr($product['farmer_name'], 0, 1)); ?>
+                                            <!-- CSS-based placeholder will show when no image is available -->
+                                            <div class="category-<?php echo strtolower(str_replace(' ', '_', $product['category'])); ?> img-placeholder rounded-top" style="height:220px;">
+                                                <?php echo $product['name']; ?>
                                             </div>
                                         <?php endif; ?>
-                                        <span class="farmer-name"><?php echo $product['farmer_name']; ?></span>
                                     </div>
                                     
-                                    <div>
-                                        <span class="badge bg-light text-dark">
+                                    <?php if (isset($product['is_organic']) && $product['is_organic']): ?>
+                                        <span class="organic-badge card-badge">
+                                            <i class="fas fa-leaf me-1"></i>Organic
+                                        </span>
+                                    <?php endif; ?>
+                                    
+                                    <div class="product-overlay">
+                                        <a href="product.php?action=view&id=<?php echo $product['id']; ?>" class="overlay-btn" data-bs-toggle="tooltip" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <?php if (is_logged_in() && is_buyer()): ?>
+                                            <a href="order.php?action=create&product=<?php echo $product['id']; ?>" class="overlay-btn" data-bs-toggle="tooltip" title="Add to Cart">
+                                                <i class="fas fa-shopping-cart"></i>
+                                            </a>
+                                            <a href="message.php?action=compose&to=<?php echo $product['farmer_id']; ?>&product_id=<?php echo $product['id']; ?>" class="overlay-btn" data-bs-toggle="tooltip" title="Contact Farmer">
+                                                <i class="fas fa-comment"></i>
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="product-category badge bg-light text-dark px-3 py-2"><?php echo $product['category']; ?></span>
+                                        <span class="badge <?php echo ($product['stock'] > 10) ? 'bg-success' : 'bg-warning text-dark'; ?>">
                                             <?php echo $product['stock']; ?> in stock
                                         </span>
+                                    </div>
+                                    <h5 class="product-title mb-2 fw-bold"><?php echo $product['name']; ?></h5>
+                                    <p class="card-text text-muted text-truncate mb-3"><?php echo $product['description']; ?></p>
+                                    <div class="product-price mb-3 fw-bold fs-5 text-primary">
+                                        <?php echo format_price($product['price']); ?>
+                                    </div>
+                                    <div class="product-location mb-3">
+                                        <i class="fas fa-map-marker-alt text-muted"></i>
+                                        <span class="text-muted"><?php echo $product['location']; ?></span>
+                                    </div>
+                                    
+                                    <div class="product-meta d-flex justify-content-between align-items-center pt-3 border-top">
+                                        <div class="farmer-info d-flex align-items-center">
+                                            <div class="farmer-avatar-placeholder"><?php echo strtoupper(substr($product['farmer_name'], 0, 1)); ?></div>
+                                            <span class="farmer-name ms-2"><?php echo $product['farmer_name']; ?></span>
+                                        </div>
+                                        
+                                        <a href="product.php?action=view&id=<?php echo $product['id']; ?>" class="btn btn-sm btn-outline-primary">
+                                            Details <i class="fas fa-arrow-right ms-1"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12" data-aos="fade-up">
+                        <div class="alert alert-info shadow-sm border-0">
+                            <div class="d-flex align-items-center">
+                                <div class="alert-icon bg-info text-white me-3">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div>
+                                    <h4 class="alert-heading mb-1">No products available yet!</h4>
+                                    <p class="mb-0">Check back soon as farmers add their fresh produce to our marketplace.</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <p class="mb-0">Are you a farmer? <a href="auth.php?action=register" class="alert-link">Register now</a> to start selling your products!</p>
+                        </div>
                     </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <div class="col-12" data-aos="fade-up">
-                    <div class="alert alert-info">
-                        <h4 class="alert-heading">No products available yet!</h4>
-                        <p>Check back soon as farmers add their fresh produce to our marketplace.</p>
-                        <hr>
-                        <p class="mb-0">Are you a farmer? <a href="auth.php?action=register" class="alert-link">Register now</a> to start selling your products!</p>
-                    </div>
-                </div>
-            <?php endif; ?>
+                <?php endif; ?>
+            </div>
         </div>
         
-        <div class="text-center mt-4" data-aos="fade-up">
-            <a href="marketplace.php" class="btn btn-outline-primary btn-lg">
+        <div class="text-center mt-5" data-aos="fade-up">
+            <a href="marketplace.php" class="btn btn-primary btn-lg px-5 py-3">
                 <i class="fas fa-store me-2"></i>Browse All Products
             </a>
         </div>

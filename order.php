@@ -12,6 +12,7 @@ require_once 'models/Product.php';
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     redirect('auth.php?action=login');
+    exit;
 }
 
 // Initialize models
@@ -28,13 +29,13 @@ switch ($action) {
     case 'create':
         // Only buyers can create orders
         if (!is_buyer()) {
-            redirect("AgroSmart Market/dashboard.php");
+            redirect("buyer-dashboard.php");
         }
         
         $product_id = isset($_GET['product_id']) ? (int) $_GET['product_id'] : 0;
         
         if ($product_id === 0) {
-            redirect("AgroSmart Market/marketplace.php");
+            redirect("marketplace.php");
         }
         
         // Get product data
@@ -42,7 +43,7 @@ switch ($action) {
         
         // Check if product exists
         if (!$product) {
-            redirect("AgroSmart Market/marketplace.php");
+            redirect("marketplace.php");
         }
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -131,7 +132,7 @@ switch ($action) {
             
             // Validate and sanitize input
             $status = sanitize_input($_POST['status']);
-            $user_id = $_SESSION['user_id'];
+            $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
             $is_farmer = is_farmer();
             
             // Update order status
@@ -151,6 +152,11 @@ switch ($action) {
         
     default:
         // Get orders based on user type
+        if (!isset($_SESSION['user_id'])) {
+            redirect('auth.php?action=login');
+            exit;
+        }
+        
         if (is_farmer()) {
             $orders = $order_model->get_farmer_orders($_SESSION['user_id']);
         } else {

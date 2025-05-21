@@ -8,6 +8,18 @@ class Product {
     
     // Add new product
     public function add_product($farmer_id, $name, $description, $price, $image, $category, $stock) {
+        // Check if farmer has completed their profile
+        $sql = "SELECT nrc_number, literacy_level FROM users WHERE id = ? AND user_type = 'farmer'";
+        $stmt = mysqli_prepare($this->conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $farmer_id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $farmer = mysqli_fetch_assoc($result);
+        
+        if (!$farmer || empty($farmer['nrc_number']) || empty($farmer['literacy_level'])) {
+            return ["error" => "Please complete your profile before adding products"];
+        }
+        
         $sql = "INSERT INTO products (farmer_id, name, description, price, image, category, stock) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
         
@@ -199,6 +211,7 @@ class Product {
         $sql = "SELECT * FROM products WHERE farmer_id = ? ORDER BY date_added DESC";
         $stmt = mysqli_prepare($this->conn, $sql);
         mysqli_stmt_bind_param($stmt, "i", $farmer_id);
+        
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         
@@ -208,6 +221,11 @@ class Product {
         }
         
         return $products;
+    }
+    
+    // Alias for get_farmer_products to maintain compatibility
+    public function get_products_by_farmer($farmer_id) {
+        return $this->get_farmer_products($farmer_id);
     }
     
     // Count total products
@@ -229,6 +247,27 @@ class Product {
         }
         
         return $categories;
+    }
+    
+    /**
+     * Count the number of products owned by a farmer
+     * 
+     * @param int $farmer_id The farmer's ID
+     * @return int Number of products
+     */
+    public function count_farmer_products($farmer_id) {
+        $sql = "SELECT COUNT(*) as count FROM products WHERE farmer_id = ?";
+        
+        $stmt = mysqli_prepare($this->conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $farmer_id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        if ($row = mysqli_fetch_assoc($result)) {
+            return (int)$row['count'];
+        }
+        
+        return 0;
     }
 }
 ?>

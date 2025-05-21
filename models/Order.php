@@ -239,5 +239,71 @@ class Order {
         
         return $counts;
     }
+    
+    /**
+     * Count the number of orders received by a farmer
+     * 
+     * @param int $farmer_id The farmer's ID
+     * @return int Number of orders
+     */
+    public function count_farmer_orders($farmer_id) {
+        $sql = "SELECT COUNT(*) as count FROM orders WHERE farmer_id = ?";
+        
+        $stmt = mysqli_prepare($this->conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $farmer_id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        if ($row = mysqli_fetch_assoc($result)) {
+            return (int)$row['count'];
+        }
+        
+        return 0;
+    }
+    
+    /**
+     * Count the number of orders made by a buyer
+     * 
+     * @param int $buyer_id The buyer's ID
+     * @return int Number of orders
+     */
+    public function count_buyer_orders($buyer_id) {
+        $sql = "SELECT COUNT(*) as count FROM orders WHERE buyer_id = ?";
+        
+        $stmt = mysqli_prepare($this->conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $buyer_id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        if ($row = mysqli_fetch_assoc($result)) {
+            return (int)$row['count'];
+        }
+        
+        return 0;
+    }
+    
+    /**
+     * Calculate the total amount spent by a buyer
+     * 
+     * @param int $buyer_id The buyer's ID
+     * @return float Total amount spent
+     */
+    public function get_buyer_total_spent($buyer_id) {
+        $sql = "SELECT SUM(p.price * o.quantity) as total 
+                FROM orders o 
+                JOIN products p ON o.product_id = p.id 
+                WHERE o.buyer_id = ? AND o.status != 'cancelled'";
+        
+        $stmt = mysqli_prepare($this->conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $buyer_id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        if ($row = mysqli_fetch_assoc($result)) {
+            return (float)($row['total'] ?: 0);
+        }
+        
+        return 0;
+    }
 }
 ?>

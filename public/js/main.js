@@ -422,3 +422,252 @@ function handleSearchAutocomplete() {
         }
     });
 }
+
+// Main JavaScript file for AgroSmart Market
+
+// DOM Elements
+const forms = document.querySelectorAll('form');
+const loadingElements = document.querySelectorAll('.loading');
+const errorMessages = document.querySelectorAll('.error-message');
+const successMessages = document.querySelectorAll('.success-message');
+
+// Utility Functions
+const showLoading = (element) => {
+    element.classList.add('loading');
+};
+
+const hideLoading = (element) => {
+    element.classList.remove('loading');
+};
+
+const showError = (element, message) => {
+    element.textContent = message;
+    element.style.display = 'block';
+    setTimeout(() => {
+        element.style.display = 'none';
+    }, 5000);
+};
+
+const showSuccess = (element, message) => {
+    element.textContent = message;
+    element.style.display = 'block';
+    setTimeout(() => {
+        element.style.display = 'none';
+    }, 5000);
+};
+
+// Form Validation
+const validateForm = (form) => {
+    const inputs = form.querySelectorAll('input, textarea, select');
+    let isValid = true;
+
+    inputs.forEach(input => {
+        // Reset previous error states
+        input.classList.remove('error');
+        const errorElement = input.nextElementSibling;
+        if (errorElement && errorElement.classList.contains('error-message')) {
+            errorElement.style.display = 'none';
+        }
+
+        // Required field validation
+        if (input.hasAttribute('required') && !input.value.trim()) {
+            isValid = false;
+            input.classList.add('error');
+            if (errorElement && errorElement.classList.contains('error-message')) {
+                showError(errorElement, 'This field is required');
+            }
+        }
+
+        // Email validation
+        if (input.type === 'email' && input.value.trim()) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(input.value.trim())) {
+                isValid = false;
+                input.classList.add('error');
+                if (errorElement && errorElement.classList.contains('error-message')) {
+                    showError(errorElement, 'Please enter a valid email address');
+                }
+            }
+        }
+
+        // Password validation
+        if (input.type === 'password' && input.value.trim()) {
+            if (input.value.length < 6) {
+                isValid = false;
+                input.classList.add('error');
+                if (errorElement && errorElement.classList.contains('error-message')) {
+                    showError(errorElement, 'Password must be at least 6 characters long');
+                }
+            }
+        }
+
+        // Phone number validation
+        if (input.type === 'tel' && input.value.trim()) {
+            const phoneRegex = /^\+?[\d\s-]{10,}$/;
+            if (!phoneRegex.test(input.value.trim())) {
+                isValid = false;
+                input.classList.add('error');
+                if (errorElement && errorElement.classList.contains('error-message')) {
+                    showError(errorElement, 'Please enter a valid phone number');
+                }
+            }
+        }
+    });
+
+    return isValid;
+};
+
+// Form Submission
+forms.forEach(form => {
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!validateForm(form)) {
+            return;
+        }
+
+        const submitButton = form.querySelector('button[type="submit"]');
+        const errorElement = form.querySelector('.error-message');
+        const successElement = form.querySelector('.success-message');
+
+        try {
+            showLoading(submitButton);
+
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                showSuccess(successElement, data.message || 'Operation successful!');
+                form.reset();
+            } else {
+                showError(errorElement, data.message || 'An error occurred. Please try again.');
+            }
+        } catch (error) {
+            showError(errorElement, 'An error occurred. Please try again.');
+        } finally {
+            hideLoading(submitButton);
+        }
+    });
+});
+
+// Image Preview
+const imageInputs = document.querySelectorAll('input[type="file"][accept*="image"]');
+imageInputs.forEach(input => {
+    input.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            const preview = input.parentElement.querySelector('.image-preview');
+            
+            reader.onload = (e) => {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            
+            reader.readAsDataURL(file);
+        }
+    });
+});
+
+// Responsive Navigation
+const menuToggle = document.querySelector('.menu-toggle');
+const navMenu = document.querySelector('.nav-menu');
+
+if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+}
+
+// Scroll to Top
+const scrollToTop = document.querySelector('.scroll-to-top');
+if (scrollToTop) {
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 100) {
+            scrollToTop.classList.add('active');
+        } else {
+            scrollToTop.classList.remove('active');
+        }
+    });
+
+    scrollToTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// Lazy Loading Images
+const lazyImages = document.querySelectorAll('img[data-src]');
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    lazyImages.forEach(img => imageObserver.observe(img));
+} else {
+    // Fallback for browsers that don't support IntersectionObserver
+    lazyImages.forEach(img => {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+    });
+}
+
+// Accessibility
+document.addEventListener('keydown', (e) => {
+    // Skip to main content
+    if (e.key === 's' && e.ctrlKey) {
+        e.preventDefault();
+        const mainContent = document.querySelector('main');
+        if (mainContent) {
+            mainContent.focus();
+        }
+    }
+});
+
+// Add ARIA labels to interactive elements
+const interactiveElements = document.querySelectorAll('button, a, input, select, textarea');
+interactiveElements.forEach(element => {
+    if (!element.hasAttribute('aria-label') && !element.textContent.trim()) {
+        const label = element.getAttribute('title') || element.getAttribute('placeholder');
+        if (label) {
+            element.setAttribute('aria-label', label);
+        }
+    }
+});
+
+// Initialize tooltips
+const tooltips = document.querySelectorAll('[data-tooltip]');
+tooltips.forEach(tooltip => {
+    tooltip.addEventListener('mouseenter', (e) => {
+        const text = e.target.dataset.tooltip;
+        const tooltipElement = document.createElement('div');
+        tooltipElement.className = 'tooltip';
+        tooltipElement.textContent = text;
+        document.body.appendChild(tooltipElement);
+
+        const rect = e.target.getBoundingClientRect();
+        tooltipElement.style.top = `${rect.bottom + 5}px`;
+        tooltipElement.style.left = `${rect.left + (rect.width / 2) - (tooltipElement.offsetWidth / 2)}px`;
+    });
+
+    tooltip.addEventListener('mouseleave', () => {
+        const tooltipElement = document.querySelector('.tooltip');
+        if (tooltipElement) {
+            tooltipElement.remove();
+        }
+    });
+});

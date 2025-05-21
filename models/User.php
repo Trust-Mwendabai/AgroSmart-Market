@@ -63,6 +63,12 @@ class User {
                     return ["error" => "Please verify your email before logging in."];
                 }
                 
+                // Update last login timestamp
+                $update_sql = "UPDATE users SET last_login = NOW() WHERE id = ?";
+                $update_stmt = mysqli_prepare($this->conn, $update_sql);
+                mysqli_stmt_bind_param($update_stmt, "i", $user['id']);
+                mysqli_stmt_execute($update_stmt);
+                
                 // Remove password from user array
                 unset($user['password']);
                 
@@ -89,6 +95,24 @@ class User {
         return mysqli_stmt_num_rows($stmt) > 0;
     }
     
+    // Get user by ID
+    public function get_user_by_id($user_id) {
+        $sql = "SELECT id, name, email, user_type, location, profile_image, bio, phone, nrc_number, literacy_level, date_registered AS registration_date, 
+                last_login, email_verified, is_active 
+                FROM users WHERE id = ?";
+        
+        $stmt = mysqli_prepare($this->conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $user_id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        if (mysqli_num_rows($result) === 1) {
+            return mysqli_fetch_assoc($result);
+        } else {
+            return false;
+        }
+    }
+    
     // Verify email
     public function verify_email($token) {
         $sql = "UPDATE users SET email_verified = 1 WHERE verification_token = ?";
@@ -104,10 +128,16 @@ class User {
     
     // Update profile
     public function update_profile($user_id, $data) {
-        $allowed_fields = ['name', 'location', 'profile_image', 'bio', 'phone'];
+        $allowed_fields = ['name', 'location', 'profile_image', 'bio', 'phone', 'email', 'nrc_number', 'literacy_level'];
         $updates = [];
         $types = "";
         $values = [];
+        
+        // Get current user data to check user_type
+        $current_user = $this->get_user_by_id($user_id);
+        if (!$current_user) {
+            return ["error" => "User not found"];
+        }
         
         foreach ($data as $field => $value) {
             if (in_array($field, $allowed_fields)) {

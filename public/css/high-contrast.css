@@ -1,0 +1,466 @@
+/**
+ * High Contrast Theme
+ * AgroSmart Market - Accessibility Enhancement
+ * This CSS provides a high contrast mode for users with visual impairments
+ */
+
+/* High Contrast Mode Styles */
+
+.high-contrast {
+    /* Colors */
+    --primary-color: #ffffff;
+    --secondary-color: #ffff00;
+    --text-color: #ffffff;
+    --background-color: #000000;
+    --link-color: #ffff00;
+    --link-hover-color: #ffffff;
+    --border-color: #ffffff;
+    --error-color: #ff0000;
+    --success-color: #00ff00;
+    --warning-color: #ffff00;
+    
+    /* Typography */
+    --font-size-base: 16px;
+    --line-height-base: 1.5;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+}
+
+/* Base Styles */
+.high-contrast body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.high-contrast a {
+    color: var(--link-color);
+    text-decoration: underline;
+}
+
+.high-contrast a:hover {
+    color: var(--link-hover-color);
+    text-decoration: none;
+}
+
+/* Typography */
+.high-contrast h1,
+.high-contrast h2,
+.high-contrast h3,
+.high-contrast h4,
+.high-contrast h5,
+.high-contrast h6 {
+    color: var(--text-color);
+    border-bottom: 2px solid var(--border-color);
+}
+
+/* Forms */
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+}
+
+.high-contrast input:focus,
+.high-contrast select:focus,
+.high-contrast textarea:focus {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+.high-contrast input[type="submit"],
+.high-contrast button {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+    padding: var(--spacing-sm) var(--spacing-lg);
+}
+
+.high-contrast input[type="submit"]:hover,
+.high-contrast button:hover {
+    background-color: var(--text-color);
+    color: var(--background-color);
+}
+
+/* Error States */
+.high-contrast .error-message {
+    color: var(--error-color);
+    font-weight: bold;
+}
+
+.high-contrast input.error,
+.high-contrast select.error,
+.high-contrast textarea.error {
+    border-color: var(--error-color);
+}
+
+/* Success States */
+.high-contrast .success-message {
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+/* Navigation */
+.high-contrast .nav {
+    background-color: var(--background-color);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.high-contrast .nav-menu a {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+.high-contrast .nav-menu a:hover {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+/* Cards */
+.high-contrast .card {
+    background-color: var(--background-color);
+    border: 2px solid var(--border-color);
+}
+
+/* Tables */
+.high-contrast table {
+    border: 2px solid var(--border-color);
+}
+
+.high-contrast th,
+.high-contrast td {
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-sm);
+}
+
+.high-contrast th {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Accessibility Controls */
+.high-contrast .accessibility-controls {
+    background-color: var(--background-color);
+    border: 2px solid var(--border-color);
+    padding: var(--spacing-sm);
+}
+
+.high-contrast .accessibility-controls button {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+    margin: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.high-contrast .accessibility-controls button:hover {
+    background-color: var(--text-color);
+    color: var(--background-color);
+}
+
+/* Focus Styles */
+.high-contrast *:focus {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Skip Links */
+.high-contrast .skip-link {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+}
+
+.high-contrast .skip-link:focus {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Loading States */
+.high-contrast .loading {
+    border-color: var(--border-color);
+}
+
+.high-contrast .loading::after {
+    border-color: var(--border-color);
+    border-top-color: transparent;
+}
+
+/* Tooltips */
+.high-contrast .tooltip {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+}
+
+/* Print Styles */
+@media print {
+    .high-contrast body {
+        background-color: white;
+        color: black;
+    }
+
+    .high-contrast a {
+        color: black;
+        text-decoration: underline;
+    }
+
+    .high-contrast .no-print {
+        display: none;
+    }
+}
+
+/* Base styles */
+body.high-contrast {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+/* Text and links */
+.high-contrast h1, 
+.high-contrast h2, 
+.high-contrast h3, 
+.high-contrast h4, 
+.high-contrast h5, 
+.high-contrast h6 {
+    color: #ffff00 !important;
+}
+
+.high-contrast a {
+    color: #00ffff !important;
+    text-decoration: underline !important;
+}
+
+.high-contrast a:hover,
+.high-contrast a:focus {
+    color: #fff !important;
+    background-color: #00f !important;
+    text-decoration: none !important;
+}
+
+/* Cards and containers */
+.high-contrast .card,
+.high-contrast .welcome-banner,
+.high-contrast .cart-status-bar,
+.high-contrast .stat-card,
+.high-contrast .product-card,
+.high-contrast .quick-link {
+    background-color: #222 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+}
+
+.high-contrast .card-header,
+.high-contrast .modal-header {
+    background-color: #000 !important;
+    color: #ffff00 !important;
+    border-bottom: 2px solid #fff !important;
+}
+
+.high-contrast .list-group-item {
+    background-color: #222 !important;
+    color: #fff !important;
+    border-color: #555 !important;
+}
+
+/* Navbar and footer */
+.high-contrast .navbar,
+.high-contrast footer {
+    background-color: #000 !important;
+    border-color: #fff !important;
+}
+
+.high-contrast .navbar-light .navbar-nav .nav-link {
+    color: #fff !important;
+}
+
+.high-contrast .navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* Form elements */
+.high-contrast .form-control,
+.high-contrast .form-select,
+.high-contrast .input-group-text {
+    background-color: #000 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+.high-contrast .form-control:focus,
+.high-contrast .form-select:focus {
+    border-color: #00ffff !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 255, 255, 0.5) !important;
+}
+
+.high-contrast .form-check-input {
+    background-color: #000 !important;
+    border-color: #fff !important;
+}
+
+.high-contrast .form-check-input:checked {
+    background-color: #00f !important;
+    border-color: #00f !important;
+}
+
+/* Buttons */
+.high-contrast .btn-primary {
+    background-color: #00f !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+.high-contrast .btn-secondary,
+.high-contrast .btn-outline-secondary {
+    background-color: #555 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+.high-contrast .btn-success,
+.high-contrast .btn-outline-success {
+    background-color: #080 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+.high-contrast .btn-danger,
+.high-contrast .btn-outline-danger {
+    background-color: #f00 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+.high-contrast .btn-light,
+.high-contrast .btn-outline-light {
+    background-color: #444 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+.high-contrast .btn:hover,
+.high-contrast .btn:focus {
+    outline: 2px solid #00ffff !important;
+}
+
+/* Products and catalog */
+.high-contrast .product-title {
+    color: #fff !important;
+}
+
+.high-contrast .product-price {
+    color: #00ff00 !important;
+    font-weight: bold !important;
+}
+
+.high-contrast .product-image,
+.high-contrast .product-image-placeholder {
+    border: 2px solid #fff !important;
+}
+
+/* Status indicators */
+.high-contrast .status-badge.status-pending {
+    background-color: #a50 !important;
+    color: #fff !important;
+}
+
+.high-contrast .status-badge.status-processing {
+    background-color: #00f !important;
+    color: #fff !important;
+}
+
+.high-contrast .status-badge.status-shipped {
+    background-color: #080 !important;
+    color: #fff !important;
+}
+
+.high-contrast .status-badge.status-delivered {
+    background-color: #080 !important;
+    color: #fff !important;
+}
+
+.high-contrast .status-badge.status-cancelled {
+    background-color: #f00 !important;
+    color: #fff !important;
+}
+
+/* Larger focus indicators */
+.high-contrast *:focus {
+    outline: 3px solid #00ffff !important;
+}
+
+/* Better table contrast */
+.high-contrast table,
+.high-contrast th,
+.high-contrast td {
+    border-color: #fff !important;
+}
+
+.high-contrast thead,
+.high-contrast th {
+    background-color: #333 !important;
+    color: #ffff00 !important;
+}
+
+.high-contrast tr:nth-child(even) {
+    background-color: #333 !important;
+}
+
+/* Utility classes */
+.high-contrast .text-muted {
+    color: #aaa !important;
+}
+
+.high-contrast .text-success {
+    color: #0f0 !important;
+}
+
+.high-contrast .text-danger {
+    color: #f55 !important;
+}
+
+.high-contrast .text-warning {
+    color: #ff0 !important;
+}
+
+.high-contrast .text-info {
+    color: #0ff !important;
+}
+
+.high-contrast .text-primary {
+    color: #0af !important;
+}
+
+/* Icon backgrounds */
+.high-contrast .icon-box {
+    background-color: #333 !important;
+    border: 1px solid #fff !important;
+}
+
+/* Better focus for screen readers */
+.high-contrast .sr-only-focusable:not(:focus) {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.high-contrast .sr-only-focusable:focus {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: normal !important;
+}

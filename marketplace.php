@@ -6,6 +6,9 @@ session_start();
 $conn = require_once 'config/database.php';
 require_once 'config/utils.php';
 
+// Include language support
+require_once 'config/languages.php';
+
 // Include models
 require_once 'models/Product.php';
 
@@ -47,7 +50,10 @@ $products = $product_model->get_all_products($limit, $offset, $filters);
 $categories = $product_model->get_categories();
 
 // Set page title
-$page_title = "Marketplace - AgroSmart Market";
+$page_title = __('marketplace', 'Marketplace') . " - AgroSmart Market";
+
+// Add enhanced marketplace CSS
+$additional_css = '<link rel="stylesheet" href="public/css/enhanced-marketplace.css">';
 
 // Include header
 include 'views/partials/header.php';

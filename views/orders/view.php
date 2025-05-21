@@ -1,131 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Details - AgroSmart Market</title>
+<?php
+// Set page title
+$page_title = 'Order #' . $order['id'] . ' - AgroSmart Market';
+
+// Get correct path for includes
+$root_path = dirname(dirname(dirname(__FILE__)));
+
+// Include header
+include_once $root_path . '/views/partials/header.php';
+?>
+
+<style>
+    .product-image {
+        width: 100%;
+        max-width: 150px;
+        height: auto;
+        border-radius: 8px;
+        object-fit: cover;
+    }
     
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    .timeline {
+        position: relative;
+        padding-left: 30px;
+        margin-top: 20px;
+    }
     
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    .timeline:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background-color: #ddd;
+    }
     
-    <style>
-        :root {
-            --primary-color: #4CAF50;
-            --secondary-color: #FFC107;
-            --dark-color: #333;
-            --light-color: #f4f4f4;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-color);
-        }
-        
-        .navbar {
-            background-color: var(--primary-color);
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-        
-        .product-image {
-            max-height: 120px;
-            width: auto;
-            border-radius: 5px;
-        }
-        
-        .timeline {
-            position: relative;
-            padding-left: 30px;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 9px;
-            top: 0;
-            height: 100%;
-            width: 2px;
-            background-color: #ddd;
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 25px;
-        }
-        
-        .timeline-badge {
-            position: absolute;
-            left: -30px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            text-align: center;
-            background-color: #fff;
-            border: 2px solid #ddd;
-        }
-        
-        .timeline-badge.active {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-        
-        .timeline-content {
-            padding-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="../index.php">
-                <i class="fas fa-leaf me-2"></i>AgroSmart Market
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../marketplace.php">Marketplace</a>
-                    </li>
-                    <?php if (is_farmer()): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="product.php">My Products</a>
-                        </li>
-                    <?php endif; ?>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="order.php">Orders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="message.php">Messages</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user-circle me-1"></i><?php echo $_SESSION['user_name']; ?>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="../dashboard.php">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="../profile.php">My Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="auth.php?action=logout">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    .timeline-item {
+        position: relative;
+        padding-bottom: 20px;
+    }
+    
+    .timeline-badge {
+        position: absolute;
+        left: -38px;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: #ddd;
+        border: 3px solid #fff;
+    }
+    
+    .timeline-badge.active {
+        background-color: var(--primary-color);
+    }
+    
+    .timeline-content {
+        padding-left: 10px;
+    }
+</style>
 
     <!-- Main Content -->
     <div class="container py-4">
@@ -207,9 +139,9 @@
                         <div class="row mb-4">
                             <div class="col-md-3 text-center mb-3 mb-md-0">
                                 <?php if (!empty($order['product_image'])): ?>
-                                    <img src="../public/uploads/<?php echo $order['product_image']; ?>" class="product-image" alt="<?php echo $order['product_name']; ?>">
+                                    <img src="public/uploads/<?php echo $order['product_image']; ?>" class="product-image" alt="<?php echo $order['product_name']; ?>">
                                 <?php else: ?>
-                                    <img src="../images/default-product.jpg" class="product-image" alt="<?php echo $order['product_name']; ?>">
+                                    <img src="public/img/default-product.jpg" class="product-image" alt="<?php echo $order['product_name']; ?>">
                                 <?php endif; ?>
                             </div>
                             <div class="col-md-9">
@@ -358,7 +290,11 @@
             </div>
         </div>
     </div>
-    
+
+<?php
+// Include footer
+include_once $root_path . '/views/partials/footer.php';
+?>
     <!-- Footer -->
     <footer class="bg-dark text-white py-4 mt-5">
         <div class="container">

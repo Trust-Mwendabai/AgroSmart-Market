@@ -23,6 +23,12 @@
     <!-- Image Placeholder CSS -->
     <link rel="stylesheet" href="public/css/image-placeholders.css">
     
+    <!-- Enhanced Landing Page CSS -->
+    <link rel="stylesheet" href="public/css/enhanced-landing.css">
+    
+    <!-- Hero v2 CSS -->
+    <link rel="stylesheet" href="public/css/hero-v2.css">
+    
     <!-- Additional Inline Styles -->
     <style>
         /* Any page-specific styles can go here */
@@ -88,7 +94,7 @@
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="AgroSmart Market/marketplace.php">Marketplace</a>
+                        <a class="nav-link" href="marketplace.php">Marketplace</a>
                     </li>
                     <?php if (is_logged_in()): ?>
                         <?php if (is_farmer()): ?>
@@ -104,7 +110,7 @@
                                 <i class="fas fa-envelope me-1"></i>Messages
                                 <?php 
                                 // Get unread message count
-                                if (is_logged_in()) {
+                                if (is_logged_in() && isset($_SESSION['user_id'])) {
                                     require_once 'models/Message.php';
                                     $message_model = new Message($conn);
                                     $unread_count = $message_model->count_unread_messages($_SESSION['user_id']);
@@ -118,8 +124,30 @@
                                 ?>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="reports.php"><i class="fas fa-chart-line me-1"></i>Reports</a>
+                        </li>
                     <?php endif; ?>
                 </ul>
+                <!-- Shopping Cart -->
+                <?php
+                // Initialize cart count
+                $cart_count = 0;
+                if (isset($_SESSION['cart']) && isset($_SESSION['cart']['total_quantity'])) {
+                    $cart_count = $_SESSION['cart']['total_quantity'];
+                }
+                ?>
+                <div class="d-flex align-items-center me-3">
+                    <a href="cart.php" class="btn btn-outline-light position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <?php if ($cart_count > 0): ?>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
+                                <?php echo $cart_count; ?>
+                            </span>
+                        <?php endif; ?>
+                    </a>
+                </div>
+                
                 <ul class="navbar-nav">
                     <?php if (is_logged_in()): ?>
                         <li class="nav-item dropdown">

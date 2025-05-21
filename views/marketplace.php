@@ -1,28 +1,27 @@
-<!-- Hero Banner with Parallax Effect -->
-<div class="hero position-relative overflow-hidden">
-    <div class="hero-bg-image" style="background-image: url('public/images/marketplace-banner.jpg');"></div>
-    <div class="container position-relative z-index-1 py-5">
-        <div class="row align-items-center py-5">
+<!-- Simple Marketplace Header -->
+<div class="bg-light py-4 mb-4">
+    <div class="container">
+        <div class="row align-items-center">
             <div class="col-lg-6">
-                <h1 class="display-4 fw-bold text-white hero-animated" data-aos="fade-up">Fresh From The Farm</h1>
-                <p class="lead text-white mb-4 hero-animated" data-aos="fade-up" data-aos-delay="100">Connect directly with local farmers and buy fresh, seasonal produce at fair prices</p>
-                <div class="d-flex gap-3 hero-animated" data-aos="fade-up" data-aos-delay="200">
-                    <a href="#products-section" class="btn btn-primary btn-lg px-4 py-2">
+                <h1 class="fw-bold mb-1">Marketplace</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Marketplace</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-lg-6">
+                <div class="d-flex justify-content-lg-end mt-3 mt-lg-0">
+                    <a href="#products-section" class="btn btn-primary me-2">
                         <i class="fas fa-shopping-basket me-2"></i>Browse Products
                     </a>
-                    <a href="#filter-section" class="btn btn-light btn-lg px-4 py-2">
+                    <a href="#filter-section" class="btn btn-outline-primary">
                         <i class="fas fa-filter me-2"></i>Filter Options
                     </a>
                 </div>
             </div>
-            <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left" data-aos-delay="300">
-                <img src="public/images/farm-illustration.png" alt="Farm Illustration" class="img-fluid hero-image">
-            </div>
         </div>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-wave">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,154.7C384,149,480,107,576,117.3C672,128,768,192,864,202.7C960,213,1056,171,1152,149.3C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
     </div>
 </div>
 
@@ -36,10 +35,10 @@
         <div class="row g-4">
             <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
                 <a href="?category=Vegetables" class="text-decoration-none">
-                    <div class="card h-100 border-0 rounded-4 overflow-hidden">
+                    <div class="card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
                         <div class="position-relative">
-                            <img src="public/images/vegetables-category.jpg" class="card-img-top" alt="Vegetables">
-                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.3)">
+                            <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top category-img" alt="Vegetables">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center category-overlay">
                                 <h3 class="text-white fw-bold mb-0">Vegetables</h3>
                             </div>
                         </div>
@@ -48,10 +47,10 @@
             </div>
             <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
                 <a href="?category=Fruits" class="text-decoration-none">
-                    <div class="card h-100 border-0 rounded-4 overflow-hidden">
+                    <div class="card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
                         <div class="position-relative">
-                            <img src="public/images/fruits-category.jpg" class="card-img-top" alt="Fruits">
-                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.3)">
+                            <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top category-img" alt="Fruits">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center category-overlay">
                                 <h3 class="text-white fw-bold mb-0">Fruits</h3>
                             </div>
                         </div>
@@ -60,10 +59,10 @@
             </div>
             <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
                 <a href="?category=Grains" class="text-decoration-none">
-                    <div class="card h-100 border-0 rounded-4 overflow-hidden">
+                    <div class="card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
                         <div class="position-relative">
-                            <img src="public/images/grains-category.jpg" class="card-img-top" alt="Grains">
-                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.3)">
+                            <img src="https://images.unsplash.com/photo-1530806305289-c5a510548fc5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top category-img" alt="Grains">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center category-overlay">
                                 <h3 class="text-white fw-bold mb-0">Grains</h3>
                             </div>
                         </div>
@@ -72,10 +71,10 @@
             </div>
             <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
                 <a href="?category=Dairy+%26+Eggs" class="text-decoration-none">
-                    <div class="card h-100 border-0 rounded-4 overflow-hidden">
+                    <div class="card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
                         <div class="position-relative">
-                            <img src="public/images/dairy-category.jpg" class="card-img-top" alt="Dairy & Eggs">
-                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.3)">
+                            <img src="https://images.unsplash.com/photo-1587486913049-53fc88980cfc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img-top category-img" alt="Dairy & Eggs">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center category-overlay">
                                 <h3 class="text-white fw-bold mb-0">Dairy & Eggs</h3>
                             </div>
                         </div>
@@ -86,9 +85,9 @@
     </section>
     
     <div class="row" id="main-content">
-        <!-- Filter Sidebar -->
+        <!-- Filter Sidebar - Made Sticky -->
         <div class="col-lg-3 mb-4" id="filter-section" data-aos="fade-right">
-            <div class="card border-0 shadow-sm rounded-4">
+            <div class="card border-0 shadow-sm rounded-4 sticky-sidebar">
                 <div class="card-header bg-white border-0">
                     <h5 class="mb-0 fw-bold"><i class="fas fa-sliders-h me-2 text-primary"></i>Filters</h5>
                 </div>
@@ -197,10 +196,16 @@
                                         <a href="product.php?action=view&id=<?php echo $product['id']; ?>" class="overlay-btn">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <?php if (is_logged_in() && is_buyer()): ?>
-                                            <a href="order.php?action=create&product=<?php echo $product['id']; ?>" class="overlay-btn">
-                                                <i class="fas fa-shopping-cart"></i>
-                                            </a>
+                                        <?php if (isset($product['stock']) && $product['stock'] > 0): ?>
+                                            <form action="cart.php" method="POST" class="d-inline">
+                                                <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
+                                                <input type="hidden" name="action" value="add">
+                                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <button type="submit" class="overlay-btn" title="Add to Cart">
+                                                    <i class="fas fa-cart-plus"></i>
+                                                </button>
+                                            </form>
                                             <a href="message.php?action=compose&to=<?php echo $product['farmer_id']; ?>&product_id=<?php echo $product['id']; ?>" class="overlay-btn">
                                                 <i class="fas fa-comment"></i>
                                             </a>
@@ -212,8 +217,23 @@
                                     <span class="product-category"><?php echo $product['category']; ?></span>
                                     <h5 class="product-title"><?php echo $product['name']; ?></h5>
                                     <p class="card-text text-truncate"><?php echo $product['description']; ?></p>
-                                    <div class="product-price mb-3">
-                                        <?php echo format_price($product['price']); ?>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="product-price">
+                                            <?php echo format_price($product['price']); ?>
+                                        </div>
+                                        <?php if (isset($product['stock']) && $product['stock'] > 0): ?>
+                                            <form action="cart.php" method="POST">
+                                                <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
+                                                <input type="hidden" name="action" value="add">
+                                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <button type="submit" class="btn btn-sm btn-primary" title="Add to Cart">
+                                                    <i class="fas fa-cart-plus"></i> Add
+                                                </button>
+                                            </form>
+                                        <?php else: ?>
+                                            <span class="badge bg-danger">Out of Stock</span>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="product-location">
                                         <i class="fas fa-map-marker-alt"></i>
@@ -222,13 +242,7 @@
                                     
                                     <div class="product-meta">
                                         <div class="farmer-info">
-                                            <?php if (!empty($product['farmer_image'])): ?>
-                                                <img src="public/uploads/<?php echo $product['farmer_image']; ?>" class="farmer-avatar" alt="Farmer">
-                                            <?php else: ?>
-                                                <div class="farmer-avatar bg-primary text-white d-flex align-items-center justify-content-center">
-                                                    <?php echo strtoupper(substr($product['farmer_name'], 0, 1)); ?>
-                                                </div>
-                                            <?php endif; ?>
+                                            <div class="farmer-avatar-placeholder"><?php echo strtoupper(substr($product['farmer_name'], 0, 1)); ?></div>
                                             <span class="farmer-name"><?php echo $product['farmer_name']; ?></span>
                                         </div>
                                         

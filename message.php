@@ -63,7 +63,7 @@ switch ($action) {
             $receiver_name = $receiver['name'];
             
             // Get product details
-            $product_details = $product->get_product_by_id($product_id);
+            $product_details = $product->get_product($product_id);
             $product_name = $product_details['name'];
             $product_price = '$' . number_format($product_details['price'], 2);
         }
@@ -136,7 +136,7 @@ switch ($action) {
         
         $message_id = sanitize_input($_GET['id']);
         
-        // Get the message
+        // Get the message data
         $message_data = $message->get_message_by_id($message_id);
         
         // Check if message exists and belongs to current user
@@ -159,8 +159,11 @@ switch ($action) {
         
         // Get product details if this is a product inquiry
         if (isset($message_data['related_product_id']) && !empty($message_data['related_product_id'])) {
-            $product_data = $product->get_product_by_id($message_data['related_product_id']);
+            $product_data = $product->get_product($message_data['related_product_id']);
         }
+        
+        // Rename for the view to avoid conflict with the Message model
+        $message_item = $message_data;
         
         // Include the view
         include 'views/messages/view.php';
