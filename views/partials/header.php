@@ -20,6 +20,28 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="public/css/style.css">
     
+    <!-- Navbar Scroll Effect JavaScript -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbar = document.querySelector('.navbar');
+        
+        // Function to update navbar on scroll
+        function updateNavbar() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        }
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', updateNavbar);
+        
+        // Call once on page load to set initial state
+        updateNavbar();
+    });
+    </script>
+    
     <!-- Image Placeholder CSS -->
     <link rel="stylesheet" href="public/css/image-placeholders.css">
     
@@ -37,6 +59,35 @@
             bottom: 20px;
             right: 20px;
             z-index: 9999;
+        }
+        
+        /* Enhanced Navbar Styling */
+        .navbar {
+            transition: all 0.3s ease-in-out;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+        
+        .navbar.navbar-scrolled {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: #156e3a !important; /* Darker when scrolled */
+        }
+        
+        /* Add a subtle indicator for active nav items */
+        .navbar-dark .navbar-nav .nav-link.active {
+            position: relative;
+        }
+        
+        .navbar-dark .navbar-nav .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background-color: #ffffff;
         }
         
         .scroll-to-top {

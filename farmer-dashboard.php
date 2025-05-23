@@ -36,7 +36,7 @@ while ($row = $result->fetch_assoc()) {
 
 // Get recent orders for farmer's products
 // Using a direct SQL query since the method doesn't exist
-$sql = "SELECT o.*, p.name as product_name 
+$sql = "SELECT o.*, p.name as product_name, (o.quantity * p.price) as total_price 
         FROM orders o 
         JOIN products p ON o.product_id = p.id 
         WHERE p.farmer_id = ? 

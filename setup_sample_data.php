@@ -147,6 +147,7 @@ $categories = [
 ];
 
 // Sample crops by category
+// All prices are in Zambian Kwacha (K)
 $products_by_category = [
     'Vegetables' => [
         ['Tomatoes', 'Fresh, locally grown tomatoes. Perfect for salads and cooking.', 15.00, 'tomatoes.jpg'],

@@ -111,7 +111,7 @@ function verify_csrf_token($token) {
 
 // Function to format price
 function format_price($price) {
-    return '$' . number_format($price, 2);
+    return 'K' . number_format($price, 2);
 }
 
 // Function to get user data
