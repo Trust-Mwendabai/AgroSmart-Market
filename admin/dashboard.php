@@ -34,7 +34,17 @@ $stats = [
     'recent_users' => [],
     'recent_products' => [],
     'total_messages' => 0,
-    'orders_by_status' => []
+    'orders_by_status' => [],
+    // Revenue statistics
+    'total_revenue' => 0,
+    'revenue_streams' => [
+        'commissions' => 0,
+        'ads' => 0,
+        'premium_listings' => 0,
+        'transport_fees' => 0,
+        'subscriptions' => 0
+    ],
+    'monthly_revenue' => []
 ];
 
 // Get total buyers
@@ -87,6 +97,68 @@ if ($result) {
     $stats['total_messages'] = $row['count'];
 }
 
+// Get total revenue (with error handling in case table doesn't exist)
+try {
+    $query = "SELECT SUM(amount) as total FROM revenue_transactions";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        $stats['total_revenue'] = $row['total'] ?: 0;
+    }
+} catch (Exception $e) {
+    // Table might not exist, just leave the default value
+    error_log('Revenue table query failed: ' . $e->getMessage());
+}
+
+// Get revenue by stream (with error handling)
+try {
+    $query = "SELECT stream_type, SUM(amount) as total FROM revenue_transactions GROUP BY stream_type";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            switch ($row['stream_type']) {
+                case 'commission':
+                    $stats['revenue_streams']['commissions'] = $row['total'];
+                    break;
+                case 'ad':
+                    $stats['revenue_streams']['ads'] = $row['total'];
+                    break;
+                case 'premium_listing':
+                    $stats['revenue_streams']['premium_listings'] = $row['total'];
+                    break;
+                case 'transport_fee':
+                    $stats['revenue_streams']['transport_fees'] = $row['total'];
+                    break;
+                case 'subscription':
+                    $stats['revenue_streams']['subscriptions'] = $row['total'];
+                    break;
+            }
+        }
+    }
+} catch (Exception $e) {
+    // Table might not exist, just leave the default values
+    error_log('Revenue streams query failed: ' . $e->getMessage());
+}
+
+// Get monthly revenue for the current year (with error handling)
+try {
+    $current_year = date('Y');
+    $query = "SELECT MONTH(transaction_date) as month, SUM(amount) as total FROM revenue_transactions 
+            WHERE YEAR(transaction_date) = '{$current_year}' GROUP BY month ORDER BY month";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        $monthly_data = array_fill(1, 12, 0); // Initialize all months with zero
+        while ($row = mysqli_fetch_assoc($result)) {
+            $monthly_data[$row['month']] = $row['total'];
+        }
+        $stats['monthly_revenue'] = $monthly_data;
+    }
+} catch (Exception $e) {
+    // Table might not exist, just initialize with zeros
+    $stats['monthly_revenue'] = array_fill(1, 12, 0);
+    error_log('Monthly revenue query failed: ' . $e->getMessage());
+}
+
 // Get recent orders (last 5)
 $query = "
     SELECT o.*, b.name as buyer_name, f.name as farmer_name, p.name as product_name 
@@ -131,6 +203,18 @@ $page_title = "Admin Dashboard - AgroSmart Market";
 
 // Include admin header
 include '../views/admin/partials/header.php';
+
+// Add a revenue widget to the dashboard
+$revenue_widget = [
+    'total' => format_price($stats['total_revenue']),
+    'streams' => [
+        ['name' => '1% Commission', 'amount' => $stats['revenue_streams']['commissions'], 'icon' => 'percentage'],
+        ['name' => 'In-app Ads', 'amount' => $stats['revenue_streams']['ads'], 'icon' => 'ad'],
+        ['name' => 'Premium Listings', 'amount' => $stats['revenue_streams']['premium_listings'], 'icon' => 'star'],
+        ['name' => 'Transport Fees', 'amount' => $stats['revenue_streams']['transport_fees'], 'icon' => 'truck'],
+        ['name' => 'Subscriptions', 'amount' => $stats['revenue_streams']['subscriptions'], 'icon' => 'user-shield']
+    ]
+];
 
 // Include dashboard view
 include '../views/admin/dashboard.php';

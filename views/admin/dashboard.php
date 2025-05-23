@@ -112,6 +112,32 @@
             </div>
         </div>
     </div>
+    
+    <!-- Revenue Card -->
+    <div class="col-md-3 mb-4">
+        <div class="card stat-card h-100 border-0 shadow-sm" style="border-left: 4px solid #F44336 !important;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="stat-label text-uppercase fw-bold mb-1" style="color: #666;">Revenue</h6>
+                        <h2 class="stat-value mb-0">K<?php echo number_format($stats['total_revenue'], 2); ?></h2>
+                        <div class="stat-change mt-2">
+                            <span class="badge bg-danger bg-opacity-10 text-danger">Total Platform Income</span>
+                        </div>
+                    </div>
+                    <div class="stat-icon-container rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(244, 67, 54, 0.1);">
+                        <i class="fas fa-money-bill-wave fa-2x" style="color: #F44336;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pt-0">
+                <a href="#revenue-section" class="text-decoration-none d-flex justify-content-between align-items-center" style="color: #F44336;">
+                    <span>View Breakdown</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Charts Row -->
@@ -474,10 +500,15 @@
                                 </div>
                                 <h6 class="ms-3 mb-0 fw-bold">Reports</h6>
                             </div>
-                            <p class="text-muted small mb-3">View detailed sales and performance reports</p>
-                            <a href="reports.php" class="btn btn-sm btn-outline-purple mt-auto" style="border-color: #9C27B0; color: #9C27B0;">
-                                <i class="fas fa-arrow-right me-1"></i>View Reports
-                            </a>
+                            <p class="text-muted small mb-3">View system reports and revenue analytics</p>
+                            <div class="d-flex mt-auto">
+                                <a href="revenue_dashboard.php" class="btn btn-sm btn-outline-danger me-2">
+                                    <i class="fas fa-chart-line me-1"></i>Revenue
+                                </a>
+                                <a href="reports.php" class="btn btn-sm btn-outline-purple" style="color: #9C27B0; border-color: #9C27B0;">
+                                    <i class="fas fa-file-alt me-1"></i>All Reports
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

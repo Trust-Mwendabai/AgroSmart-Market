@@ -1,0 +1,566 @@
+/* 
+ * AgroSmart Market - Custom Animations CSS
+ * Enhanced animations and interactive effects for the landing page
+ */
+
+/* Particle animations */
+.particles-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(46, 204, 113, 0.2);
+  animation: float 20s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(0) rotate(10deg);
+  }
+  75% {
+    transform: translateY(20px) rotate(5deg);
+  }
+}
+
+/* Hover animations */
+.card-hover-active {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+}
+
+.hover-effect {
+  transition: all 0.4s ease;
+}
+
+.hover-effect:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(26, 141, 74, 0.15);
+}
+
+/* Button animations */
+.btn-hover-effect {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-hover-effect:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: all 0.5s ease;
+}
+
+.btn-hover-effect:hover:before {
+  left: 100%;
+}
+
+.btn-pulse {
+  animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Counting animation */
+.counter-animate {
+  font-weight: bold;
+  display: inline-block;
+}
+
+/* Custom cursor */
+.custom-cursor-area {
+  position: relative;
+}
+
+.custom-cursor {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(46, 204, 113, 0.3);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+/* Loading animation */
+.loading-animation {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.loading-animation:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid rgba(46, 204, 113, 0.2);
+  border-top-color: #1a8d4a;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Shiny button effect */
+.btn-shiny {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shiny:after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    rgba(255, 255, 255, 0) 10%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.2) 30%,
+    rgba(255, 255, 255, 0) 40%
+  );
+  transform: rotate(30deg);
+  animation: shiny 6s infinite linear;
+}
+
+@keyframes shiny {
+  0% {
+    transform: translateX(-100%) rotate(30deg);
+  }
+  15%, 100% {
+    transform: translateX(100%) rotate(30deg);
+  }
+}
+
+/* Ribbon animation */
+.ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.ribbon-content {
+  position: absolute;
+  display: block;
+  width: 225px;
+  padding: 15px 0;
+  background-color: #1a8d4a;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  transform: rotate(45deg);
+  right: -25px;
+  top: 30px;
+}
+
+/* Testimonial card flip animation */
+.testimonial-card-flip {
+  perspective: 1000px;
+  height: 450px;
+}
+
+.testimonial-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.testimonial-card-flip:hover .testimonial-card-inner {
+  transform: rotateY(180deg);
+}
+
+.testimonial-card-front, .testimonial-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.testimonial-card-front {
+  background-color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-card-back {
+  background-color: #1a8d4a;
+  color: white;
+  transform: rotateY(180deg);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Typing cursor animation */
+.typing-animation::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Ripple effect */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.ripple-effect:active:after {
+  width: 300px;
+  height: 300px;
+  opacity: 1;
+  transition: width 0.6s ease-out, height 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+/* Floating images animation */
+.float-img {
+  animation: floating 3s infinite ease-in-out;
+}
+
+.float-img-delay-1 {
+  animation-delay: 0.5s;
+}
+
+.float-img-delay-2 {
+  animation-delay: 1s;
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Entrance animations */
+.fade-in-bottom {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-bottom.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-left.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-right.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Step icon animation */
+.step-icon-circle {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(26, 141, 74, 0.1) 0%, rgba(46, 204, 113, 0.2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-icon-circle:before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a8d4a 0%, #2ecc71 100%);
+  opacity: 0.2;
+  animation: pulse-ring 2s infinite;
+}
+
+.step-icon-inner {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+}
+
+.step-number {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  background: #1a8d4a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* 3D Tilt effect */
+.tilt-card {
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  transition: transform 0.3s ease;
+}
+
+/* Infinite gradient animation */
+.gradient-bg {
+  background: linear-gradient(-45deg, #1a8d4a, #2ecc71, #27ae60, #16a085);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Bouncing icons */
+.bounce {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Shake animation */
+.shake:hover {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(-5px, 0) rotate(-5deg); }
+  40% { transform: translate(5px, 0) rotate(5deg); }
+  60% { transform: translate(-5px, 0) rotate(-5deg); }
+  80% { transform: translate(5px, 0) rotate(5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Stagger animation for lists */
+.stagger-item {
+  opacity: 0;
+}
+
+.stagger-item.show {
+  animation: fadeInUp 0.5s forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+
+/* Grow on hover */
+.grow-hover {
+  transition: transform 0.3s ease;
+}
+
+.grow-hover:hover {
+  transform: scale(1.05);
+}
+
+/* Rainbow text animation */
+.rainbow-text {
+  background: linear-gradient(to right, #1a8d4a, #2ecc71, #27ae60, #16a085, #1a8d4a);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow 5s linear infinite;
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Scale in animation */
+.scale-in {
+  animation: scaleIn 0.5s forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Typing effect placeholder */
+.typewriter h1 {
+  overflow: hidden;
+  border-right: 3px solid #1a8d4a;
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #1a8d4a }
+}
+
+/* Heartbeat effect */
+.heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.1); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+  70% { transform: scale(1); }
+}

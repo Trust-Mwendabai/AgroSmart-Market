@@ -34,7 +34,7 @@ include_once dirname(__DIR__) . '/../views/partials/header.php';
         <!-- Page Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Message Inbox</h2>
-            <a href="message.php?action=compose" class="btn btn-primary">
+            <a href="../message.php?action=compose" class="btn btn-primary">
                 <i class="fas fa-plus-circle me-2"></i>New Message
             </a>
         </div>
@@ -58,7 +58,7 @@ include_once dirname(__DIR__) . '/../views/partials/header.php';
         <div class="row">
             <div class="col-md-3 mb-4">
                 <div class="list-group">
-                    <a href="message.php" class="list-group-item list-group-item-action active">
+                    <a href="../message.php" class="list-group-item list-group-item-action active">
                         <i class="fas fa-inbox me-2"></i>Inbox
                         <?php 
                         $unread_count = 0;

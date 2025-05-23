@@ -88,12 +88,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     mysqli_stmt_execute($update_stmt);
                     
                     // Log the successful login attempt for security auditing
-                    $ip = $_SERVER['REMOTE_ADDR'];
-                    $user_agent = $_SERVER['HTTP_USER_AGENT'];
-                    $log_sql = "INSERT INTO login_logs (user_id, ip_address, user_agent, status) VALUES (?, ?, ?, 'success')"; 
-                    $log_stmt = mysqli_prepare($conn, $log_sql);
-                    mysqli_stmt_bind_param($log_stmt, "iss", $admin['id'], $ip, $user_agent);
-                    mysqli_stmt_execute($log_stmt);
+                    try {
+                        $ip = $_SERVER['REMOTE_ADDR'];
+                        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+                        $log_sql = "INSERT INTO login_logs (user_id, ip_address, user_agent, status) VALUES (?, ?, ?, 'success')"; 
+                        $log_stmt = mysqli_prepare($conn, $log_sql);
+                        mysqli_stmt_bind_param($log_stmt, "iss", $admin['id'], $ip, $user_agent);
+                        mysqli_stmt_execute($log_stmt);
+                    } catch (Exception $e) {
+                        // Silently log error but don't prevent login
+                        error_log('Login log failed: ' . $e->getMessage());
+                    }
                     
                     header('Location: dashboard.php');
                     exit();
@@ -101,12 +106,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $error = 'Invalid password';
                     
                     // Log failed login attempt
-                    $ip = $_SERVER['REMOTE_ADDR'];
-                    $user_agent = $_SERVER['HTTP_USER_AGENT'];
-                    $log_sql = "INSERT INTO login_logs (user_id, ip_address, user_agent, status) VALUES (?, ?, ?, 'failed')"; 
-                    $log_stmt = mysqli_prepare($conn, $log_sql);
-                    mysqli_stmt_bind_param($log_stmt, "iss", $admin['id'], $ip, $user_agent);
-                    mysqli_stmt_execute($log_stmt);
+                    try {
+                        $ip = $_SERVER['REMOTE_ADDR'];
+                        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+                        $log_sql = "INSERT INTO login_logs (user_id, ip_address, user_agent, status) VALUES (?, ?, ?, 'failed')"; 
+                        $log_stmt = mysqli_prepare($conn, $log_sql);
+                        mysqli_stmt_bind_param($log_stmt, "iss", $admin['id'], $ip, $user_agent);
+                        mysqli_stmt_execute($log_stmt);
+                    } catch (Exception $e) {
+                        // Silently log error but don't prevent showing login error
+                        error_log('Failed login log failed: ' . $e->getMessage());
+                    }
                 }
             } else {
                 $error = 'No admin account found with this email';

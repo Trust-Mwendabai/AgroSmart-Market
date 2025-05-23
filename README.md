@@ -142,10 +142,7 @@ After setup, you can use these default login credentials:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 👥 Contributors
-
-- Your Name - Initial work and development
 
 ## 📧 Contact
 
-If you have any questions or suggestions about this project, please reach out to me at [your-email@example.com].
+If you have any questions or suggestions about this project, please reach out to me at [trustmuhaumwendabai@gmail.com].

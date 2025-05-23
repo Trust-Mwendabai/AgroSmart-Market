@@ -98,9 +98,15 @@
     <!-- Custom JavaScript -->
     <script src="public/js/main.js"></script>
     
+    <!-- Vanilla Tilt for 3D hover effects -->
+    <script src="public/js/vanilla-tilt.min.js"></script>
+    
     <!-- Custom Scripts -->
+    <script src="public/js/animations.js"></script>
+    
+    <!-- Initialize AOS animations -->
     <script>
-        // Initialize AOS animations
+        // Initialize AOS
         AOS.init({
             duration: 800,
             easing: 'ease-in-out',
@@ -108,6 +114,17 @@
             mirror: false
         });
         
+        // Initialize custom tilt effects if vanilla-tilt.js is available
+        if (typeof VanillaTilt !== 'undefined') {
+            VanillaTilt.init(document.querySelectorAll('.tilt-card'), {
+                max: 10,
+                speed: 400,
+                glare: true,
+                'max-glare': 0.3
+            });
+        }
+    </script>
+    <script>
         // Enable Bootstrap tooltips
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

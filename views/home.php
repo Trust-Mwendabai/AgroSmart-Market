@@ -34,17 +34,17 @@
                     </p>
                     
                     <div class="hero-stats" data-aos="fade-up" data-aos-delay="500">
-                        <div class="stat-card">
-                            <span class="stat-number">500+</span>
+                        <div class="stat-card hover-effect">
+                            <span class="stat-number counter-animate" data-count="500" data-suffix="+" data-duration="2000">0</span>
                             <span class="stat-label">Farmers</span>
                         </div>
-                        <div class="stat-card">
-                            <span class="stat-number">30k+</span>
+                        <div class="stat-card hover-effect">
+                            <span class="stat-number counter-animate" data-count="30000" data-suffix="+" data-duration="2500">0</span>
                             <span class="stat-label">Products</span>
                         </div>
-                        <div class="stat-card">
-                            <span class="stat-number">4.9</span>
-                            <span class="stat-label"><i class="fas fa-star text-warning"></i> Rating</span>
+                        <div class="stat-card hover-effect">
+                            <span class="stat-number counter-animate" data-count="4.9" data-duration="1500">0</span>
+                            <span class="stat-label"><i class="fas fa-star text-warning animate__animated animate__pulse animate__infinite"></i> Rating</span>
                         </div>
                     </div>
                     
@@ -381,14 +381,16 @@
 </div>
 
 <!-- Enhanced Testimonials Section -->
-<section class="testimonials-modern position-relative">
-    <!-- Animated background elements -->
-    <div class="floating-element floating-element-1"></div>
-    <div class="floating-element floating-element-2"></div>
-    <div class="floating-element floating-element-3"></div>
+<section class="testimonials-modern position-relative custom-cursor-area">
+    <!-- Animated background elements with particles -->
+    <div class="floating-element floating-element-1 float-img"></div>
+    <div class="floating-element floating-element-2 float-img float-img-delay-1"></div>
+    <div class="floating-element floating-element-3 float-img float-img-delay-2"></div>
+    <div class="custom-cursor"></div>
     
     <div class="bg-pattern"></div>
     <div class="zambian-pattern"></div>
+    <div class="particles-bg"></div>
     
     <div class="container position-relative">
         <div class="row justify-content-center mb-5">
@@ -487,10 +489,12 @@
 </section>
 
 <!-- Featured Farmers Section -->
-<section class="py-5 bg-white section-accent">
-    <!-- Background elements for visual appeal -->
-    <div class="floating-element floating-element-1"></div>
-    <div class="floating-element floating-element-2"></div>
+<section class="py-5 bg-white section-accent custom-cursor-area">
+    <!-- Background elements for visual appeal with enhanced animations -->
+    <div class="floating-element floating-element-1 float-img"></div>
+    <div class="floating-element floating-element-2 float-img float-img-delay-1"></div>
+    <div class="particles-bg"></div>
+    <div class="custom-cursor"></div>
     
     <div class="container py-5 position-relative">
         <div class="row justify-content-center mb-5">
@@ -503,7 +507,7 @@
         
         <div class="row g-4 align-items-stretch">
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 border-0 shadow-sm rounded-lg overflow-hidden animate__animated animate__fadeInUp animate__delay-1s">
+                <div class="card h-100 border-0 shadow-sm rounded-lg overflow-hidden animate__animated animate__fadeInUp animate__delay-1s hover-effect tilt-card">
                     <div class="position-relative">
                         <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Featured Farmer">
                         <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-dark opacity-30"></div>
@@ -520,7 +524,7 @@
                                 <span class="d-block"><i class="fas fa-star text-warning me-1"></i> 4.9 Rating</span>
                                 <span class="text-muted small">Based on 120 orders</span>
                             </div>
-                            <a href="#" class="btn btn-outline-success rounded-pill px-3">
+                            <a href="#" class="btn btn-outline-success rounded-pill px-3 btn-hover-effect ripple-effect">
                                 <i class="fas fa-user me-2"></i>View Profile
                             </a>
                         </div>
@@ -529,7 +533,7 @@
             </div>
             
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 border-0 shadow-sm rounded-lg overflow-hidden animate__animated animate__fadeInUp animate__delay-2s">
+                <div class="card h-100 border-0 shadow-sm rounded-lg overflow-hidden animate__animated animate__fadeInUp animate__delay-2s hover-effect tilt-card">
                     <div class="position-relative">
                         <img src="https://images.unsplash.com/photo-1594761051656-71e2d942a0c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Featured Farmer">
                         <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-dark opacity-30"></div>
@@ -546,7 +550,7 @@
                                 <span class="d-block"><i class="fas fa-star text-warning me-1"></i> 4.8 Rating</span>
                                 <span class="text-muted small">Based on 85 orders</span>
                             </div>
-                            <a href="#" class="btn btn-outline-success rounded-pill px-3">
+                            <a href="#" class="btn btn-outline-success rounded-pill px-3 btn-hover-effect ripple-effect">
                                 <i class="fas fa-user me-2"></i>View Profile
                             </a>
                         </div>
@@ -555,7 +559,7 @@
             </div>
             
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 border-0 shadow-sm rounded-lg overflow-hidden animate__animated animate__fadeInUp animate__delay-3s">
+                <div class="card h-100 border-0 shadow-sm rounded-lg overflow-hidden animate__animated animate__fadeInUp animate__delay-3s hover-effect tilt-card">
                     <div class="position-relative">
                         <img src="https://images.unsplash.com/photo-1534177616072-ef7dc120449d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Featured Farmer">
                         <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-dark opacity-30"></div>
@@ -572,7 +576,7 @@
                                 <span class="d-block"><i class="fas fa-star text-warning me-1"></i> 4.7 Rating</span>
                                 <span class="text-muted small">Based on 102 orders</span>
                             </div>
-                            <a href="#" class="btn btn-outline-success rounded-pill px-3">
+                            <a href="#" class="btn btn-outline-success rounded-pill px-3 btn-hover-effect ripple-effect">
                                 <i class="fas fa-user me-2"></i>View Profile
                             </a>
                         </div>
@@ -582,7 +586,7 @@
         </div>
         
         <div class="text-center mt-5 animate__animated animate__fadeInUp animate__delay-4s">
-            <a href="farmers.php" class="btn btn-success btn-lg px-4 py-2">
+            <a href="farmers.php" class="btn btn-success btn-lg px-4 py-2 btn-shiny btn-hover-effect">
                 <i class="fas fa-users me-2"></i>Browse All Farmers
             </a>
         </div>
@@ -595,7 +599,10 @@
 </section>
 
 <!-- About Section -->
-<section class="py-5 bg-white about-section">
+<section class="py-5 bg-white about-section custom-cursor-area">
+    <!-- Background elements -->
+    <div class="particles-bg"></div>
+    <div class="custom-cursor"></div>
     <div class="container py-4">
         <div class="row align-items-center g-5">
             <div class="col-lg-6" data-aos="fade-right">
@@ -617,9 +624,9 @@
             </div>
             <div class="col-lg-6" data-aos="fade-left">
                 <div class="ps-lg-4">
-                    <span class="badge bg-primary px-3 py-2 mb-3">Our Story</span>
-                    <h2 class="fw-bold mb-4">About AgroSmart Market</h2>
-                    <p class="lead text-muted mb-4">We're revolutionizing agricultural commerce.</p>
+                    <span class="section-badge animate__animated animate__fadeInDown">Our Story</span>
+                    <h2 class="section-heading fw-bold mb-4 animate__animated animate__fadeInUp">About AgroSmart Market</h2>
+                    <p class="lead text-muted mb-4 animate__animated animate__fadeInUp animate__delay-1s">We're revolutionizing agricultural commerce in Zambia.</p>
                     
                     <div class="mb-4">
                         <p>AgroSmart Market was created to solve the challenges faced by small and medium-scale farmers who struggle to find reliable markets for their produce. Our platform eliminates middlemen, reduces waste, and ensures fair prices for both farmers and buyers.</p>
@@ -628,26 +635,26 @@
                     
                     <div class="row g-3 mb-4">
                         <div class="col-sm-6">
-                            <div class="about-feature">
-                                <i class="fas fa-leaf"></i>
+                            <div class="about-feature hover-effect feature-item animate__animated animate__fadeInUp animate__delay-1s">
+                                <i class="fas fa-leaf text-success"></i>
                                 <h5>Sustainable Farming</h5>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="about-feature">
-                                <i class="fas fa-hand-holding-usd"></i>
+                            <div class="about-feature hover-effect feature-item animate__animated animate__fadeInUp animate__delay-2s">
+                                <i class="fas fa-hand-holding-usd text-success"></i>
                                 <h5>Fair Pricing</h5>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="about-feature">
-                                <i class="fas fa-truck"></i>
+                            <div class="about-feature hover-effect feature-item animate__animated animate__fadeInUp animate__delay-3s">
+                                <i class="fas fa-truck text-success"></i>
                                 <h5>Direct Delivery</h5>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="about-feature">
-                                <i class="fas fa-seedling"></i>
+                            <div class="about-feature hover-effect feature-item animate__animated animate__fadeInUp animate__delay-4s">
+                                <i class="fas fa-seedling text-success"></i>
                                 <h5>Fresh Produce</h5>
                             </div>
                         </div>
@@ -663,20 +670,22 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-5 bg-primary text-white position-relative overflow-hidden cta-section">
-    <!-- Using CSS for background instead of image -->
-    <div class="position-absolute top-0 start-0 w-100 h-100 cta-bg-overlay"></div>
+<section class="py-5 bg-primary text-white position-relative overflow-hidden cta-section custom-cursor-area">
+    <!-- Using CSS for background instead of image with enhanced effects -->
+    <div class="position-absolute top-0 start-0 w-100 h-100 cta-bg-overlay gradient-bg"></div>
+    <div class="particles-bg"></div>
+    <div class="custom-cursor"></div>
     <div class="container py-5 position-relative">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center" data-aos="fade-up">
-                <h2 class="display-5 fw-bold mb-4">Ready to Join Our Growing Community?</h2>
-                <p class="lead mb-4">Create an account today and start buying or selling fresh farm products directly.</p>
-                <div class="d-flex flex-wrap justify-content-center gap-3">
-                    <a href="auth.php?action=register&type=farmer" class="btn btn-light btn-lg px-4 py-3">
-                        <i class="fas fa-tractor me-2"></i>Join as a Farmer
+                <h2 class="display-4 fw-bold mb-4 animate__animated animate__fadeInUp">Ready to transform your agricultural business?</h2>
+                <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s">Join our growing community of farmers and buyers across Zambia.</p>
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-2 gap-sm-3">
+                    <a href="auth.php?action=register" class="btn btn-light btn-lg px-4 py-3 btn-shiny btn-hover-effect animate__animated animate__fadeInUp animate__delay-2s">
+                        <i class="fas fa-user-plus me-2 animate__animated animate__pulse animate__infinite animate__slower"></i>Join AgroSmart
                     </a>
-                    <a href="auth.php?action=register&type=buyer" class="btn btn-outline-light btn-lg px-4 py-3">
-                        <i class="fas fa-shopping-basket me-2"></i>Join as a Buyer
+                    <a href="marketplace.php" class="btn btn-outline-light btn-lg px-4 py-3 btn-hover-effect ripple-effect animate__animated animate__fadeInUp animate__delay-3s">
+                        <i class="fas fa-store me-2"></i>Explore Marketplace
                     </a>
                 </div>
             </div>
