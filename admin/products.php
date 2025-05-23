@@ -23,7 +23,7 @@ $product_model = new Product($conn);
 // Handle product deletion
 if (isset($_POST['delete_product']) && isset($_POST['product_id'])) {
     $product_id = $_POST['product_id'];
-    if ($product_model->delete($product_id)) {
+    if ($product_model->delete_product($product_id, $_SESSION['user_id'])) {
         $_SESSION['success_message'] = "Product has been deleted successfully.";
     } else {
         $_SESSION['error_message'] = "Failed to delete product. Please try again.";
@@ -211,24 +211,24 @@ include '../views/admin/partials/header.php';
                                     <td><?php echo htmlspecialchars($product['name']); ?></td>
                                     <td>
                                         <?php
-                                        $farmer = $user_model->getById($product['farmer_id']);
+                                        $farmer = $user_model->get_user_by_id($product['farmer_id']);
                                         echo htmlspecialchars($farmer['name'] ?? 'Unknown');
                                         ?>
                                     </td>
                                     <td><?php echo ucfirst($product['category']); ?></td>
                                     <td><?php echo format_currency($product['price']); ?></td>
-                                    <td><?php echo $product['quantity']; ?> <?php echo $product['unit']; ?></td>
+                                    <td><?php echo ($product['quantity'] ?? '0') . ' ' . ($product['unit'] ?? 'units'); ?></td>
                                     <td>
                                         <?php 
                                         $status_class = '';
-                                        switch($product['status']) {
+                                        switch($product['status'] ?? 'pending') {
                                             case 'pending': $status_class = 'bg-warning'; break;
                                             case 'approved': $status_class = 'bg-success'; break;
                                             case 'rejected': $status_class = 'bg-danger'; break;
                                         }
                                         ?>
                                         <span class="badge <?php echo $status_class; ?>">
-                                            <?php echo ucfirst($product['status']); ?>
+                                            <?php echo ucfirst($product['status'] ?? 'pending'); ?>
                                         </span>
                                     </td>
                                     <td><?php echo date('M d, Y', strtotime($product['date_added'])); ?></td>
@@ -237,7 +237,7 @@ include '../views/admin/partials/header.php';
                                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal<?php echo $product['id']; ?>">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <?php if ($product['status'] == 'pending'): ?>
+                                            <?php if (($product['status'] ?? 'pending') == 'pending'): ?>
                                                 <form method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to approve this product?')">
                                                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                                                     <input type="hidden" name="status" value="approved">
@@ -287,7 +287,7 @@ include '../views/admin/partials/header.php';
                                                                 <p class="text-muted">
                                                                     <strong>Farmer:</strong> 
                                                                     <?php
-                                                                    $farmer = $user_model->getById($product['farmer_id']);
+                                                                    $farmer = $user_model->get_user_by_id($product['farmer_id']);
                                                                     echo htmlspecialchars($farmer['name'] ?? 'Unknown');
                                                                     ?>
                                                                 </p>

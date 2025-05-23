@@ -27,7 +27,7 @@ if (isset($_POST['update_status']) && isset($_POST['order_id']) && isset($_POST[
     $order_id = $_POST['order_id'];
     $status = $_POST['status'];
     
-    if ($order_model->updateStatus($order_id, $status)) {
+    if ($order_model->update_status($order_id, $status, $_SESSION['user_id'], false)) {
         $_SESSION['success_message'] = "Order status has been updated to " . ucfirst($status) . ".";
     } else {
         $_SESSION['error_message'] = "Failed to update order status. Please try again.";
@@ -40,7 +40,7 @@ if (isset($_POST['update_status']) && isset($_POST['order_id']) && isset($_POST[
 $order_detail = null;
 if (isset($_GET['id'])) {
     $order_id = $_GET['id'];
-    $order_detail = $order_model->getById($order_id);
+    $order_detail = $order_model->get_order($order_id);
     
     if (!$order_detail) {
         $_SESSION['error_message'] = "Order not found.";
@@ -49,11 +49,11 @@ if (isset($_GET['id'])) {
     }
     
     // Get buyer and farmer details
-    $buyer = $user_model->getById($order_detail['buyer_id']);
-    $farmer = $user_model->getById($order_detail['farmer_id']);
+    $buyer = $user_model->get_user_by_id($order_detail['buyer_id']);
+    $farmer = $user_model->get_user_by_id($order_detail['farmer_id']);
     
     // Get product details
-    $product = $product_model->getById($order_detail['product_id']);
+    $product = $product_model->get_product($order_detail['product_id']);
 }
 
 // Get filter parameters
@@ -419,7 +419,7 @@ include '../views/admin/partials/header.php';
                                         <td><?php echo htmlspecialchars($order['buyer_name']); ?></td>
                                         <td><?php echo htmlspecialchars($order['farmer_name']); ?></td>
                                         <td><?php echo htmlspecialchars($order['product_name']); ?></td>
-                                        <td><?php echo $order['quantity'] . ' ' . $order['product_unit']; ?></td>
+                                        <td><?php echo $order['quantity'] . ' ' . ($order['product_unit'] ?? ''); ?></td>
                                         <td><?php echo format_currency($order['quantity'] * $order['product_price']); ?></td>
                                         <td>
                                             <span class="badge bg-<?php 

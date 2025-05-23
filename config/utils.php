@@ -114,6 +114,11 @@ function format_price($price) {
     return 'K' . number_format($price, 2);
 }
 
+// Function to format currency (alias for format_price for compatibility)
+function format_currency($price) {
+    return format_price($price);
+}
+
 // Function to get user data
 function get_user_data($conn, $user_id) {
     $sql = "SELECT * FROM users WHERE id = ?";
