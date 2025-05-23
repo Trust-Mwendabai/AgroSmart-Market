@@ -185,23 +185,35 @@
                 <div class="row g-4" id="gridView">
                     <?php foreach ($products as $index => $product): ?>
                         <div class="col-md-6 col-lg-4 mb-4" data-aos="fade" data-aos-duration="300">
-                            <div class="product-card h-100">
-                                <div class="img-container">
+                            <div class="product-card">
+                                <div class="product-image-container">
                                     <?php 
-                                    // Use a CSS placeholder during image load to prevent flickering
+                                    // Prioritize product-specific images
                                     if (!empty($product['image']) && file_exists('public/uploads/products/' . $product['image'])): 
                                         $img_src = 'public/uploads/products/' . $product['image'];
                                     elseif(!empty($product['category'])): 
-                                        // Use local category images instead of external CDNs
+                                        // Then check for category-specific images in the images folder
                                         $category_key = strtolower(str_replace(' & ', '_', str_replace(' ', '_', $product['category'])));
                                         $category_img_path = 'public/images/categories/' . $category_key . '.jpg';
-                                        $img_src = file_exists($category_img_path) ? $category_img_path : 'public/images/default-product.jpg';
+                                        
+                                        // Check if a product-specific image exists in the images folder based on product name
+                                        $product_name_key = strtolower(str_replace(' & ', '_', str_replace(' ', '_', $product['name'])));
+                                        $product_img_path = 'public/images/products/' . $product_name_key . '.jpg';
+                                        
+                                        if (file_exists($product_img_path)) {
+                                            $img_src = $product_img_path;
+                                        } elseif (file_exists($category_img_path)) {
+                                            $img_src = $category_img_path;
+                                        } else {
+                                            $img_src = 'public/images/default-product.jpg';
+                                        }
                                     else:
                                         $img_src = 'public/images/default-product.jpg';
                                     endif;
                                     ?>
-                                    <div class="img-placeholder" style="min-height:200px;">
-                                        <img src="<?php echo $img_src; ?>" class="product-img" alt="<?php echo $product['name']; ?>" onerror="this.src='public/images/default-product.jpg'" loading="lazy">
+                                    <img src="<?php echo $img_src; ?>" class="product-image" alt="<?php echo htmlspecialchars($product['name']); ?>" onerror="this.src='public/images/default-product.jpg'">
+                                    <div class="image-placeholder">
+                                        <i class="fas fa-seedling"></i>
                                     </div>
                                     
                                     <?php if (isset($product['is_organic']) && $product['is_organic']): ?>
@@ -233,9 +245,9 @@
                                 </div>
                                 
                                 <div class="card-body">
-                                    <span class="product-category"><?php echo $product['category']; ?></span>
-                                    <h5 class="product-title"><?php echo $product['name']; ?></h5>
-                                    <p class="card-text text-truncate"><?php echo $product['description']; ?></p>
+                                    <span class="product-category"><?php echo htmlspecialchars($product['category']); ?></span>
+                                    <h5 class="product-title"><?php echo htmlspecialchars($product['name']); ?></h5>
+                                    <p class="card-text mb-3"><?php echo substr(htmlspecialchars($product['description']), 0, 80) . (strlen($product['description']) > 80 ? '...' : ''); ?></p>
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div class="product-price">
                                             <?php echo format_price($product['price']); ?>
@@ -255,7 +267,7 @@
                                         <?php endif; ?>
                                     </div>
                                     <div class="product-location">
-                                        <i class="fas fa-map-marker-alt"></i>
+                                        <i class="fas fa-map-marker-alt me-1"></i>
                                         <span><?php echo $product['location']; ?></span>
                                     </div>
                                     

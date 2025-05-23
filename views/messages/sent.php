@@ -1,4 +1,10 @@
 <?php
+// Check if this file has already been included to prevent duplication
+if (defined('MESSAGE_SENT_INCLUDED')) {
+    return;
+}
+define('MESSAGE_SENT_INCLUDED', true);
+
 // Set the page title
 $page_title = 'Sent Messages - AgroSmart Market';
 

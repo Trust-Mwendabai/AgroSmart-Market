@@ -183,7 +183,12 @@ class Product {
                 FROM products p
                 JOIN users u ON p.farmer_id = u.id
                 $where_sql
-                ORDER BY p.date_added DESC
+                ORDER BY 
+                    CASE 
+                        WHEN p.image IS NOT NULL AND p.image != '' THEN 0 
+                        ELSE 1 
+                    END, 
+                    p.date_added DESC
                 LIMIT ? OFFSET ?";
         
         $types .= "ii";

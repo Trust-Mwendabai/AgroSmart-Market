@@ -2,6 +2,30 @@
  * AgroSmart Market - Marketplace page functionality
  */
 document.addEventListener('DOMContentLoaded', function() {
+    // Handle image loading to prevent flickering
+    const productImages = document.querySelectorAll('.product-image');
+    
+    productImages.forEach(img => {
+        // Set up proper image loading with fade-in effect
+        if (img.complete) {
+            img.classList.add('loaded');
+        } else {
+            img.addEventListener('load', function() {
+                img.classList.add('loaded');
+            });
+            
+            img.addEventListener('error', function() {
+                // If image fails to load, show placeholder
+                const container = img.parentElement;
+                const placeholder = document.createElement('div');
+                placeholder.className = 'image-placeholder';
+                placeholder.innerHTML = '<i class="fas fa-seedling"></i>';
+                container.appendChild(placeholder);
+                img.style.display = 'none';
+            });
+        }
+    });
+    
     // Grid and List view toggle
     const gridViewBtn = document.getElementById('gridViewBtn');
     const listViewBtn = document.getElementById('listViewBtn');

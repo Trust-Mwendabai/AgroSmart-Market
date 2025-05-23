@@ -1,8 +1,20 @@
 <?php
+// Check if this file has already been included to prevent duplication
+if (defined('MESSAGE_VIEW_INCLUDED')) {
+    return;
+}
+define('MESSAGE_VIEW_INCLUDED', true);
+
 // Debug: Check if $message_item is set and its type
 if (!isset($message_item)) {
     die('Error: $message_item is not defined');
 }
+
+// Set the page title
+$page_title = 'Message Details - AgroSmart Market';
+
+// Include header - only once
+include_once dirname(__DIR__) . '/../views/partials/header.php';
 
 // Message view specific styles
 ?>
@@ -71,20 +83,8 @@ if (!isset($message_item)) {
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
     </style>
-</head>
-<div class="container py-4">
-                            <li><a class="dropdown-item" href="../dashboard.php">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="../profile.php">My Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="auth.php?action=logout">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Main Content -->
+<!-- Main Content -->
     <div class="container py-4">
         <!-- Page Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -350,3 +350,8 @@ if (!isset($message_item)) {
             </div>
         </div>
     </div>
+
+<?php
+// Include footer
+include_once dirname(__DIR__) . '/../views/partials/footer.php';
+?>

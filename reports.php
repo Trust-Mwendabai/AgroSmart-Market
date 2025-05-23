@@ -138,10 +138,9 @@ if ($user_type === 'farmer') {
     }
 }
 
-// Format currency values
-function format_currency($amount) {
-    return 'ZMW ' . number_format($amount, 2);
-}
+// Use the format_currency function from utils.php
+// Temporarily keeping this here for reference:
+// Original format was: 'ZMW ' . number_format($amount, 2)
 
 // Format date values
 function format_date($date_string) {

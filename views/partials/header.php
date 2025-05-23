@@ -189,7 +189,8 @@
                                 <?php 
                                 // Get unread message count
                                 if (is_logged_in() && isset($_SESSION['user_id'])) {
-                                    require_once 'models/Message.php';
+                                    // Use absolute path with dirname() to ensure path is correct regardless of inclusion context
+                                    require_once dirname(dirname(dirname(__FILE__))) . '/models/Message.php';
                                     $message_model = new Message($conn);
                                     $unread_count = $message_model->count_unread_messages($_SESSION['user_id']);
                                     

@@ -1,4 +1,10 @@
 <?php
+// Check if this file has already been included to prevent duplication
+if (defined('MESSAGE_COMPOSE_INCLUDED')) {
+    return;
+}
+define('MESSAGE_COMPOSE_INCLUDED', true);
+
 // Set the page title
 $page_title = 'Compose Message - AgroSmart Market';
 

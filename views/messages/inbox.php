@@ -1,4 +1,10 @@
 <?php
+// Check if this file has already been included to prevent duplication
+if (defined('MESSAGE_INBOX_INCLUDED')) {
+    return;
+}
+define('MESSAGE_INBOX_INCLUDED', true);
+
 // Set the page title
 $page_title = 'Inbox - AgroSmart Market';
 
