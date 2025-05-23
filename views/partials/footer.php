@@ -1,47 +1,86 @@
     </main>
 
-    <!-- Footer -->
+    <!-- Modern Footer -->
     <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <h4><i class="fas fa-leaf me-2"></i>AgroSmart Market</h4>
-                    <p>Connecting farmers directly with buyers - making agricultural commerce simple, efficient, and profitable for everyone.</p>
-                </div>
-                <div class="col-md-4">
-                    <h4>Quick Links</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="index.php" class="text-white">Home</a></li>
-                        <li><a href="marketplace.php" class="text-white">Marketplace</a></li>
-                        <li><a href="#" class="text-white">About Us</a></li>
-                        <li><a href="#" class="text-white">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h4>Contact Us</h4>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-map-marker-alt me-2"></i>123 Farm Road, Agriville</li>
-                        <li><i class="fas fa-phone me-2"></i>(123) 456-7890</li>
-                        <li><i class="fas fa-envelope me-2"></i>info@agrosmartmarket.com</li>
-                    </ul>
-                    <div class="social-icons mt-3">
-                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white me-2"><i class="fab fa-linkedin-in"></i></a>
+                <div class="col-lg-4 col-md-6 footer-col">
+                    <a href="index.php" class="footer-logo">
+                        <i class="fas fa-leaf"></i>AgroSmart Market
+                    </a>
+                    <p>Connecting farmers directly with buyers across Zambia - making agricultural commerce simple, efficient, and profitable for everyone.</p>
+                    <div class="social-icons">
+                        <a href="#" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
                     </div>
                 </div>
-            </div>
-            <hr class="mt-4 mb-4" style="background-color: rgba(255,255,255,0.2);">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="mb-0">&copy; <?php echo date('Y'); ?> AgroSmart Market. All rights reserved.</p>
+                
+                <div class="col-lg-2 col-md-6 footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.php"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="marketplace.php"><i class="fas fa-chevron-right"></i> Marketplace</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                    </ul>
                 </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="mb-0">
-                        <a href="#" class="text-white me-3">Privacy Policy</a>
-                        <a href="#" class="text-white">Terms of Service</a>
-                    </p>
+                
+                <div class="col-lg-3 col-md-6 footer-col">
+                    <h4>Farming Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Crop Calendar</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Farming Tips</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Market Prices</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Weather Updates</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Agricultural Loans</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Farm Road, Lusaka, Zambia</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+260 97 123 4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@agrosmartmarket.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Monday - Friday: 8:00 AM - 5:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; <?php echo date('Y'); ?> AgroSmart Market. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p>
+                            <a href="#" class="me-3">Privacy Policy</a>
+                            <a href="#">Terms of Service</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

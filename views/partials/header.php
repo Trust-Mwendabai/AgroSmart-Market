@@ -25,17 +25,27 @@
     document.addEventListener('DOMContentLoaded', function() {
         const navbar = document.querySelector('.navbar');
         
+        // Ensure navbar has correct background at all times
+        if (!navbar.classList.contains('navbar-dark')) {
+            navbar.classList.add('navbar-dark');
+        }
+        
+        // Make sure background color is applied immediately
+        navbar.style.backgroundColor = '#1a8d4a';
+        
         // Function to update navbar on scroll
         function updateNavbar() {
             if (window.scrollY > 50) {
                 navbar.classList.add('navbar-scrolled');
             } else {
                 navbar.classList.remove('navbar-scrolled');
+                // Ensure background color is always set, even when scrolled to top
+                navbar.style.backgroundColor = '#1a8d4a';
             }
         }
         
-        // Add scroll event listener
-        window.addEventListener('scroll', updateNavbar);
+        // Add scroll event listener with passive option for better performance
+        window.addEventListener('scroll', updateNavbar, { passive: true });
         
         // Call once on page load to set initial state
         updateNavbar();
@@ -50,6 +60,9 @@
     
     <!-- Hero v2 CSS -->
     <link rel="stylesheet" href="public/css/hero-v2.css">
+    
+    <!-- Modern Footer CSS -->
+    <link rel="stylesheet" href="public/css/footer.css">
     
     <!-- Additional Inline Styles -->
     <style>
