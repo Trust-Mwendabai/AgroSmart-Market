@@ -26,6 +26,94 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Enhanced cart functionality
+    function setupCartButtons() {
+        // Handle overlay cart buttons
+        const overlayCartButtons = document.querySelectorAll('.product-overlay form button');
+        overlayCartButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const form = this.closest('form');
+                submitCartForm(form);
+            });
+        });
+        
+        // Handle regular cart buttons
+        const regularCartForms = document.querySelectorAll('.add-to-cart-form');
+        regularCartForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                submitCartForm(this);
+            });
+        });
+    }
+    
+    // Function to submit cart forms with feedback
+    function submitCartForm(form) {
+        const productId = form.querySelector('input[name="product_id"]').value;
+        const quantity = form.querySelector('input[name="quantity"]').value;
+        const csrfToken = form.querySelector('input[name="csrf_token"]').value;
+        
+        // Create form data
+        const formData = new FormData();
+        formData.append('action', 'add');
+        formData.append('product_id', productId);
+        formData.append('quantity', quantity);
+        formData.append('csrf_token', csrfToken);
+        
+        // Disable the button and show loading state
+        const button = form.querySelector('button');
+        const originalText = button.innerHTML;
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        
+        // Send AJAX request
+        fetch('cart.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(() => {
+            // Show success message
+            const alertHtml = `
+                <div class="alert alert-success alert-dismissible fade show position-fixed" 
+                     style="top: 20px; right: 20px; z-index: 9999; max-width: 300px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" 
+                     role="alert">
+                    <i class="fas fa-check-circle me-2"></i> Added to cart!
+                    <a href="cart.php" class="alert-link ms-2">View Cart</a>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+            
+            // Add alert to the page
+            const alertContainer = document.createElement('div');
+            alertContainer.innerHTML = alertHtml;
+            document.body.appendChild(alertContainer.firstElementChild);
+            
+            // Remove alert after 3 seconds
+            setTimeout(() => {
+                const alerts = document.querySelectorAll('.alert');
+                alerts.forEach(alert => {
+                    if (alert && alert.parentNode) {
+                        alert.parentNode.removeChild(alert);
+                    }
+                });
+            }, 3000);
+            
+            // Restore button
+            button.disabled = false;
+            button.innerHTML = originalText;
+        })
+        .catch(error => {
+            console.error('Error adding to cart:', error);
+            button.disabled = false;
+            button.innerHTML = originalText;
+        });
+    }
+    
+    // Initialize cart buttons
+    setupCartButtons();
+    
     // Grid and List view toggle
     const gridViewBtn = document.getElementById('gridViewBtn');
     const listViewBtn = document.getElementById('listViewBtn');

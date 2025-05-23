@@ -27,13 +27,25 @@ if (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'add':
                 if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
-                    $result = $cart_model->add_item(
-                        (int)$_POST['product_id'], 
-                        (int)$_POST['quantity']
-                    );
+                    $product_id = (int)$_POST['product_id'];
+                    $quantity = (int)$_POST['quantity'];
+                    
+                    // Verify the product exists
+                    $product = $product_model->get_product($product_id);
+                    if (!$product) {
+                        $error = "Product not found";
+                        break;
+                    }
+                    
+                    $result = $cart_model->add_item($product_id, $quantity);
                     
                     if (isset($result['success'])) {
                         $message = $result['message'];
+                        
+                        // Redirect back to the previous page or marketplace
+                        $redirect_url = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'marketplace.php';
+                        header("Location: $redirect_url?cart_success=1");
+                        exit;
                     } else {
                         $error = $result['error'];
                     }

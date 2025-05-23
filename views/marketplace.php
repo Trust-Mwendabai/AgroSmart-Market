@@ -1,6 +1,14 @@
 <!-- Simple Marketplace Header -->
 <div class="bg-light py-4 mb-4">
     <div class="container">
+        <?php if (isset($_GET['cart_success'])): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i> Product successfully added to your cart!
+            <a href="cart.php" class="alert-link ms-2">View Cart</a>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+        
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <h1 class="fw-bold mb-1">Marketplace</h1>
@@ -253,7 +261,7 @@
                                             <?php echo format_price($product['price']); ?>
                                         </div>
                                         <?php if (isset($product['stock']) && $product['stock'] > 0): ?>
-                                            <form action="cart.php" method="POST">
+                                            <form action="cart.php" method="POST" class="add-to-cart-form">
                                                 <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
                                                 <input type="hidden" name="action" value="add">
                                                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">

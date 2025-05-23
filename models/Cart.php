@@ -9,12 +9,25 @@ class Cart {
     
     // Initialize cart in session if it doesn't exist
     private function initialize_cart() {
-        if (!isset($_SESSION['cart'])) {
+        if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
             $_SESSION['cart'] = [
                 'items' => [],
                 'total_quantity' => 0,
                 'total_price' => 0.00
             ];
+        }
+        
+        // Ensure all required cart elements exist
+        if (!isset($_SESSION['cart']['items']) || !is_array($_SESSION['cart']['items'])) {
+            $_SESSION['cart']['items'] = [];
+        }
+        
+        if (!isset($_SESSION['cart']['total_quantity'])) {
+            $_SESSION['cart']['total_quantity'] = 0;
+        }
+        
+        if (!isset($_SESSION['cart']['total_price'])) {
+            $_SESSION['cart']['total_price'] = 0.00;
         }
     }
     
