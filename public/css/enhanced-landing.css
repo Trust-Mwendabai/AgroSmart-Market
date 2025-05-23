@@ -18,13 +18,55 @@
 .navbar {
     transition: all 0.3s ease;
     padding: 0.75rem 1rem;
+    background-color: #1a8d4a !important; /* Darker green for better contrast */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
 
 .navbar-scrolled {
-    background-color: rgba(76, 175, 80, 0.98) !important;
+    background-color: #1a8d4a !important;
     padding: 0.5rem 1rem;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
     backdrop-filter: blur(10px);
+}
+
+/* Ensure navbar is visible on all pages */
+body .navbar {
+    background-color: #1a8d4a !important;
+}
+
+/* Improve navbar branding */
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: white !important;
+}
+
+.navbar-brand i {
+    color: #7defa1;
+}
+
+/* Improve navbar links */
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Ensure navbar toggle icon is visible */
+.navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 /* User Icon Stack */

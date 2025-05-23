@@ -80,7 +80,7 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand" href="<?php echo is_logged_in() && is_admin() ? 'admin/dashboard.php' : 'index.php'; ?>">
                 <i class="fas fa-leaf me-2"></i>AgroSmart Market
@@ -89,24 +89,36 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
+                <?php
+                // Determine the current page for navigation highlighting
+                $current_page = basename($_SERVER['SCRIPT_NAME']);
+                ?>
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php">Home</a>
+                        <a class="nav-link <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>" href="index.php">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="marketplace.php">Marketplace</a>
+                        <a class="nav-link <?php echo ($current_page == 'marketplace.php') ? 'active' : ''; ?>" href="marketplace.php">
+                            <i class="fas fa-store me-1"></i>Marketplace
+                        </a>
                     </li>
                     <?php if (is_logged_in()): ?>
                         <?php if (is_farmer()): ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="product.php?action=manage">My Products</a>
+                                <a class="nav-link <?php echo ($current_page == 'product.php' && isset($_GET['action']) && $_GET['action'] == 'manage') ? 'active' : ''; ?>" href="product.php?action=manage">
+                                    <i class="fas fa-boxes me-1"></i>My Products
+                                </a>
                             </li>
                         <?php endif; ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="order.php">Orders</a>
+                            <a class="nav-link <?php echo ($current_page == 'order.php') ? 'active' : ''; ?>" href="order.php">
+                                <i class="fas fa-shopping-basket me-1"></i>Orders
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="message.php">
+                            <a class="nav-link <?php echo ($current_page == 'message.php') ? 'active' : ''; ?>" href="message.php">
                                 <i class="fas fa-envelope me-1"></i>Messages
                                 <?php 
                                 // Get unread message count
@@ -125,7 +137,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="reports.php"><i class="fas fa-chart-line me-1"></i>Reports</a>
+                            <a class="nav-link <?php echo ($current_page == 'reports.php') ? 'active' : ''; ?>" href="reports.php">
+                                <i class="fas fa-chart-line me-1"></i>Reports
+                            </a>
                         </li>
                     <?php endif; ?>
                 </ul>
@@ -138,7 +152,7 @@
                 }
                 ?>
                 <div class="d-flex align-items-center me-3">
-                    <a href="cart.php" class="btn btn-outline-light position-relative">
+                    <a href="cart.php" class="btn btn-success position-relative <?php echo ($current_page == 'cart.php') ? 'active' : ''; ?>" title="Shopping Cart">
                         <i class="fas fa-shopping-cart"></i>
                         <?php if ($cart_count > 0): ?>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
@@ -154,23 +168,27 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-circle me-1"></i><?php echo $_SESSION['user_name']; ?>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="navbarDropdown">
                                 <?php if (is_farmer()): ?>
-                                <li><a class="dropdown-item" href="farmer-dashboard.php">Farmer Dashboard</a></li>
+                                <li><a class="dropdown-item" href="farmer-dashboard.php"><i class="fas fa-tractor me-2 text-success"></i>Farmer Dashboard</a></li>
                                 <?php elseif (is_buyer()): ?>
-                                <li><a class="dropdown-item" href="buyer-dashboard.php">Buyer Dashboard</a></li>
+                                <li><a class="dropdown-item" href="buyer-dashboard.php"><i class="fas fa-shopping-bag me-2 text-primary"></i>Buyer Dashboard</a></li>
                                 <?php endif; ?>
-                                <li><a class="dropdown-item" href="profile.php">My Profile</a></li>
+                                <li><a class="dropdown-item" href="profile.php"><i class="fas fa-user me-2 text-secondary"></i>My Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="auth.php?action=logout">Logout</a></li>
+                                <li><a class="dropdown-item text-danger" href="auth.php?action=logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                             </ul>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="auth.php?action=login">Login</a>
+                            <a class="nav-link <?php echo ($current_page == 'auth.php' && isset($_GET['action']) && $_GET['action'] == 'login') ? 'active' : ''; ?>" href="auth.php?action=login">
+                                <i class="fas fa-sign-in-alt me-1"></i>Login
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="auth.php?action=register">Register</a>
+                            <a class="nav-link <?php echo ($current_page == 'auth.php' && isset($_GET['action']) && $_GET['action'] == 'register') ? 'active' : ''; ?>" href="auth.php?action=register">
+                                <i class="fas fa-user-plus me-1"></i>Register
+                            </a>
                         </li>
                     <?php endif; ?>
                 </ul>

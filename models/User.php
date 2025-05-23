@@ -182,6 +182,15 @@ class User {
         return false;
     }
     
+    // Get user ID
+    public function get_id() {
+        // If user is loaded in the session, we can get it from $_SESSION['user_id']
+        if (isset($_SESSION['user_id'])) {
+            return $_SESSION['user_id'];
+        }
+        return null;
+    }
+    
     // Get all farmers
     public function get_farmers($limit = 10, $offset = 0) {
         $sql = "SELECT id, name, location, profile_image 

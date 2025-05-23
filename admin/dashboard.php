@@ -7,68 +7,124 @@ $conn = require_once '../config/database.php';
 require_once '../config/utils.php';
 
 // Check if user is logged in and is admin
-if (!is_admin()) {
-    redirect("../controllers/auth.php?action=login");
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+    header('Location: login.php');
+    exit();
 }
 
 // Include models
 require_once '../models/User.php';
 require_once '../models/Product.php';
 require_once '../models/Order.php';
+require_once '../models/Message.php';
 
 // Initialize models
 $user_model = new User($conn);
 $product_model = new Product($conn);
 $order_model = new Order($conn);
-
-// Get summary statistics
-$user_counts = $user_model->count_users_by_type();
-$total_products = $product_model->count_products();
-$order_counts = $order_model->count_orders_by_status();
+$message_model = new Message($conn);
 
 // Get statistics
 $stats = [
-    'total_users' => 0,
+    'total_buyers' => 0,
     'total_farmers' => 0,
     'total_products' => 0,
     'total_orders' => 0,
     'recent_orders' => [],
-    'recent_users' => []
+    'recent_users' => [],
+    'recent_products' => [],
+    'total_messages' => 0,
+    'orders_by_status' => []
 ];
 
-// Get total users
-$result = $conn->query("SELECT COUNT(*) as count FROM users WHERE role = 'user'");
-$stats['total_users'] = $result->fetch_assoc()['count'];
+// Get total buyers
+$query = "SELECT COUNT(*) as count FROM users WHERE user_type = 'buyer'";
+$result = mysqli_query($conn, $query);
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    $stats['total_buyers'] = $row['count'];
+}
 
 // Get total farmers
-$result = $conn->query("SELECT COUNT(*) as count FROM users WHERE role = 'farmer'");
-$stats['total_farmers'] = $result->fetch_assoc()['count'];
+$query = "SELECT COUNT(*) as count FROM users WHERE user_type = 'farmer'";
+$result = mysqli_query($conn, $query);
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    $stats['total_farmers'] = $row['count'];
+}
 
 // Get total products
-$result = $conn->query("SELECT COUNT(*) as count FROM products");
-$stats['total_products'] = $result->fetch_assoc()['count'];
+$query = "SELECT COUNT(*) as count FROM products";
+$result = mysqli_query($conn, $query);
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    $stats['total_products'] = $row['count'];
+}
 
 // Get total orders
-$result = $conn->query("SELECT COUNT(*) as count FROM orders");
-$stats['total_orders'] = $result->fetch_assoc()['count'];
+$query = "SELECT COUNT(*) as count FROM orders";
+$result = mysqli_query($conn, $query);
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    $stats['total_orders'] = $row['count'];
+}
 
-// Get recent orders
-$result = $conn->query("
-    SELECT o.*, u.name as user_name 
+// Get orders by status
+$query = "SELECT status, COUNT(*) as count FROM orders GROUP BY status";
+$result = mysqli_query($conn, $query);
+if ($result) {
+    $stats['orders_by_status'] = []; 
+    while ($row = mysqli_fetch_assoc($result)) {
+        $stats['orders_by_status'][$row['status']] = $row['count'];
+    }
+}
+
+// Get total messages
+$query = "SELECT COUNT(*) as count FROM messages";
+$result = mysqli_query($conn, $query);
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    $stats['total_messages'] = $row['count'];
+}
+
+// Get recent orders (last 5)
+$query = "
+    SELECT o.*, b.name as buyer_name, f.name as farmer_name, p.name as product_name 
     FROM orders o 
-    JOIN users u ON o.user_id = u.id 
-    ORDER BY o.created_at DESC 
-    LIMIT 5
-");
-$stats['recent_orders'] = $result->fetch_all(MYSQLI_ASSOC);
+    JOIN users b ON o.buyer_id = b.id 
+    JOIN users f ON o.farmer_id = f.id 
+    JOIN products p ON o.product_id = p.id 
+    ORDER BY o.date_ordered DESC 
+    LIMIT 5";
+$result = mysqli_query($conn, $query);
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $stats['recent_orders'][] = $row;
+    }
+}
 
-// Get recent users
-$result = $conn->query("
-    SELECT * FROM users 
-    ORDER BY created_at DESC 
-    LIMIT 5
-");
-$stats['recent_users'] = $result->fetch_all(MYSQLI_ASSOC);
+// Get recent users (last 5)
+$query = "SELECT * FROM users ORDER BY date_registered DESC LIMIT 5";
+$result = mysqli_query($conn, $query);
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $stats['recent_users'][] = $row;
+    }
+}
+
+// Get recent products (last 5)
+$query = "
+    SELECT p.*, u.name as farmer_name 
+    FROM products p 
+    JOIN users u ON p.farmer_id = u.id 
+    ORDER BY p.date_added DESC 
+    LIMIT 5";
+$result = mysqli_query($conn, $query);
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $stats['recent_products'][] = $row;
+    }
+}
 
 // Set page title
 $page_title = "Admin Dashboard - AgroSmart Market";

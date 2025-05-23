@@ -27,9 +27,9 @@ $success = '';
 
 switch ($action) {
     case 'create':
-        // Only buyers can create orders
-        if (!is_buyer()) {
-            redirect("buyer-dashboard.php");
+        // Both farmers and buyers can create orders
+        if (!is_logged_in()) {
+            redirect("auth.php?action=login");
         }
         
         $product_id = isset($_GET['product_id']) ? (int) $_GET['product_id'] : 0;

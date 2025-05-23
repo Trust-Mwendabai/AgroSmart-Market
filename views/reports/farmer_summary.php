@@ -51,8 +51,10 @@
 <?php
 // Get product sales data for pie chart
 $product_model = new Product($conn);
-$products = $product_model->get_farmer_products($user['id']);
-$sales_data = $report_model->get_farmer_product_sales($user['id'], $period);
+// Fix: Ensure we access the user ID correctly whether $user is an object or array
+$user_id = is_object($user) ? $user->get_id() : $user['id'];
+$products = $product_model->get_farmer_products($user_id);
+$sales_data = $report_model->get_farmer_product_sales($user_id, $period);
 ?>
 
 <div class="row">
@@ -196,7 +198,9 @@ $sales_data = $report_model->get_farmer_product_sales($user['id'], $period);
             </div>
             <div class="card-body">
                 <?php 
-                $trend_data = $report_model->get_farmer_monthly_trend($user['id'], 6);
+                // Fix: Ensure we access the user ID correctly whether $user is an object or array
+                $user_id = is_object($user) ? $user->get_id() : $user['id'];
+                $trend_data = $report_model->get_farmer_monthly_trend($user_id, 6);
                 if (empty($trend_data)): 
                 ?>
                 <div class="alert alert-warning">

@@ -36,13 +36,13 @@ if (isset($_SESSION['user_id'])) {
             color: white;
         }
         
-        .navbar-light .navbar-nav .nav-link, 
-        .navbar-light .navbar-brand {
+        .navbar-dark .navbar-nav .nav-link, 
+        .navbar-dark .navbar-brand {
             color: white;
         }
         
-        .navbar-light .navbar-nav .nav-link:hover, 
-        .navbar-light .navbar-brand:hover {
+        .navbar-dark .navbar-nav .nav-link:hover, 
+        .navbar-dark .navbar-brand:hover {
             color: var(--secondary-color);
         }
         
@@ -58,7 +58,7 @@ if (isset($_SESSION['user_id'])) {
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="/AgroSmart Market/index.php">
                 <i class="fas fa-leaf text-white me-2"></i>AgroSmart Market

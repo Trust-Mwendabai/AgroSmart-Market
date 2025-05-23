@@ -320,6 +320,8 @@ class Report {
                     LIMIT ? OFFSET ?";
         }
         
+        // Add types for limit and offset parameters (both integers)
+        $types .= 'ii';
         $params[] = $limit;
         $params[] = $offset;
         

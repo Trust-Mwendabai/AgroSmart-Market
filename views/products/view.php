@@ -222,7 +222,7 @@
             
             <?php
             // Get some related products
-            require_once '../models/Product.php';
+            require_once dirname(__DIR__, 2) . '/models/Product.php';
             $product_model = new Product($conn);
             $filters = ['category' => $product['category']];
             $similar_products = $product_model->get_all_products(4, 0, $filters);
