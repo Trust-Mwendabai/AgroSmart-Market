@@ -34,22 +34,22 @@
         </div>
         <div class="row g-4">
             <?php
-            // Category images from reliable sources
+            // Category images using local files to prevent flickering
             $category_images = [
-                ['name' => 'Vegetables', 'slug' => 'Vegetables', 'image' => 'https://cdn.pixabay.com/photo/2015/05/30/01/18/vegetables-790022_1280.jpg', 'delay' => 100],
-                ['name' => 'Fruits', 'slug' => 'Fruits', 'image' => 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg', 'delay' => 200],
-                ['name' => 'Grains', 'slug' => 'Grains', 'image' => 'https://cdn.pixabay.com/photo/2014/12/11/02/55/corn-563759_1280.jpg', 'delay' => 300],
-                ['name' => 'Dairy & Eggs', 'slug' => 'Dairy+%26+Eggs', 'image' => 'https://cdn.pixabay.com/photo/2017/07/05/15/41/milk-2474993_1280.jpg', 'delay' => 400]
+                ['name' => 'Vegetables', 'slug' => 'Vegetables', 'image' => 'public/images/categories/vegetables.jpg', 'delay' => 100],
+                ['name' => 'Fruits', 'slug' => 'Fruits', 'image' => 'public/images/categories/fruits.jpg', 'delay' => 200],
+                ['name' => 'Grains', 'slug' => 'Grains', 'image' => 'public/images/categories/grains.jpg', 'delay' => 300],
+                ['name' => 'Dairy & Eggs', 'slug' => 'Dairy+%26+Eggs', 'image' => 'public/images/categories/dairy.jpg', 'delay' => 400]
             ];
             
             foreach ($category_images as $category_item): 
             ?>
-            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="<?php echo $category_item['delay']; ?>">
+            <div class="col-6 col-md-3" data-aos="fade" data-aos-duration="300">
                 <a href="?category=<?php echo $category_item['slug']; ?>" class="text-decoration-none">
                     <div class="card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
-                        <div class="position-relative">
-                            <img src="<?php echo $category_item['image']; ?>" class="card-img-top category-img" alt="<?php echo $category_item['name']; ?>" onerror="this.src='public/images/default-product.jpg'">
-                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center category-overlay">
+                        <div class="position-relative img-placeholder" style="min-height:150px;">
+                            <img src="<?php echo $category_item['image']; ?>" class="card-img-top category-img" alt="<?php echo $category_item['name']; ?>" onerror="this.src='public/images/default-product.jpg'" loading="lazy">
+                            <div class="position-absolute bottom-0 start-0 w-100 py-2 px-3 category-overlay">
                                 <h3 class="text-white fw-bold mb-0"><?php echo $category_item['name']; ?></h3>
                             </div>
                         </div>
@@ -155,28 +155,25 @@
                 <!-- Grid View (Default) -->
                 <div class="row g-4" id="gridView">
                     <?php foreach ($products as $index => $product): ?>
-                        <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 50; ?>">
+                        <div class="col-md-6 col-lg-4 mb-4" data-aos="fade" data-aos-duration="300">
                             <div class="product-card h-100">
                                 <div class="img-container">
-                                    <?php if (!empty($product['image']) && file_exists('public/uploads/products/' . $product['image'])): ?>
-                                        <img src="public/uploads/products/<?php echo $product['image']; ?>" class="product-img" alt="<?php echo $product['name']; ?>" onerror="this.src='public/images/default-product.jpg'">
-                                    <?php elseif(!empty($product['category'])): ?>
-                                        <?php 
-                                        $category_img_path = 'public/images/' . strtolower(str_replace(' ', '_', $product['category'])) . '.jpg';
-                                        $category_online_imgs = [
-                                            'vegetables' => 'https://cdn.pixabay.com/photo/2015/05/30/01/18/vegetables-790022_1280.jpg',
-                                            'fruits' => 'https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg',
-                                            'grains' => 'https://cdn.pixabay.com/photo/2014/12/11/02/55/corn-563759_1280.jpg',
-                                            'dairy' => 'https://cdn.pixabay.com/photo/2017/07/05/15/41/milk-2474993_1280.jpg'
-                                        ];
-                                        $category_key = strtolower(str_replace(' ', '_', $product['category']));
-                                        $img_src = file_exists($category_img_path) ? $category_img_path : 
-                                                  (isset($category_online_imgs[$category_key]) ? $category_online_imgs[$category_key] : 'public/images/default-product.jpg');
-                                        ?>
-                                        <img src="<?php echo $img_src; ?>" class="product-img" alt="<?php echo $product['name']; ?>" onerror="this.src='public/images/default-product.jpg'">
-                                    <?php else: ?>
-                                        <img src="public/images/default-product.jpg" class="product-img" alt="<?php echo $product['name']; ?>">
-                                    <?php endif; ?>
+                                    <?php 
+                                    // Use a CSS placeholder during image load to prevent flickering
+                                    if (!empty($product['image']) && file_exists('public/uploads/products/' . $product['image'])): 
+                                        $img_src = 'public/uploads/products/' . $product['image'];
+                                    elseif(!empty($product['category'])): 
+                                        // Use local category images instead of external CDNs
+                                        $category_key = strtolower(str_replace(' & ', '_', str_replace(' ', '_', $product['category'])));
+                                        $category_img_path = 'public/images/categories/' . $category_key . '.jpg';
+                                        $img_src = file_exists($category_img_path) ? $category_img_path : 'public/images/default-product.jpg';
+                                    else:
+                                        $img_src = 'public/images/default-product.jpg';
+                                    endif;
+                                    ?>
+                                    <div class="img-placeholder" style="min-height:200px;">
+                                        <img src="<?php echo $img_src; ?>" class="product-img" alt="<?php echo $product['name']; ?>" onerror="this.src='public/images/default-product.jpg'" loading="lazy">
+                                    </div>
                                     
                                     <?php if (isset($product['is_organic']) && $product['is_organic']): ?>
                                         <span class="organic-badge card-badge">Organic</span>

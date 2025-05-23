@@ -169,6 +169,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'revenue_dashboard.php' ? 'active' : ''; ?>" href="revenue_dashboard.php">
+                            <i class="fas fa-money-bill-wave"></i> Revenue
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : ''; ?>" href="reports.php">
                             <i class="fas fa-chart-line"></i> Reports
                         </a>
