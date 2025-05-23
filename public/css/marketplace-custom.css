@@ -1,0 +1,90 @@
+/**
+ * Custom Marketplace Styles
+ * Removes diagonal bar and improves category image display
+ */
+
+/* Remove the diagonal green bar */
+.bg-light.py-4.mb-4 {
+    background: #ffffff !important;
+    position: relative;
+    overflow: visible;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+/* Enhance category images */
+.category-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-img {
+    transform: scale(1.05);
+}
+
+.category-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+/* Category icon styling */
+.category-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: white;
+    margin-right: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Improve category card appearance */
+.category-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+/* Remove any diagonal elements or stripes */
+.section-divider,
+.wave-divider,
+.hero-shape-divider {
+    display: none !important;
+}
+
+/* Higher quality category images styling */
+.category-card .card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Fix category badge display */
+.category-badge {
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 30px;
+    background-color: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+}

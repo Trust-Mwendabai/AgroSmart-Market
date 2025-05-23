@@ -53,7 +53,11 @@ $categories = $product_model->get_categories();
 $page_title = __('marketplace', 'Marketplace') . " - AgroSmart Market";
 
 // Add enhanced marketplace CSS
-$additional_css = '<link rel="stylesheet" href="public/css/enhanced-marketplace.css">';
+$additional_css = '<link rel="stylesheet" href="public/css/enhanced-marketplace.css">
+<link rel="stylesheet" href="public/css/marketplace-custom.css">'; // Added custom CSS to remove diagonal bar
+
+// Add marketplace JavaScript
+$additional_js = '<script src="public/js/marketplace.js"></script>';
 
 // Include header
 include 'views/partials/header.php';

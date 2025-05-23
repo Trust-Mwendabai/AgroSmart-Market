@@ -34,23 +34,52 @@
         </div>
         <div class="row g-4">
             <?php
-            // Category images using local files to prevent flickering
+            // Enhanced category images with better presentation
             $category_images = [
-                ['name' => 'Vegetables', 'slug' => 'Vegetables', 'image' => 'public/images/categories/vegetables.jpg', 'delay' => 100],
-                ['name' => 'Fruits', 'slug' => 'Fruits', 'image' => 'public/images/categories/fruits.jpg', 'delay' => 200],
-                ['name' => 'Grains', 'slug' => 'Grains', 'image' => 'public/images/categories/grains.jpg', 'delay' => 300],
-                ['name' => 'Dairy & Eggs', 'slug' => 'Dairy+%26+Eggs', 'image' => 'public/images/categories/dairy.jpg', 'delay' => 400]
+                [
+                    'name' => 'Vegetables', 
+                    'slug' => 'Vegetables', 
+                    'image' => 'public/images/categories/vegetables.jpg', 
+                    'icon' => 'fa-carrot',
+                    'color' => 'success'
+                ],
+                [
+                    'name' => 'Fruits', 
+                    'slug' => 'Fruits', 
+                    'image' => 'public/images/categories/fruits.jpg', 
+                    'icon' => 'fa-apple-alt',
+                    'color' => 'danger'
+                ],
+                [
+                    'name' => 'Grains', 
+                    'slug' => 'Grains', 
+                    'image' => 'public/images/categories/grains.jpg', 
+                    'icon' => 'fa-wheat-awn',
+                    'color' => 'warning'
+                ],
+                [
+                    'name' => 'Dairy & Eggs', 
+                    'slug' => 'Dairy+%26+Eggs', 
+                    'image' => 'public/images/categories/dairy.jpg', 
+                    'icon' => 'fa-egg',
+                    'color' => 'info'
+                ]
             ];
             
             foreach ($category_images as $category_item): 
             ?>
-            <div class="col-6 col-md-3" data-aos="fade" data-aos-duration="300">
+            <div class="col-6 col-md-3 mb-4">
                 <a href="?category=<?php echo $category_item['slug']; ?>" class="text-decoration-none">
-                    <div class="card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
-                        <div class="position-relative img-placeholder" style="min-height:150px;">
-                            <img src="<?php echo $category_item['image']; ?>" class="card-img-top category-img" alt="<?php echo $category_item['name']; ?>" onerror="this.src='public/images/default-product.jpg'" loading="lazy">
-                            <div class="position-absolute bottom-0 start-0 w-100 py-2 px-3 category-overlay">
-                                <h3 class="text-white fw-bold mb-0"><?php echo $category_item['name']; ?></h3>
+                    <div class="category-card h-100">
+                        <div class="position-relative">
+                            <img src="<?php echo $category_item['image']; ?>" class="card-img-top category-img" alt="<?php echo $category_item['name']; ?>" onerror="this.src='public/images/default-product.jpg'">
+                            <div class="category-overlay">
+                                <div class="d-flex align-items-center">
+                                    <span class="category-icon me-2 bg-<?php echo $category_item['color']; ?>">
+                                        <i class="fas <?php echo $category_item['icon']; ?>"></i>
+                                    </span>
+                                    <h3 class="text-white fw-bold mb-0"><?php echo $category_item['name']; ?></h3>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -183,6 +212,9 @@
                                         <a href="product.php?action=view&id=<?php echo $product['id']; ?>" class="overlay-btn">
                                             <i class="fas fa-eye"></i>
                                         </a>
+                                        <button type="button" class="overlay-btn quick-view-btn" data-product-id="<?php echo $product['id']; ?>" title="Quick View">
+                                            <i class="fas fa-search-plus"></i>
+                                        </button>
                                         <?php if (isset($product['stock']) && $product['stock'] > 0): ?>
                                             <form action="cart.php" method="POST" class="d-inline">
                                                 <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
@@ -315,6 +347,64 @@
                     </p>
                 </div>
             <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<!-- Quick View Modal -->
+<div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quickViewModalLabel">Product Quick View</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="quick-view-image">
+                            <img src="" class="img-fluid rounded product-image" alt="Product Image">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 class="product-title mb-2">Product Name</h3>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="badge bg-light text-dark me-2 product-category">Category</span>
+                            <div class="text-muted small">
+                                <i class="fas fa-user me-1"></i> <span class="product-farmer">Farmer Name</span>
+                            </div>
+                        </div>
+                        <h4 class="product-price text-success mb-3">K0.00</h4>
+                        <div class="mb-4 product-description">Loading product details...</div>
+                        
+                        <div class="d-flex mb-3 align-items-center">
+                            <div class="input-group me-3" style="width: 130px;">
+                                <button class="btn btn-outline-secondary" type="button" id="decreaseQuantity">-</button>
+                                <input type="number" class="form-control text-center" id="productQuantity" value="1" min="1">
+                                <button class="btn btn-outline-secondary" type="button" id="increaseQuantity">+</button>
+                            </div>
+                            <form action="cart.php" method="POST" class="flex-grow-1">
+                                <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
+                                <input type="hidden" name="action" value="add">
+                                <input type="hidden" name="product_id" value="">
+                                <input type="hidden" name="quantity" value="1" id="modalQuantityInput">
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="#" class="btn btn-primary view-details-btn">
+                                <i class="fas fa-eye me-1"></i>View Details
+                            </a>
+                            <a href="#" class="btn btn-outline-primary message-farmer-btn">
+                                <i class="fas fa-comment me-1"></i>Message Farmer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
