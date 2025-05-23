@@ -193,4 +193,27 @@ switch ($action) {
         redirect('message.php');
         break;
 }
+
+// Set the page title
+$page_title = 'Messages';
+
+// Include header
+include 'views/partials/header.php';
+
+// Include the appropriate view based on the action
+switch ($action) {
+    case 'compose':
+        include 'views/messages/compose.php';
+        break;
+    case 'view':
+        include 'views/messages/view.php';
+        break;
+    case 'inbox':
+    default:
+        include 'views/messages/inbox.php';
+        break;
+}
+
+// Include footer
+include 'views/partials/footer.php';
 ?>

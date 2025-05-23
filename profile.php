@@ -117,7 +117,7 @@ if (isset($current_user['user_type']) && $current_user['user_type'] === 'farmer'
 ?>
 <?php
 // Include header
-include_once 'includes/header.php';
+include_once 'views/partials/header.php';
 ?>
 <style>
     .profile-image-container {
@@ -503,7 +503,7 @@ include_once 'includes/header.php';
         </div>
     </div>
 
-    <?php include 'includes/footer.php'; ?>
+    <?php include 'views/partials/footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {

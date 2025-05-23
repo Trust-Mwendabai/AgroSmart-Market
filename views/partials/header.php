@@ -14,9 +14,6 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="public/css/style.css">
     
@@ -60,6 +57,10 @@
     
     <!-- Hero v2 CSS -->
     <link rel="stylesheet" href="public/css/hero-v2.css">
+    
+    <!-- Enhanced Sections CSS with Animations -->
+    <link rel="stylesheet" href="public/css/enhanced-sections.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     
     <!-- Modern Footer CSS -->
     <link rel="stylesheet" href="public/css/footer.css">

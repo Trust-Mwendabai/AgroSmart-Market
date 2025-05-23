@@ -85,7 +85,7 @@ switch ($action) {
         
         // Direct output approach for add product
         $page_title = 'Add Product - AgroSmart Market';
-        include_once 'includes/header.php';
+        include_once 'views/partials/header.php';
         ?>
         <div class="container py-4">
             <!-- Page Header -->
@@ -210,7 +210,7 @@ switch ($action) {
             }
         </script>
         <?php
-        include_once 'includes/footer.php';
+        include_once 'views/partials/footer.php';
         break;
         
     case 'edit':

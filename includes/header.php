@@ -1,30 +1,14 @@
 <?php
-// Session is already started in the main file
-require_once dirname(__DIR__) . '/config/database.php';
-require_once dirname(__DIR__) . '/models/User.php';
+/**
+ * Redirect to the standard header file
+ * 
+ * This file exists to maintain backward compatibility with any files that might include it.
+ * All pages should use the standard header file from views/partials/header.php.
+ */
 
-// Get current user information
-$user = new User($conn);
-$current_user = null;
-if (isset($_SESSION['user_id'])) {
-    $current_user = $user->get_user_by_id($_SESSION['user_id']);
-}
+// Include the standard header file
+include_once dirname(__DIR__) . '/views/partials/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroSmart Market - <?php echo isset($page_title) ? $page_title : (isset($title) ? $title : 'Home'); ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #4CAF50;
-            --secondary-color: #FFC107;
-            --dark-color: #333;
-            --light-color: #f4f4f4;
-        }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

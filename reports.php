@@ -191,7 +191,7 @@ function get_period_name($period, $start_date = null, $end_date = null) {
     </style>
 </head>
 <body>
-    <?php include 'includes/header.php'; ?>
+    <?php include 'views/partials/header.php'; ?>
     
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -295,7 +295,7 @@ function get_period_name($period, $start_date = null, $end_date = null) {
         </div>
     </div>
     
-    <?php include 'includes/footer.php'; ?>
+    <?php include 'views/partials/footer.php'; ?>
     
     <script>
     document.addEventListener('DOMContentLoaded', function() {

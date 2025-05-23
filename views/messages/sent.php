@@ -3,7 +3,7 @@
 $page_title = 'Sent Messages - AgroSmart Market';
 
 // Include header
-include_once dirname(__DIR__) . '/../includes/header.php';
+include_once dirname(__DIR__) . '/../views/partials/header.php';
 ?>
 
 <style>
