@@ -102,10 +102,10 @@ switch ($action) {
         }
         
         // Get message data
-        $message = $message_model->get_message($message_id, $_SESSION['user_id']);
+        $message_item = $message_model->get_message($message_id, $_SESSION['user_id']);
         
         // Check if message exists and belongs to the current user
-        if (!$message) {
+        if (!$message_item) {
             redirect("message.php");
         }
         

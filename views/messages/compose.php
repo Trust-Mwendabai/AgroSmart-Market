@@ -54,7 +54,7 @@ include_once dirname(__DIR__) . '/../views/partials/header.php';
                         // Count unread messages
                         // We already have the Message model from the controller
                         // No need to require it again
-                        $unread_count = $message->count_unread_messages($_SESSION['user_id']);
+                        $unread_count = $message_model->count_unread_messages($_SESSION['user_id']);
                         
                         if ($unread_count > 0): 
                         ?>
@@ -87,7 +87,7 @@ include_once dirname(__DIR__) . '/../views/partials/header.php';
                                 
                                 <div class="mb-3">
                                     <label for="receiver" class="form-label">To:</label>
-                                    <input type="text" class="form-control" id="receiver" value="<?php echo htmlspecialchars($receiver_name); ?>" disabled>
+                                    <input type="text" class="form-control" id="receiver" value="<?php echo isset($receiver) ? htmlspecialchars($receiver['name']) : ''; ?>" disabled>
                                     <div class="form-text">Sending to product owner.</div>
                                 </div>
                                 

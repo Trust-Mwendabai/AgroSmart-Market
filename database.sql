@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `category` VARCHAR(50) NOT NULL,
   `stock` INT NOT NULL DEFAULT 0,
   `unit` VARCHAR(20) NULL DEFAULT 'kg',
-  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Flag to indicate if the product is active (1) or inactive (0)',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

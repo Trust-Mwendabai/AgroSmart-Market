@@ -19,7 +19,13 @@ if (!isset($_SESSION['user_id']) || !is_buyer()) {
 $page_title = __('buyer_dashboard', 'Buyer Dashboard');
 
 // Add enhanced dashboard CSS
-$additional_css = '<link rel="stylesheet" href="public/css/enhanced-dashboard.css">';
+$additional_css = '<link rel="stylesheet" href="public/css/enhanced-dashboard.css">
+<link rel="stylesheet" href="public/css/mobile-responsive.css">
+<link rel="stylesheet" href="public/css/mobile-dashboard.css">';
+
+// Add dashboard JavaScript with progressive image loading
+$additional_js = '<script src="public/js/progressive-images.js"></script>
+<script src="public/js/mobile-dashboard.js"></script>';
 
 // Initialize models
 $product_model = new Product($conn);

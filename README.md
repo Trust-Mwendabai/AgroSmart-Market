@@ -50,11 +50,15 @@ AgroSmart Market is a web application that connects farmers and buyers in Zambia
 
 2. **Database Setup**
    - Create a new MySQL database named `agrosmart_market`
-   - Import the `database.sql` file from the project root directory:
+   - Import the `database.sql` file from the project root directory to create the initial schema:
      ```
      mysql -u username -p agrosmart_market < database.sql
      ```
-     Or use phpMyAdmin to import the file
+   - Run the database migrations to apply any schema updates:
+     ```
+     php database/run_migrations.php
+     ```
+   - Or use phpMyAdmin to import the files and run the migrations
 
 3. **Configure Database Connection**
    - Open `config/database.php`
@@ -90,12 +94,45 @@ AgroSmart Market is a web application that connects farmers and buyers in Zambia
 - **Icons**: Font Awesome
 - **Charting**: Chart.js
 
+## 🗄️ Database Schema
+
+The database schema is managed through migration files in the `database/migrations/` directory. The initial schema is defined in `database.sql`, and subsequent changes are applied through migrations.
+
+### Key Tables
+
+- **users**: Stores user accounts (farmers, buyers, and administrators)
+- **products**: Product listings with details like name, description, price, and stock
+- **orders**: Order information and status
+- **order_items**: Individual items within each order
+- **reviews**: Product reviews and ratings
+- **messages**: Communication between users
+- **cart_items**: Shopping cart contents
+- **remember_tokens**: For persistent user sessions
+
+### Running Migrations
+
+To apply database migrations:
+
+```bash
+php database/run_migrations.php
+```
+
+### Recent Schema Changes
+
+#### 2024-05-23
+- Added `is_active` column to `products` table to manage product visibility
+- Created `reviews` table to store product ratings and comments
+- Implemented database migration system for future schema updates
+
 ## 📂 Project Structure
 
 ```
 AgroSmart Market/
 ├── admin/                  # Admin-specific controllers
 ├── config/                 # Configuration files
+├── database/               # Database migrations and scripts
+│   ├── migrations/         # Database migration files
+│   └── run_migrations.php  # Migration runner
 ├── models/                 # Data models
 ├── public/                 # Public assets
 │   ├── css/                # CSS files

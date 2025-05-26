@@ -1,0 +1,254 @@
+/**
+ * Mobile Dashboard Optimizations
+ * Improves the buyer and farmer dashboard experience on mobile devices
+ */
+
+/* Base dashboard responsive adjustments */
+@media (max-width: 767px) {
+  /* Dashboard cards adjustments for mobile */
+  .dashboard-card {
+    margin-bottom: 1rem;
+  }
+  
+  /* Fix welcome banner for mobile */
+  .welcome-banner {
+    padding: 1.25rem !important;
+    margin-bottom: 1rem !important;
+    border-radius: 12px;
+  }
+  
+  .welcome-banner h1 {
+    font-size: 1.5rem;
+  }
+  
+  /* Improve stat cards on mobile */
+  .stat-card {
+    padding: 0.75rem;
+    text-align: center;
+  }
+  
+  .stat-icon {
+    margin: 0 auto 0.5rem auto;
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .stat-title {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .stat-value {
+    font-size: 1.25rem;
+  }
+  
+  /* Improve table responsiveness */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Hide certain columns on mobile for better readability */
+  .table-mobile-optimized th:nth-child(3),
+  .table-mobile-optimized td:nth-child(3) {
+    display: none;
+  }
+  
+  /* Smaller font sizes for mobile tables */
+  .dashboard-card .table {
+    font-size: 0.85rem;
+  }
+  
+  .dashboard-card .table td, 
+  .dashboard-card .table th {
+    padding: 0.5rem;
+  }
+  
+  /* Product cards in dashboard */
+  .product-thumb {
+    height: 80px;
+  }
+  
+  /* Adjust card header for mobile */
+  .card-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .card-header h5 {
+    font-size: 1rem;
+  }
+  
+  /* Better dashboard navigation on mobile */
+  .dashboard-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 5px;
+    margin-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .dashboard-tabs .nav-link {
+    white-space: nowrap;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Product card optimizations for dashboard */
+  .dashboard-product-card {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+  }
+  
+  .dashboard-product-card .product-image {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+  
+  .dashboard-product-card .product-info {
+    margin-left: 0.75rem;
+    flex-grow: 1;
+  }
+  
+  .dashboard-product-card .product-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .dashboard-product-card .product-price {
+    font-size: 0.9rem;
+  }
+  
+  /* Touch-friendly buttons */
+  .btn-sm {
+    padding: 0.4rem 0.6rem;
+    min-height: 38px;
+  }
+  
+  /* Improve quick order favorites display */
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .favorite-product {
+    height: 100%;
+  }
+  
+  /* Make "See All" buttons more prominent on mobile */
+  .see-all-link {
+    font-weight: 500;
+  }
+}
+
+/* Smaller mobile screens */
+@media (max-width: 375px) {
+  .col-6 {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  .row {
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+  
+  .stat-card .stat-value {
+    font-size: 1.1rem;
+  }
+  
+  .stat-card .stat-title {
+    font-size: 0.7rem;
+  }
+}
+
+/* Target tablet sizes for better dashboard layout */
+@media (min-width: 768px) and (max-width: 991px) {
+  .dashboard-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .dashboard-card {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Fix card layouts and transitions */
+.dashboard-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.dashboard-card:active {
+  transform: scale(0.98);
+}
+
+/* Optimized placeholder loading animations */
+.placeholder-glow {
+  animation: placeholderGlow 1.5s ease-in-out infinite;
+  background-color: rgba(0,0,0,0.05);
+  border-radius: 4px;
+}
+
+@keyframes placeholderGlow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Dashboard pull-to-refresh indicator */
+.dashboard-refresh-indicator {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dashboard-refresh-indicator.visible {
+  opacity: 1;
+}
+
+/* Touch-friendly status badges */
+.status-badge {
+  padding: 0.4rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  display: inline-block;
+  font-weight: 500;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Quick action buttons for mobile */
+.mobile-quick-actions {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.mobile-action-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.mobile-action-button:active {
+  transform: scale(0.95);
+}

@@ -1,30 +1,40 @@
-<!-- Simple Marketplace Header -->
-<div class="bg-light py-4 mb-4">
+<!-- Marketplace View Template -->
+<!-- Note: The variables $products, $categories, $page, etc. are passed in from the main marketplace.php file -->
+
+<!-- Marketplace Header -->
+<div class="bg-gradient-primary text-white py-5 mb-4">
     <div class="container">
         <?php if (isset($_GET['cart_success'])): ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fas fa-check-circle me-2"></i> Product successfully added to your cart!
-            <a href="cart.php" class="alert-link ms-2">View Cart</a>
+        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-check-circle me-2 fa-lg"></i>
+                <div>
+                    <strong>Success!</strong> Product added to your cart.
+                    <a href="cart.php" class="alert-link ms-2">View Cart <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <?php endif; ?>
         
         <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h1 class="fw-bold mb-1">Marketplace</h1>
-                <nav aria-label="breadcrumb">
+            <div class="col-lg-7">
+                <span class="badge bg-light text-dark mb-2">Fresh Local Produce</span>
+                <h1 class="display-4 fw-bold mb-2">Farm to Table Marketplace</h1>
+                <p class="lead mb-4 opacity-75">Connect directly with local farmers for fresh, quality produce</p>
+                <nav aria-label="breadcrumb" class="mb-3">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Marketplace</li>
+                        <li class="breadcrumb-item"><a href="index.php" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Marketplace</li>
                     </ol>
                 </nav>
             </div>
-            <div class="col-lg-6">
-                <div class="d-flex justify-content-lg-end mt-3 mt-lg-0">
-                    <a href="#products-section" class="btn btn-primary me-2">
+            <div class="col-lg-5">
+                <div class="d-flex flex-wrap justify-content-lg-end gap-2 mt-3 mt-lg-0">
+                    <a href="#products-section" class="btn btn-light btn-lg">
                         <i class="fas fa-shopping-basket me-2"></i>Browse Products
                     </a>
-                    <a href="#filter-section" class="btn btn-outline-primary">
+                    <a href="#filter-section" class="btn btn-outline-light btn-lg">
                         <i class="fas fa-filter me-2"></i>Filter Options
                     </a>
                 </div>
@@ -79,8 +89,10 @@
             <div class="col-6 col-md-3 mb-4">
                 <a href="?category=<?php echo $category_item['slug']; ?>" class="text-decoration-none">
                     <div class="category-card h-100">
-                        <div class="position-relative">
-                            <img src="<?php echo $category_item['image']; ?>" class="card-img-top category-img" alt="<?php echo $category_item['name']; ?>" onerror="this.src='public/images/default-product.jpg'">
+                        <div class="position-relative category-img-container bg-light rounded">
+                            <div class="image-placeholder">
+                                <i class="fas <?php echo $category_item['icon']; ?> fa-3x text-<?php echo $category_item['color']; ?>"></i>
+                            </div>
                             <div class="category-overlay">
                                 <div class="d-flex align-items-center">
                                     <span class="category-icon me-2 bg-<?php echo $category_item['color']; ?>">
@@ -98,58 +110,90 @@
     </section>
     
     <div class="row" id="main-content">
-        <!-- Filter Sidebar - Made Sticky -->
+        <!-- Filter Sidebar - Simplified and Modern Design -->
         <div class="col-lg-3 mb-4" id="filter-section" data-aos="fade-right">
-            <div class="card border-0 shadow-sm rounded-4 sticky-sidebar">
-                <div class="card-header bg-white border-0">
-                    <h5 class="mb-0 fw-bold"><i class="fas fa-sliders-h me-2 text-primary"></i>Filters</h5>
+            <div class="card border-0 shadow-sm rounded-3 sticky-sidebar">
+                <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold"><i class="fas fa-filter me-2 text-primary"></i>Filter Products</h5>
+                    <a href="marketplace.php" class="text-decoration-none text-muted small">Reset</a>
                 </div>
                 <div class="card-body">
-                    <form action="marketplace.php" method="GET">
-                        <!-- Search -->
-                        <div class="mb-3">
-                            <label for="search" class="form-label">Search</label>
-                            <input type="text" class="form-control" id="search" name="search" 
-                                   value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                    <form action="marketplace.php" method="get" id="search-form">
+                        <!-- Search Products -->
+                        <div class="mb-4">
+                            <div class="input-group">
+                                <input type="text" name="search" id="search-input" class="form-control" 
+                                       placeholder="Search products..." 
+                                       value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                            </div>
                         </div>
                         
-                        <!-- Category Filter -->
-                        <div class="mb-3">
-                            <label for="category" class="form-label">Category</label>
+                        <!-- Categories -->
+                        <div class="mb-4">
+                            <label class="fw-bold mb-2">Categories</label>
                             <select class="form-select" id="category" name="category">
                                 <option value="">All Categories</option>
                                 <?php foreach ($categories as $category): ?>
-                                    <option value="<?php echo $category; ?>" <?php echo (isset($_GET['category']) && $_GET['category'] == $category) ? 'selected' : ''; ?>>
-                                        <?php echo ucfirst($category); ?>
+                                    <option value="<?php echo htmlspecialchars($category); ?>" 
+                                            <?php echo (isset($_GET['category']) && $_GET['category'] == $category) ? 'selected' : ''; ?>>
+                                        <?php echo ucfirst(htmlspecialchars($category)); ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         
-                        <!-- Location Filter -->
-                        <div class="mb-3">
-                            <label for="location" class="form-label">Location</label>
-                            <input type="text" class="form-control" id="location" name="location"
-                                   value="<?php echo isset($_GET['location']) ? htmlspecialchars($_GET['location']) : ''; ?>">
-                        </div>
-                        
-                        <!-- Price Range -->
-                        <div class="mb-3">
-                            <label class="form-label">Price Range</label>
+                        <!-- Price Range - Simplified -->
+                        <div class="mb-4">
+                            <label class="fw-bold mb-2">Price Range</label>
+                            <?php 
+                            // Get min and max prices from the product model
+                            $price_range = $product_model->get_price_range();
+                            $min_price = $price_range['min_price'];
+                            $max_price = $price_range['max_price'];
+                            
+                            // Use filter values if set, otherwise use defaults
+                            $current_min = isset($_GET['min_price']) ? floatval($_GET['min_price']) : $min_price;
+                            $current_max = isset($_GET['max_price']) ? floatval($_GET['max_price']) : $max_price;
+                            ?>
                             <div class="row g-2">
                                 <div class="col-6">
-                                    <input type="number" class="form-control" placeholder="Min" name="min_price" min="0"
-                                           value="<?php echo isset($_GET['min_price']) ? htmlspecialchars($_GET['min_price']) : ''; ?>">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text">Min</span>
+                                        <input type="number" name="min_price" class="form-control" 
+                                               value="<?php echo $current_min; ?>" 
+                                               min="<?php echo $min_price; ?>">
+                                    </div>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" class="form-control" placeholder="Max" name="max_price" min="0"
-                                           value="<?php echo isset($_GET['max_price']) ? htmlspecialchars($_GET['max_price']) : ''; ?>">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text">Max</span>
+                                        <input type="number" name="max_price" class="form-control" 
+                                               value="<?php echo $current_max; ?>" 
+                                               max="<?php echo $max_price; ?>">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
-                        <a href="marketplace.php" class="btn btn-outline-secondary w-100 mt-2">Clear Filters</a>
+                        <!-- Sort By - Simplified -->
+                        <div class="mb-4">
+                            <label class="fw-bold mb-2">Sort By</label>
+                            <select class="form-select" name="sort_by">
+                                <option value="newest" <?php echo (!isset($_GET['sort_by']) || $_GET['sort_by'] == 'newest') ? 'selected' : ''; ?>>Newest First</option>
+                                <option value="price_low" <?php echo (isset($_GET['sort_by']) && $_GET['sort_by'] == 'price_low') ? 'selected' : ''; ?>>Price: Low to High</option>
+                                <option value="price_high" <?php echo (isset($_GET['sort_by']) && $_GET['sort_by'] == 'price_high') ? 'selected' : ''; ?>>Price: High to Low</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Filter Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Apply Filters</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
                     </form>
                 </div>
             </div>
@@ -185,6 +229,10 @@
                             <i class="fas fa-list"></i>
                         </button>
                     </div>
+                    <!-- Mobile filter toggle button -->
+                    <button type="button" class="btn btn-outline-primary d-md-none ms-2" id="mobileFilterBtn">
+                        <i class="fas fa-filter"></i>
+                    </button>
                 </div>
             </div>
             
@@ -192,103 +240,116 @@
                 <!-- Grid View (Default) -->
                 <div class="row g-4" id="gridView">
                     <?php foreach ($products as $index => $product): ?>
-                        <div class="col-md-6 col-lg-4 mb-4" data-aos="fade" data-aos-duration="300">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <?php 
-                                    // Prioritize product-specific images
-                                    if (!empty($product['image']) && file_exists('public/uploads/products/' . $product['image'])): 
-                                        $img_src = 'public/uploads/products/' . $product['image'];
-                                    elseif(!empty($product['category'])): 
-                                        // Then check for category-specific images in the images folder
-                                        $category_key = strtolower(str_replace(' & ', '_', str_replace(' ', '_', $product['category'])));
-                                        $category_img_path = 'public/images/categories/' . $category_key . '.jpg';
-                                        
-                                        // Check if a product-specific image exists in the images folder based on product name
-                                        $product_name_key = strtolower(str_replace(' & ', '_', str_replace(' ', '_', $product['name'])));
-                                        $product_img_path = 'public/images/products/' . $product_name_key . '.jpg';
-                                        
-                                        if (file_exists($product_img_path)) {
-                                            $img_src = $product_img_path;
-                                        } elseif (file_exists($category_img_path)) {
-                                            $img_src = $category_img_path;
-                                        } else {
-                                            $img_src = 'public/images/default-product.jpg';
-                                        }
-                                    else:
-                                        $img_src = 'public/images/default-product.jpg';
-                                    endif;
-                                    ?>
-                                    <img src="<?php echo $img_src; ?>" class="product-image" alt="<?php echo htmlspecialchars($product['name']); ?>" onerror="this.src='public/images/default-product.jpg'">
-                                    <div class="image-placeholder">
-                                        <i class="fas fa-seedling"></i>
-                                    </div>
-                                    
-                                    <?php if (isset($product['is_organic']) && $product['is_organic']): ?>
-                                        <span class="organic-badge card-badge">Organic</span>
-                                    <?php endif; ?>
-                                    
-                                    <div class="product-overlay">
-                                        <a href="product.php?action=view&id=<?php echo $product['id']; ?>" class="overlay-btn">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <button type="button" class="overlay-btn quick-view-btn" data-product-id="<?php echo $product['id']; ?>" title="Quick View">
-                                            <i class="fas fa-search-plus"></i>
-                                        </button>
-                                        <?php if (isset($product['stock']) && $product['stock'] > 0): ?>
-                                            <form action="cart.php" method="POST" class="d-inline">
-                                                <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
-                                                <input type="hidden" name="action" value="add">
-                                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                                <input type="hidden" name="quantity" value="1">
-                                                <button type="submit" class="overlay-btn" title="Add to Cart">
-                                                    <i class="fas fa-cart-plus"></i>
-                                                </button>
-                                            </form>
-                                            <a href="message.php?action=compose&to=<?php echo $product['farmer_id']; ?>&product_id=<?php echo $product['id']; ?>" class="overlay-btn">
-                                                <i class="fas fa-comment"></i>
-                                            </a>
-                                        <?php endif; ?>
-                                    </div>
+                        <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="400">
+                            <div class="card h-100 product-card border-0 shadow-sm rounded-3 position-relative">
+                                <!-- Category Badge -->
+                                <?php 
+                                // Different icons based on product category
+                                $icon = 'fa-seedling';
+                                $color = 'success';
+                                $bgColor = 'rgba(25, 135, 84, 0.1)';
+                                $textColor = '#198754';
+                                
+                                // Set icon and color based on category
+                                switch(strtolower($product['category'])) {
+                                    case 'vegetables':
+                                        $icon = 'fa-carrot';
+                                        $color = 'success';
+                                        $bgColor = 'rgba(25, 135, 84, 0.1)';
+                                        $textColor = '#198754';
+                                        break;
+                                    case 'fruits':
+                                        $icon = 'fa-apple-alt';
+                                        $color = 'danger';
+                                        $bgColor = 'rgba(220, 53, 69, 0.1)';
+                                        $textColor = '#dc3545';
+                                        break;
+                                    case 'grains':
+                                        $icon = 'fa-wheat-awn';
+                                        $color = 'warning';
+                                        $bgColor = 'rgba(255, 193, 7, 0.1)';
+                                        $textColor = '#ffc107';
+                                        break;
+                                    case 'dairy':
+                                    case 'dairy & eggs':
+                                        $icon = 'fa-egg';
+                                        $color = 'info';
+                                        $bgColor = 'rgba(13, 202, 240, 0.1)';
+                                        $textColor = '#0dcaf0';
+                                        break;
+                                    case 'meat':
+                                    case 'poultry':
+                                        $icon = 'fa-drumstick-bite';
+                                        $color = 'danger';
+                                        $bgColor = 'rgba(220, 53, 69, 0.1)';
+                                        $textColor = '#dc3545';
+                                        break;
+                                    default:
+                                        $icon = 'fa-seedling';
+                                        $color = 'success';
+                                        $bgColor = 'rgba(25, 135, 84, 0.1)';
+                                        $textColor = '#198754';
+                                }
+                                ?>
+                                <div class="position-absolute top-0 start-0 m-3 z-1">
+                                    <span class="badge rounded-pill px-3 py-2" style="background-color: <?php echo $bgColor; ?>; color: <?php echo $textColor; ?>">
+                                        <i class="fas <?php echo $icon; ?> me-1"></i> <?php echo htmlspecialchars($product['category']); ?>
+                                    </span>
                                 </div>
                                 
-                                <div class="card-body">
-                                    <span class="product-category"><?php echo htmlspecialchars($product['category']); ?></span>
-                                    <h5 class="product-title"><?php echo htmlspecialchars($product['name']); ?></h5>
-                                    <p class="card-text mb-3"><?php echo substr(htmlspecialchars($product['description']), 0, 80) . (strlen($product['description']) > 80 ? '...' : ''); ?></p>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <div class="product-price">
-                                            <?php echo format_price($product['price']); ?>
-                                        </div>
-                                        <?php if (isset($product['stock']) && $product['stock'] > 0): ?>
-                                            <form action="cart.php" method="POST" class="add-to-cart-form">
-                                                <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
-                                                <input type="hidden" name="action" value="add">
-                                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                                <input type="hidden" name="quantity" value="1">
-                                                <button type="submit" class="btn btn-sm btn-primary" title="Add to Cart">
-                                                    <i class="fas fa-cart-plus"></i> Add
-                                                </button>
-                                            </form>
-                                        <?php else: ?>
-                                            <span class="badge bg-danger">Out of Stock</span>
-                                        <?php endif; ?>
+                                <!-- Product Status Badge -->
+                                <?php if ($product['stock'] <= 5 && $product['stock'] > 0): ?>
+                                    <div class="position-absolute top-0 end-0 m-3 z-1">
+                                        <span class="badge bg-warning text-dark">Limited Stock</span>
                                     </div>
-                                    <div class="product-location">
-                                        <i class="fas fa-map-marker-alt me-1"></i>
-                                        <span><?php echo $product['location']; ?></span>
+                                <?php elseif ($product['stock'] <= 0): ?>
+                                    <div class="position-absolute top-0 end-0 m-3 z-1">
+                                        <span class="badge bg-danger">Out of Stock</span>
+                                    </div>
+                                <?php elseif (strtotime($product['date_added']) > strtotime('-7 days')): ?>
+                                    <div class="position-absolute top-0 end-0 m-3 z-1">
+                                        <span class="badge bg-success">New</span>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <!-- Product Image -->
+                                <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 180px; background-color: <?php echo $bgColor; ?>">
+                                    <i class="fas <?php echo $icon; ?> fa-4x" style="color: <?php echo $textColor; ?>"></i>
+                                </div>
+                                
+                                <div class="card-body d-flex flex-column p-4">
+                                    <!-- Product Title -->
+                                    <h5 class="card-title fw-bold mb-1"><?php echo htmlspecialchars($product['name']); ?></h5>
+                                    
+                                    <!-- Farmer Info -->
+                                    <div class="mb-2">
+                                        <small class="text-muted">By <span class="text-primary"><?php echo htmlspecialchars($product['farmer_name']); ?></span></small>
                                     </div>
                                     
-                                    <div class="product-meta">
-                                        <div class="farmer-info">
-                                            <div class="farmer-avatar-placeholder"><?php echo strtoupper(substr($product['farmer_name'], 0, 1)); ?></div>
-                                            <span class="farmer-name"><?php echo $product['farmer_name']; ?></span>
+                                    <!-- Description -->
+                                    <p class="card-text text-muted mb-3"><?php echo substr(htmlspecialchars($product['description']), 0, 80) . (strlen($product['description']) > 80 ? '...' : ''); ?></p>
+                                    
+                                    <!-- Spacer to push the price and button to the bottom -->
+                                    <div class="mt-auto">
+                                        <!-- Price -->
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h4 class="mb-0 fw-bold text-primary">$<?php echo number_format($product['price'], 2); ?></h4>
+                                            <a href="product.php?id=<?php echo $product['id']; ?>" class="btn btn-sm btn-outline-secondary rounded-circle" title="View Details">
+                                                <i class="fas fa-info"></i>
+                                            </a>
                                         </div>
                                         
-                                        <div>
-                                            <span class="badge bg-light text-dark">
-                                                <?php echo $product['stock']; ?> in stock
-                                            </span>
+                                        <!-- Action Button -->
+                                        <div class="d-grid">
+                                            <?php if ($product['stock'] > 0): ?>
+                                                <a href="cart.php?add=<?php echo $product['id']; ?>" class="btn btn-primary">
+                                                    <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                                </a>
+                                            <?php else: ?>
+                                                <button class="btn btn-secondary" disabled>
+                                                    <i class="fas fa-exclamation-circle me-2"></i>Out of Stock
+                                                </button>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -316,23 +377,37 @@
                                             <span class="fw-bold text-primary"><?php echo format_price($product['price']); ?></span>
                                         </div>
                                         <p class="card-text"><?php echo substr($product['description'], 0, 150) . (strlen($product['description']) > 150 ? '...' : ''); ?></p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <small class="text-muted">
-                                                    <i class="fas fa-user me-1"></i><?php echo $product['farmer_name']; ?>
-                                                </small>
-                                                <small class="text-muted ms-3">
-                                                    <i class="fas fa-map-marker-alt me-1"></i><?php echo $product['farmer_location']; ?>
-                                                </small>
-                                            </div>
-                                            <div>
-                                                <?php if (!empty($product['category'])): ?>
-                                                    <span class="badge badge-category"><?php echo $product['category']; ?></span>
-                                                <?php endif; ?>
-                                            </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="fw-bold price-display">
+                                            ZMW <?php echo number_format($product['price'], 2); ?>
                                         </div>
-                                        <div class="mt-3">
-                                            <a href="controllers/product.php?action=view&id=<?php echo $product['id']; ?>" class="btn btn-sm btn-primary">View Details</a>
+                                        <div class="product-rating">
+                                            <?php 
+                                            // Display ratings if they exist
+                                            $avg_rating = isset($product['avg_rating']) ? floatval($product['avg_rating']) : 0;
+                                            $review_count = isset($product['review_count']) ? intval($product['review_count']) : 0;
+                                            
+                                            // Star rating display
+                                            echo '<div class="rating-stars" title="' . number_format($avg_rating, 1) . ' out of 5 stars">';
+                                            for ($i = 1; $i <= 5; $i++) {
+                                                if ($i <= $avg_rating) {
+                                                    echo '<i class="fas fa-star text-warning"></i>';
+                                                } elseif ($i <= $avg_rating + 0.5) {
+                                                    echo '<i class="fas fa-star-half-alt text-warning"></i>';
+                                                } else {
+                                                    echo '<i class="far fa-star text-warning"></i>';
+                                                }
+                                            }
+                                            echo '</div>';
+                                            
+                                            // Display review count if any
+                                            if ($review_count > 0) {
+                                                echo '<small class="text-muted ms-2">(' . $review_count . ')</small>';
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <a href="controllers/product.php?action=view&id=<?php echo $product['id']; ?>" class="btn btn-sm btn-primary">View Details</a>
                                         </div>
                                     </div>
                                 </div>
@@ -371,6 +446,63 @@
     </div>
 </div>
 
+<!-- Recently Viewed Products -->
+<?php if (isset($_SESSION['recently_viewed']) && count($_SESSION['recently_viewed']) > 0): ?>
+<div class="container mb-5" data-aos="fade-up">
+    <h3 class="fw-bold mb-4">Recently Viewed</h3>
+    <div class="row">
+        <?php 
+        // Get most recent 4 viewed products
+        $viewed_ids = array_slice(array_reverse($_SESSION['recently_viewed']), 0, 4);
+        $viewed_products = [];
+        
+        foreach ($viewed_ids as $viewed_id) {
+            $viewed_product = $product_model->get_product($viewed_id);
+            if ($viewed_product) {
+                $viewed_products[] = $viewed_product;
+            }
+        }
+        
+        foreach ($viewed_products as $product): 
+        ?>
+        <div class="col-md-3 mb-3">
+            <div class="card h-100 product-card-compact">
+                <div class="product-image-container-small">
+                    <?php 
+                    // Product image display logic similar to main products
+                    if (!empty($product['image']) && file_exists('public/uploads/products/' . $product['image'])): 
+                    ?>
+                    <img src="public/uploads/products/<?php echo $product['image']; ?>" 
+                         alt="<?php echo htmlspecialchars($product['name']); ?>" 
+                         class="card-img-top" 
+                         onerror="this.src='public/images/default-product.jpg'">
+                    <?php else: 
+                        $category_img = 'public/images/categories/' . strtolower($product['category']) . '.jpg';
+                        if (file_exists($category_img)): 
+                    ?>
+                    <img src="<?php echo $category_img; ?>" 
+                         alt="<?php echo htmlspecialchars($product['name']); ?>" 
+                         class="card-img-top" 
+                         onerror="this.src='public/images/default-product.jpg'">
+                    <?php else: ?>
+                    <img src="public/images/default-product.jpg" alt="<?php echo htmlspecialchars($product['name']); ?>" class="card-img-top">
+                    <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title"><?php echo htmlspecialchars($product['name']); ?></h6>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold"><?php echo format_price($product['price']); ?></span>
+                        <a href="product.php?id=<?php echo $product['id']; ?>" class="btn btn-sm btn-outline-primary">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<?php endif; ?>
+
 <!-- Quick View Modal -->
 <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -381,49 +513,18 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="quick-view-image">
-                            <img src="" class="img-fluid rounded product-image" alt="Product Image">
-                        </div>
+                    <div class="col-md-6 product-image-container" id="quickview-image">
+                        <!-- Product image will be loaded here -->
                     </div>
-                    <div class="col-md-6">
-                        <h3 class="product-title mb-2">Product Name</h3>
-                        <div class="d-flex align-items-center mb-2">
-                            <span class="badge bg-light text-dark me-2 product-category">Category</span>
-                            <div class="text-muted small">
-                                <i class="fas fa-user me-1"></i> <span class="product-farmer">Farmer Name</span>
-                            </div>
-                        </div>
-                        <h4 class="product-price text-success mb-3">K0.00</h4>
-                        <div class="mb-4 product-description">Loading product details...</div>
-                        
-                        <div class="d-flex mb-3 align-items-center">
-                            <div class="input-group me-3" style="width: 130px;">
-                                <button class="btn btn-outline-secondary" type="button" id="decreaseQuantity">-</button>
-                                <input type="number" class="form-control text-center" id="productQuantity" value="1" min="1">
-                                <button class="btn btn-outline-secondary" type="button" id="increaseQuantity">+</button>
-                            </div>
-                            <form action="cart.php" method="POST" class="flex-grow-1">
-                                <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
-                                <input type="hidden" name="action" value="add">
-                                <input type="hidden" name="product_id" value="">
-                                <input type="hidden" name="quantity" value="1" id="modalQuantityInput">
-                                <button type="submit" class="btn btn-success w-100">
-                                    <i class="fas fa-cart-plus me-2"></i>Add to Cart
-                                </button>
-                            </form>
-                        </div>
-                        
-                        <div class="d-flex gap-2 mt-3">
-                            <a href="#" class="btn btn-primary view-details-btn">
-                                <i class="fas fa-eye me-1"></i>View Details
-                            </a>
-                            <a href="#" class="btn btn-outline-primary message-farmer-btn">
-                                <i class="fas fa-comment me-1"></i>Message Farmer
-                            </a>
-                        </div>
+                    <div class="col-md-6" id="quickview-content">
+                        <!-- Product details will be loaded here -->
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="#" class="btn btn-primary" id="quickview-view-details">View Details</a>
+                <button type="button" class="btn btn-success" id="quickview-add-to-cart" data-product-id="">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -441,6 +542,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize AOS Animation Library
         AOS.init({
+            // Disable animations on mobile for better performance
+            disable: window.innerWidth < 768,
             duration: 800,
             easing: 'ease-in-out',
             once: true,
@@ -458,6 +561,8 @@
             listView.classList.add('d-none');
             gridViewBtn.classList.add('active');
             listViewBtn.classList.remove('active');
+            // Refresh image loading when view changes
+            if (window.refreshImageLoading) window.refreshImageLoading();
         });
         
         listViewBtn.addEventListener('click', function() {
@@ -465,7 +570,38 @@
             listView.classList.remove('d-none');
             gridViewBtn.classList.remove('active');
             listViewBtn.classList.add('active');
+            // Refresh image loading when view changes
+            if (window.refreshImageLoading) window.refreshImageLoading();
         });
+        
+        // Mobile filter toggle
+        const mobileFilterBtn = document.getElementById('mobileFilterBtn');
+        const filterSection = document.getElementById('filter-section');
+        
+        if (mobileFilterBtn && filterSection) {
+            mobileFilterBtn.addEventListener('click', function() {
+                if (window.innerWidth < 768) {
+                    filterSection.classList.toggle('d-none');
+                    
+                    // Change button icon based on filter visibility
+                    const icon = this.querySelector('i');
+                    if (filterSection.classList.contains('d-none')) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-filter');
+                        this.setAttribute('aria-label', 'Show filters');
+                    } else {
+                        icon.classList.remove('fa-filter');
+                        icon.classList.add('fa-times');
+                        this.setAttribute('aria-label', 'Hide filters');
+                    }
+                }
+            });
+            
+            // Hide filters by default on mobile
+            if (window.innerWidth < 768) {
+                filterSection.classList.add('d-none');
+            }
+        }
         
         // Initialize sort order dropdown functionality
         const sortOrder = document.getElementById('sortOrder');
@@ -510,3 +646,12 @@
         });
     });
 </script>
+
+<!-- Add this script reference to the marketplace.php main file instead -->
+<!-- The additional_js variable is defined in the main marketplace.php file -->
+<?php
+// Add the search autocomplete JavaScript to additional_js if it doesn't already include it
+if (!isset($additional_js) || strpos($additional_js, 'search-autocomplete.js') === false) {
+    echo '<script src="public/js/search-autocomplete.js"></script>';
+}
+?>

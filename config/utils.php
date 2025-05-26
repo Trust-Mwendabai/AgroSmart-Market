@@ -53,44 +53,70 @@ function display_success($message) {
     return '<div class="alert alert-success">' . $message . '</div>';
 }
 
-// Function to upload image
-function upload_image($file, $target_dir = '../public/uploads/') {
-    // Create directory if it doesn't exist
-    if (!file_exists($target_dir)) {
-        mkdir($target_dir, 0777, true);
+// Include FileStorage class
+require_once dirname(__DIR__) . '/includes/FileStorage.php';
+
+// Load CDN configuration
+$cdn_config = require_once __DIR__ . '/cdn.php';
+
+// Function to upload image using the FileStorage class
+function upload_image($file, $target_dir = 'products', $custom_name = null) {
+    // Initialize the FileStorage class
+    static $fileStorage = null;
+    
+    if ($fileStorage === null) {
+        // Use the provider defined in configuration (defaults to local storage)
+        $fileStorage = new FileStorage();
     }
     
-    $target_file = $target_dir . basename($file["name"]);
-    $upload_ok = 1;
-    $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    // Upload the file using the FileStorage class
+    $result = $fileStorage->uploadFile($file, $target_dir, $custom_name);
     
-    // Check if image file is an actual image
-    $check = getimagesize($file["tmp_name"]);
-    if($check === false) {
-        return ["error" => "File is not an image."];
-    }
-    
-    // Check file size (limit to 5MB)
-    if ($file["size"] > 5000000) {
-        return ["error" => "Sorry, your file is too large."];
-    }
-    
-    // Allow certain file formats
-    if($image_file_type != "jpg" && $image_file_type != "png" && $image_file_type != "jpeg"
-    && $image_file_type != "gif" ) {
-        return ["error" => "Sorry, only JPG, JPEG, PNG & GIF files are allowed."];
-    }
-    
-    // Generate unique filename to prevent overwriting
-    $new_filename = uniqid() . '.' . $image_file_type;
-    $target_file = $target_dir . $new_filename;
-    
-    // Try to upload file
-    if (move_uploaded_file($file["tmp_name"], $target_file)) {
-        return ["success" => true, "filename" => $new_filename];
+    // Convert to the expected format for backward compatibility
+    if (isset($result['success'])) {
+        return [
+            "success" => true, 
+            "filename" => $result['filename'],
+            "url" => $result['url'],
+            "variants" => $result['variants'] ?? []
+        ];
     } else {
-        return ["error" => "Sorry, there was an error uploading your file."];
+        return ["error" => $result['error']];
     }
+}
+
+// Function to get asset URL (with CDN support)
+function asset_url($path) {
+    global $cdn_config;
+    
+    // Use the CDN URL helper function
+    return cdn_url($path);
+}
+
+// Function to get image URL with proper sizing
+function get_image_url($filename, $type = 'products', $size = 'medium') {
+    // Check if the filename contains size information
+    if (strpos($filename, '-' . $size) === false) {
+        // If not, create the sized filename
+        $pathinfo = pathinfo($filename);
+        $base = $pathinfo['filename'];
+        $ext = isset($pathinfo['extension']) ? '.' . $pathinfo['extension'] : '';
+        
+        // Check if sized version might exist
+        $sized_filename = $base . '-' . $size . $ext;
+        
+        // Check if the sized file exists, otherwise use original
+        $sized_path = dirname(__DIR__) . '/public/uploads/' . $type . '/' . $sized_filename;
+        if (file_exists($sized_path)) {
+            $filename = $sized_filename;
+        }
+    }
+    
+    // Build the URL path
+    $path = 'uploads/' . $type . '/' . $filename;
+    
+    // Use CDN if available
+    return asset_url($path);
 }
 
 // Generate CSRF token
