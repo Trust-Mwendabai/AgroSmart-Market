@@ -277,12 +277,11 @@
             </div>
         </div>
         
-        <div class="featured-products py-5">
-            <div class="container">
-                <div class="row">
-                    <?php if (!empty($latest_products)): ?>
-                        <?php foreach ($latest_products as $index => $product): ?>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 50; ?>">
+        <div class="py-4">
+            <div class="row g-4">
+                <?php if (!empty($latest_products)): ?>
+                    <?php foreach ($latest_products as $index => $product): ?>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="<?php echo $index * 50; ?>">
                                 <div class="card h-100 product-card border-0 shadow-sm">
                                     <!-- Product Image -->
                                     <div class="product-image-container" style="height: 200px; background: #f8f9fa; border-radius: 0.5rem 0.5rem 0 0; overflow: hidden; position: relative;">
@@ -377,25 +376,23 @@
                                     </style>
                                 </div>
                             </div>
-                            </div>
                         <?php endforeach; ?>
-                    <?php else: ?>
-                        <div class="col-12">
-                            <div class="alert alert-info shadow-sm border-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="alert-icon bg-info text-white me-3">
-                                        <i class="fas fa-info-circle"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="alert-heading mb-1">No products available yet!</h4>
-                                        <p class="mb-0">Check back soon as farmers add their fresh produce to our marketplace.</p>
-                                        <hr>
-                                        <p class="mb-0">Are you a farmer? <a href="auth.php?action=register" class="alert-link">Register now</a> to start selling your products!</p>
-                                    </div>
+                    </div>
+                <?php else: ?>
+                    <div class="col-12">
+                        <div class="alert alert-info shadow-sm border-0">
+                            <div class="d-flex align-items-center">
+                                <div class="alert-icon bg-info text-white me-3">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">No Products Available</h5>
+                                    <p class="mb-0">Check back later for new products.</p>
                                 </div>
                             </div>
                         </div>
-                    <?php endif; ?>
+                    </div>
+                <?php endif; ?>
                 </div>
             </div>
         </div>

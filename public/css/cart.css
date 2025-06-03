@@ -1,0 +1,72 @@
+/* Cart Dropdown Styles */
+.mini-cart-items {
+    max-height: 400px;
+    overflow-y: auto;
+    min-width: 320px;
+}
+
+/* Cart item styles */
+.mini-cart-item {
+    transition: background-color 0.2s ease;
+}
+
+.mini-cart-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Cart badge styles */
+.cart-count-badge {
+    font-size: 0.7em;
+    padding: 0.35em 0.65em;
+}
+
+/* Quantity controls */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-controls .btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.quantity-controls .form-control {
+    width: 50px;
+    text-align: center;
+    margin: 0 5px;
+}
+
+/* Toast notifications */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.toast.hide {
+    opacity: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .mini-cart-items {
+        max-height: 300px;
+    }
+    
+    .dropdown-menu.show {
+        position: absolute !important;
+        right: 0;
+        left: auto;
+    }
+}

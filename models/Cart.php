@@ -36,6 +36,16 @@ class Cart {
         return $_SESSION['cart'];
     }
     
+    // Get cart count
+    public function get_cart_count() {
+        return $_SESSION['cart']['total_quantity'] ?? 0;
+    }
+    
+    // Get cart total price
+    public function get_cart_total() {
+        return $_SESSION['cart']['total_price'] ?? 0.00;
+    }
+    
     // Get cart item details including product information
     public function get_cart_items_with_details() {
         $items = [];

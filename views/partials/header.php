@@ -66,6 +66,9 @@
     <!-- Modern Footer CSS -->
     <link rel="stylesheet" href="public/css/footer.css">
     
+    <!-- Cart CSS -->
+    <link rel="stylesheet" href="public/css/cart.css">
+    
     <!-- Additional Inline Styles -->
     <style>
         /* Any page-specific styles can go here */
@@ -210,23 +213,87 @@
                         </li>
                     <?php endif; ?>
                 </ul>
-                <!-- Shopping Cart -->
+                <!-- Shopping Cart Dropdown -->
                 <?php
-                // Initialize cart count
-                $cart_count = 0;
-                if (isset($_SESSION['cart']) && isset($_SESSION['cart']['total_quantity'])) {
-                    $cart_count = $_SESSION['cart']['total_quantity'];
-                }
+                // Initialize cart variables
+                $cart_count = $_SESSION['cart']['total_quantity'] ?? 0;
+                $cart_total = $_SESSION['cart']['total_price'] ?? 0;
+                $cart_items = $_SESSION['cart']['items'] ?? [];
                 ?>
-                <div class="d-flex align-items-center me-3">
-                    <a href="cart.php" class="btn btn-success position-relative <?php echo ($current_page == 'cart.php') ? 'active' : ''; ?>" title="Shopping Cart">
+                
+                <!-- Cart Dropdown -->
+                <div class="dropdown me-3">
+                    <button class="btn btn-success position-relative dropdown-toggle" type="button" id="cartDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-shopping-cart"></i>
                         <?php if ($cart_count > 0): ?>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark cart-count-badge">
                                 <?php echo $cart_count; ?>
                             </span>
                         <?php endif; ?>
-                    </a>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="cartDropdown" style="min-width: 320px;">
+                        <div class="mini-cart-items">
+                            <?php 
+                            $cart_items = [];
+                            $cart_total = 0;
+                            
+                            if (isset($_SESSION['cart']['items']) && !empty($_SESSION['cart']['items'])) {
+                                $cart_items = $_SESSION['cart']['items'];
+                                $cart_total = $_SESSION['cart']['total_price'] ?? 0;
+                                
+                                if (count($cart_items) > 0) {
+                                    $count = 0;
+                                    foreach (array_slice($cart_items, 0, 3) as $item) {
+                                        $count++;
+                                        ?>
+                                        <div class="p-3 border-bottom">
+                                            <div class="d-flex">
+                                                <div style="width: 60px; height: 60px; overflow: hidden;" class="me-3">
+                                                    <img src="<?php echo !empty($item['image']) ? 'public/uploads/' . $item['image'] : 'assets/img/placeholder-product.png'; ?>" 
+                                                         alt="<?php echo htmlspecialchars($item['name']); ?>" 
+                                                         class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-1"><?php echo htmlspecialchars($item['name']); ?></h6>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <small class="text-muted">Qty: <?php echo $item['quantity']; ?></small>
+                                                        <strong>K<?php echo number_format($item['price'] * $item['quantity'], 2); ?></strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                    
+                                    if (count($cart_items) > 3) {
+                                        ?>
+                                        <div class="p-2 text-center border-top">
+                                            <small class="text-muted">+<?php echo count($cart_items) - 3; ?> more item<?php echo (count($cart_items) - 3) > 1 ? 's' : ''; ?> in cart</small>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                    <div class="p-3 border-top bg-light">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <strong>Total:</strong>
+                                            <strong>K<?php echo number_format($cart_total, 2); ?></strong>
+                                        </div>
+                                        <a href="cart.php" class="btn btn-primary w-100 btn-sm">View Cart</a>
+                                    </div>
+                                    <?php
+                                }
+                            } else {
+                                ?>
+                                <div class="p-3 text-center">
+                                    <i class="fas fa-shopping-cart fa-2x text-muted mb-2"></i>
+                                    <p class="mb-0">Your cart is empty</p>
+                                    <a href="marketplace.php" class="btn btn-outline-primary btn-sm mt-2">Start Shopping</a>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
                 </div>
                 
                 <ul class="navbar-nav">

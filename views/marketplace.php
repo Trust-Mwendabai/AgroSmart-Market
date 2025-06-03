@@ -453,25 +453,29 @@
                     <?php foreach ($products as $index => $product): ?>
                         <div class="col" data-aos="fade-up" data-aos-duration="400">
                             <div class="card h-100 product-card position-relative">
-                                <!-- Product Image -->
-                                <div class="product-image-container" style="height: 200px; background: #f8f9fa; border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden;">
-                                    <img src="<?php echo htmlspecialchars($product['image']); ?>" 
-                                         alt="<?php echo htmlspecialchars($product['name']); ?>" 
-                                         class="product-image w-100 h-100" 
-                                         style="object-fit: cover; object-position: center;">
-                                    
-                                    <!-- Category Badge -->
-                                    <div class="position-absolute bottom-0 start-0 m-2">
-                                        <span class="badge bg-primary text-white">
-                                            <?php echo htmlspecialchars($product['category']); ?>
-                                        </span>
+                                <!-- Product Image with Link -->
+                                <a href="product_view.php?id=<?php echo $product['id']; ?>" class="text-decoration-none text-dark">
+                                    <div class="product-image-container" style="height: 200px; background: #f8f9fa; border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden; cursor: pointer;">
+                                        <img src="<?php echo htmlspecialchars($product['image']); ?>" 
+                                             alt="<?php echo htmlspecialchars($product['name']); ?>" 
+                                             class="product-image w-100 h-100" 
+                                             style="object-fit: cover; object-position: center;">
+                                        
+                                        <!-- Category Badge -->
+                                        <div class="position-absolute bottom-0 start-0 m-2">
+                                            <span class="badge bg-primary text-white">
+                                                <?php echo htmlspecialchars($product['category']); ?>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                                 
                                 <!-- Product Info -->
                                 <div class="product-card-body">
                                     <h5 class="product-title">
-                                        <?php echo htmlspecialchars($product['name']); ?>
+                                        <a href="product_view.php?id=<?php echo $product['id']; ?>" class="text-decoration-none text-dark">
+                                            <?php echo htmlspecialchars($product['name']); ?>
+                                        </a>
                                     </h5>
                                     
                                     <div class="product-price">
@@ -520,38 +524,23 @@
                         <div class="col-12" data-aos="fade-up" data-aos-duration="400">
                             <div class="card product-card border-0 shadow-sm rounded-3 h-100">
                                 <div class="row g-0 h-100">
-                                    <!-- Product Image -->
+                                    <!-- Product Image with Link -->
                                     <div class="col-md-3">
-                                        <div class="d-flex justify-content-between align-items-start mb-2">
-                                            <h5 class="mb-0 fw-bold text-truncate" style="max-width: 70%;">
-                                                <?php echo htmlspecialchars($product['name']); ?>
-                                            </h5>
-                                            <div class="text-end">
-                                                <?php if (isset($product['original_price']) && $product['original_price'] > $product['price']): ?>
-                                                    <small class="text-decoration-line-through text-muted d-block">K<?php echo number_format($product['original_price'], 2); ?></small>
-                                                <?php endif; ?>
-                                                <span class="text-primary fw-bold">K<?php echo number_format($product['price'], 2); ?></span>
-                                                <?php if (!empty($product['unit'])): ?>
-                                                    <small class="text-muted d-block">/<?php echo htmlspecialchars($product['unit']); ?></small>
+                                        <a href="product_view.php?id=<?php echo $product['id']; ?>" class="text-decoration-none text-dark">
+                                            <div class="product-image-container" style="height: 200px; background: #f8f9fa; position: relative; overflow: hidden;">
+                                                <img src="<?php echo htmlspecialchars($product['image']); ?>" 
+                                                     alt="<?php echo htmlspecialchars($product['name']); ?>" 
+                                                     class="w-100 h-100" 
+                                                     style="object-fit: cover;">
+                                                <?php if (isset($product['is_organic']) && $product['is_organic']): ?>
+                                                    <div class="position-absolute top-0 end-0 m-2">
+                                                        <span class="badge bg-success">
+                                                            <i class="fas fa-leaf me-1"></i> Organic
+                                                        </span>
+                                                    </div>
                                                 <?php endif; ?>
                                             </div>
-                                        </div>
-                                        <div class="product-image-container h-100">
-                                            <?php 
-                                            // Product image display logic similar to main products
-                                            if (!empty($product['image']) && file_exists('public/uploads/products/' . $product['image'])): 
-                                            ?>
-                                            <img src="<?php echo htmlspecialchars($product['image']); ?>" 
-                                                 alt="<?php echo htmlspecialchars($product['name']); ?>" 
-                                                 class="product-image">
-                                            
-                                            <?php if (isset($product['is_organic']) && $product['is_organic']): ?>
-                                                <div class="product-badge organic-badge">
-                                                    <i class="fas fa-leaf me-1"></i> Organic
-                                                </div>
-                                            <?php endif; ?>
-                                            <?php endif; // Close the file_exists condition ?>
-                                        </div>
+                                        </a>
                                     </div>
                                     
                                     <!-- Product Info -->
@@ -581,9 +570,11 @@
                                             <?php endif; ?>
                                             
                                             <div class="mb-2">
-                                                <h5 class="product-title h6 fw-bold mb-1">
+                                                <h5 class="mb-2 fw-bold">
+                                                <a href="product_view.php?id=<?php echo $product['id']; ?>" class="text-decoration-none text-dark">
                                                     <?php echo htmlspecialchars($product['name']); ?>
-                                                </h5>
+                                                </a>
+                                            </h5>
                                                 <div class="product-badge category-badge d-inline-block mb-2">
                                                     <?php echo htmlspecialchars($product['category']); ?>
                                                 </div>
