@@ -1,108 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $product['name']; ?> - AgroSmart Market</title>
+<?php 
+// Set page title
+$page_title = htmlspecialchars($product['name']) . ' - AgroSmart Market';
+
+// Include header
+require_once __DIR__ . '/../partials/header.php';
+?>
+
+<style>
+    .product-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
     
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    .badge-category {
+        background-color: var(--bs-warning);
+        color: var(--bs-dark);
+    }
     
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    .product-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
     
-    <style>
-        :root {
-            --primary-color: #4CAF50;
-            --secondary-color: #FFC107;
-            --dark-color: #333;
-            --light-color: #f4f4f4;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-color);
-        }
-        
-        .navbar {
-            background-color: var(--primary-color);
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-        
-        .badge-category {
-            background-color: var(--secondary-color);
-            color: var(--dark-color);
-        }
-    </style>
-</head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="../index.php">
-                <i class="fas fa-leaf me-2"></i>AgroSmart Market
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../marketplace.php">Marketplace</a>
-                    </li>
-                    <?php if (is_logged_in() && is_farmer()): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="product.php">My Products</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (is_logged_in()): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="order.php">Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="message.php">Messages</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-                <ul class="navbar-nav">
-                    <?php if (is_logged_in()): ?>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user-circle me-1"></i><?php echo $_SESSION['user_name']; ?>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="../dashboard.php">Dashboard</a></li>
-                                <li><a class="dropdown-item" href="../profile.php">My Profile</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="auth.php?action=logout">Logout</a></li>
-                            </ul>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="auth.php?action=login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="auth.php?action=register">Register</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .seller-info {
+        border-left: 3px solid var(--bs-success);
+        padding-left: 15px;
+    }
+</style>
 
     <!-- Main Content -->
     <div class="container py-4">
@@ -123,9 +53,27 @@
             <!-- Product Image -->
             <div class="col-md-5 mb-4">
                 <?php if (!empty($product['image'])): ?>
-                    <img src="../public/uploads/<?php echo $product['image']; ?>" class="product-image" alt="<?php echo $product['name']; ?>">
+                    <?php 
+                    // Check if the image path is already a full URL
+                    if (filter_var($product['image'], FILTER_VALIDATE_URL)) {
+                        $image_src = $product['image'];
+                    } 
+                    // Check if the path starts with 'public/uploads/'
+                    else if (strpos($product['image'], 'public/uploads/') === 0) {
+                        $image_src = '../' . $product['image'];
+                    }
+                    // Check if it's just a filename
+                    else if (strpos($product['image'], '/') === false) {
+                        $image_src = '../public/uploads/' . $product['image'];
+                    }
+                    // Use as is for any other cases
+                    else {
+                        $image_src = $product['image'];
+                    }
+                    ?>
+                    <img src="<?php echo $image_src; ?>" class="product-image" alt="<?php echo htmlspecialchars($product['name']); ?>">
                 <?php else: ?>
-                    <img src="../images/<?php echo strtolower(str_replace(' ', '_', $product['category'])); ?>.jpg" class="product-image" alt="<?php echo $product['name']; ?>" onerror="this.src='../images/default-product.jpg'">
+                    <img src="../public/images/<?php echo strtolower(str_replace(' ', '_', $product['category'])); ?>.jpg" class="product-image" alt="<?php echo htmlspecialchars($product['name']); ?>" onerror="this.onerror=null; this.src='../public/images/default-product.jpg'">
                 <?php endif; ?>
             </div>
             
@@ -242,9 +190,27 @@
                         <div class="col-md-3 mb-4">
                             <div class="card h-100">
                                 <?php if (!empty($similar_product['image'])): ?>
-                                    <img src="../public/uploads/<?php echo $similar_product['image']; ?>" class="card-img-top" style="height: 180px; object-fit: cover;" alt="<?php echo $similar_product['name']; ?>">
+                                    <?php 
+                                    // Check if the image path is already a full URL
+                                    if (filter_var($similar_product['image'], FILTER_VALIDATE_URL)) {
+                                        $image_src = $similar_product['image'];
+                                    } 
+                                    // Check if the path starts with 'public/uploads/'
+                                    else if (strpos($similar_product['image'], 'public/uploads/') === 0) {
+                                        $image_src = '../' . $similar_product['image'];
+                                    }
+                                    // Check if it's just a filename
+                                    else if (strpos($similar_product['image'], '/') === false) {
+                                        $image_src = '../public/uploads/' . $similar_product['image'];
+                                    }
+                                    // Use as is for any other cases
+                                    else {
+                                        $image_src = $similar_product['image'];
+                                    }
+                                    ?>
+                                    <img src="<?php echo $image_src; ?>" class="card-img-top" style="height: 180px; object-fit: cover;" alt="<?php echo htmlspecialchars($similar_product['name']); ?>">
                                 <?php else: ?>
-                                    <img src="../images/<?php echo strtolower(str_replace(' ', '_', $similar_product['category'])); ?>.jpg" class="card-img-top" style="height: 180px; object-fit: cover;" alt="<?php echo $similar_product['name']; ?>" onerror="this.src='../images/default-product.jpg'">
+                                    <img src="../public/images/<?php echo strtolower(str_replace(' ', '_', $similar_product['category'])); ?>.jpg" class="card-img-top" style="height: 180px; object-fit: cover;" alt="<?php echo htmlspecialchars($similar_product['name']); ?>" onerror="this.onerror=null; this.src='../public/images/default-product.jpg'">
                                 <?php endif; ?>
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $similar_product['name']; ?></h5>
@@ -269,22 +235,7 @@
         </div>
     </div>
     
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5><i class="fas fa-leaf me-2"></i>AgroSmart Market</h5>
-                    <p class="small">Connecting farmers directly with buyers</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="small">&copy; <?php echo date('Y'); ?> AgroSmart Market. All rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-    <!-- Bootstrap JS with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php
+// Include footer
+require_once __DIR__ . '/../../views/partials/footer.php';
+?>

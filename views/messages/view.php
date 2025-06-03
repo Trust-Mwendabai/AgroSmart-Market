@@ -351,7 +351,22 @@ include_once dirname(__DIR__) . '/../views/partials/header.php';
         </div>
     </div>
 
-<?php
-// Include footer
-include_once dirname(__DIR__) . '/../views/partials/footer.php';
-?>
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-leaf me-2"></i>AgroSmart Market</h5>
+                    <p class="small">Connecting farmers directly with buyers</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="small">&copy; <?php echo date('Y'); ?> AgroSmart Market. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

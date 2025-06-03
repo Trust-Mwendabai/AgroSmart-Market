@@ -423,7 +423,7 @@
                                         <span class="badge bg-light text-dark">
                                             <i class="far fa-calendar-alt me-1"></i>
                                             <?php 
-                                                $date = new DateTime($user['date_registered']);
+                                                $date = new DateTime($user['date_joined']);
                                                 echo $date->format('M d, Y'); 
                                             ?>
                                         </span>

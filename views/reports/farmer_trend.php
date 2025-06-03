@@ -28,8 +28,8 @@
         </div>
         
         <!-- Main Chart -->
-        <div class="chart-container" style="position: relative; height:400px;">
-            <canvas id="salesTrendChart"></canvas>
+        <div class="chart-container" style="position: relative; height:400px; overflow-x:auto;">
+            <canvas id="salesTrendChart" style="min-width:600px;"></canvas>
         </div>
         
         <script>

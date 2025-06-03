@@ -33,29 +33,34 @@ if ($result) {
     $stats['total_revenue'] = $row['total'] ?: 0;
 }
 
-// Get revenue by stream
-$query = "SELECT stream_type, SUM(amount) as total FROM revenue_transactions GROUP BY stream_type";
-$result = mysqli_query($conn, $query);
-if ($result) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        switch ($row['stream_type']) {
-            case 'commission':
-                $stats['revenue_streams']['commissions'] = $row['total'];
-                break;
-            case 'ad':
-                $stats['revenue_streams']['ads'] = $row['total'];
-                break;
-            case 'premium_listing':
-                $stats['revenue_streams']['premium_listings'] = $row['total'];
-                break;
-            case 'transport_fee':
-                $stats['revenue_streams']['transport_fees'] = $row['total'];
-                break;
-            case 'subscription':
-                $stats['revenue_streams']['subscriptions'] = $row['total'];
-                break;
+// Get revenue by stream (with error handling)
+try {
+    $query = "SELECT transaction_type, SUM(amount) as total FROM revenue_transactions GROUP BY transaction_type";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            switch ($row['transaction_type']) {
+                case 'commission':
+                    $stats['revenue_streams']['commissions'] = $row['total'];
+                    break;
+                case 'ad':
+                    $stats['revenue_streams']['ads'] = $row['total'];
+                    break;
+                case 'premium_listing':
+                    $stats['revenue_streams']['premium_listings'] = $row['total'];
+                    break;
+                case 'transport_fee':
+                    $stats['revenue_streams']['transport_fees'] = $row['total'];
+                    break;
+                case 'subscription':
+                    $stats['revenue_streams']['subscriptions'] = $row['total'];
+                    break;
+            }
         }
     }
+} catch (Exception $e) {
+    // Table might not exist, just leave the default values
+    error_log('Revenue streams query failed: ' . $e->getMessage());
 }
 
 // Get monthly revenue for the current year

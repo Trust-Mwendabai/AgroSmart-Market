@@ -72,8 +72,28 @@ document.addEventListener('DOMContentLoaded', function() {
             method: 'POST',
             body: formData
         })
-        .then(response => response.text())
-        .then(() => {
+        .then(response => response.json())
+        .then((data) => {
+            // Update cart counter in header
+            if (data.cart_count) {
+                // Find and update the cart counter badge
+                const cartBadge = document.querySelector('.fa-shopping-cart').nextElementSibling;
+                if (cartBadge && cartBadge.classList.contains('badge')) {
+                    cartBadge.textContent = data.cart_count;
+                    cartBadge.style.display = 'inline';
+                } else {
+                    // Create new badge if it doesn't exist
+                    const cartIcon = document.querySelector('.fa-shopping-cart');
+                    if (cartIcon) {
+                        const newBadge = document.createElement('span');
+                        newBadge.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark';
+                        newBadge.textContent = data.cart_count;
+                        cartIcon.parentElement.classList.add('position-relative');
+                        cartIcon.parentElement.appendChild(newBadge);
+                    }
+                }
+            }
+            
             // Show success message
             const alertHtml = `
                 <div class="alert alert-success alert-dismissible fade show position-fixed" 

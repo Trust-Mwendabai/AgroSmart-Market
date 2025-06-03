@@ -19,12 +19,12 @@
         
         <div class="row align-items-center">
             <div class="col-lg-7">
-                <span class="badge bg-light text-dark mb-2">Fresh Local Produce</span>
-                <h1 class="display-4 fw-bold mb-2">Farm to Table Marketplace</h1>
-                <p class="lead mb-4 opacity-75">Connect directly with local farmers for fresh, quality produce</p>
+                <span class="badge bg-white text-primary mb-2">Fresh Local Produce</span>
+                <h1 class="display-4 fw-bold mb-2 text-white">Farm to Table Marketplace</h1>
+                <p class="lead mb-4 text-white-75">Connect directly with local farmers for fresh, quality produce</p>
                 <nav aria-label="breadcrumb" class="mb-3">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="index.php" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item"><a href="index.php" class="text-white-75">Home</a></li>
                         <li class="breadcrumb-item active text-white" aria-current="page">Marketplace</li>
                     </ol>
                 </nav>
@@ -43,11 +43,229 @@
     </div>
 </div>
 
-<div class="container py-5">
+<style>
+/* Base Styles */
+:root {
+    --primary-color: #28a745;
+    --primary-hover: #218838;
+    --secondary-color: #6c757d;
+    --light-gray: #f8f9fa;
+    --border-color: #e9ecef;
+    --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.03);
+    --transition: all 0.3s ease-in-out;
+}
+
+/* Header and General Styling */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #1e7e34 0%, #28a745 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Cards and Containers */
+.card {
+    border: none;
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.075) !important;
+}
+
+/* Product Cards */
+.product-card {
+    border: 1px solid var(--border-color) !important;
+    transition: var(--transition);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+}
+
+.product-image-container {
+    position: relative;
+    overflow: hidden;
+    background: #f8f9fa;
+    transition: var(--transition);
+    height: 200px; /* Fixed height for all images */
+}
+
+.product-image-container img {
+    transition: transform 0.3s ease;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-position: center;
+}
+
+/* Ensure consistent card body height */
+.product-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+}
+
+.product-actions {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.product-card:hover .product-image-container img {
+    transform: scale(1.05);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    border-radius: 0.25rem;
+}
+
+.badge.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+/* Pagination */
+.pagination .page-link {
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    margin: 0 3px;
+    border-radius: 4px !important;
+    min-width: 38px;
+    text-align: center;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Filter Sidebar */
+.sticky-sidebar {
+    position: sticky;
+    top: 20px;
+    z-index: 1000;
+    background: white;
+}
+
+/* Form Controls */
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) {
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .sticky-sidebar {
+        position: static;
+        margin-bottom: 1.5rem;
+    }
+    
+    .product-image-container {
+        height: 180px !important;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.product-card {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+}
+
+.text-white-75 {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.breadcrumb-item a {
+    color: rgba(255, 255, 255, 0.85) !important;
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    color: #ffffff !important;
+}
+
+.breadcrumb-item.active {
+    color: #ffffff !important;
+}
+
+.badge.bg-white {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+</style>
+
+<div class="container py-4">
     <!-- Featured Categories -->
     <section class="mb-5" data-aos="fade-up">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold">Categories</h2>
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold mb-3 mb-md-0">Shop by Category</h2>
+            <a href="categories.php" class="btn btn-outline-primary btn-sm">View All Categories <i class="fas fa-arrow-right ms-1"></i></a>
             <a href="#filter-section" class="text-decoration-none">View All <i class="fas fa-arrow-right ms-1"></i></a>
         </div>
         <div class="row g-4">
@@ -109,13 +327,13 @@
         </div>
     </section>
     
-    <div class="row" id="main-content">
+    <div class="row g-4" id="main-content">
         <!-- Filter Sidebar - Simplified and Modern Design -->
-        <div class="col-lg-3 mb-4" id="filter-section" data-aos="fade-right">
+        <div class="col-lg-3" id="filter-section" data-aos="fade-right">
             <div class="card border-0 shadow-sm rounded-3 sticky-sidebar">
-                <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 fw-bold"><i class="fas fa-filter me-2 text-primary"></i>Filter Products</h5>
-                    <a href="marketplace.php" class="text-decoration-none text-muted small">Reset</a>
+                <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center py-3">
+                    <h5 class="mb-0 fw-bold fs-6"><i class="fas fa-filter me-2 text-primary"></i>Filter Products</h5>
+                    <a href="marketplace.php" class="text-decoration-none text-muted small"><i class="fas fa-sync-alt me-1"></i> Reset</a>
                 </div>
                 <div class="card-body">
                     <form action="marketplace.php" method="get" id="search-form">
@@ -159,7 +377,9 @@
                             <div class="row g-2">
                                 <div class="col-6">
                                     <div class="input-group input-group-sm">
-                                        <span class="input-group-text">Min</span>
+                                        <span class="badge bg-primary d-inline-flex align-items-center">
+                                            <i class="fas fa-leaf me-1"></i> Organic
+                                        </span>
                                         <input type="number" name="min_price" class="form-control" 
                                                value="<?php echo $current_min; ?>" 
                                                min="<?php echo $min_price; ?>">
@@ -194,17 +414,13 @@
                 </div>
             </div>
         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         
         <!-- Products Grid -->
         <div class="col-lg-9" id="products-section">
-            <!-- Sort Options -->
-            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4" data-aos="fade-up">
-                <div class="mb-3 mb-md-0">
-                    <h4 class="fw-bold mb-0">
+            <!-- Sort and View Options -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 bg-white p-3 rounded-3 shadow-sm" data-aos="fade-up">
+                <div class="d-flex align-items-center mb-2 mb-md-0">
+                    <h4 class="fw-bold mb-0 fs-5 me-3">
                         <span class="text-primary"><?php echo count($products); ?></span> Products Found
                         <?php if (isset($_GET['search']) && !empty($_GET['search'])): ?>
                             <span class="fs-5 text-muted">for "<?php echo htmlspecialchars($_GET['search']); ?>"</span>
@@ -218,7 +434,6 @@
                             <option value="newest" <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'newest') ? 'selected' : ''; ?>>Newest First</option>
                             <option value="price_low" <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price_low') ? 'selected' : ''; ?>>Price: Low to High</option>
                             <option value="price_high" <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price_high') ? 'selected' : ''; ?>>Price: High to Low</option>
-                            <option value="popularity" <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'popularity') ? 'selected' : ''; ?>>Popularity</option>
                         </select>
                     </div>
                     <div class="btn-group shadow-sm" role="group" aria-label="View options">
@@ -229,128 +444,69 @@
                             <i class="fas fa-list"></i>
                         </button>
                     </div>
-                    <!-- Mobile filter toggle button -->
-                    <button type="button" class="btn btn-outline-primary d-md-none ms-2" id="mobileFilterBtn">
-                        <i class="fas fa-filter"></i>
-                    </button>
                 </div>
             </div>
             
             <?php if (!empty($products)): ?>
                 <!-- Grid View (Default) -->
-                <div class="row g-4" id="gridView">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="gridView">
                     <?php foreach ($products as $index => $product): ?>
-                        <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="400">
-                            <div class="card h-100 product-card border-0 shadow-sm rounded-3 position-relative">
-                                <!-- Category Badge -->
-                                <?php 
-                                // Different icons based on product category
-                                $icon = 'fa-seedling';
-                                $color = 'success';
-                                $bgColor = 'rgba(25, 135, 84, 0.1)';
-                                $textColor = '#198754';
-                                
-                                // Set icon and color based on category
-                                switch(strtolower($product['category'])) {
-                                    case 'vegetables':
-                                        $icon = 'fa-carrot';
-                                        $color = 'success';
-                                        $bgColor = 'rgba(25, 135, 84, 0.1)';
-                                        $textColor = '#198754';
-                                        break;
-                                    case 'fruits':
-                                        $icon = 'fa-apple-alt';
-                                        $color = 'danger';
-                                        $bgColor = 'rgba(220, 53, 69, 0.1)';
-                                        $textColor = '#dc3545';
-                                        break;
-                                    case 'grains':
-                                        $icon = 'fa-wheat-awn';
-                                        $color = 'warning';
-                                        $bgColor = 'rgba(255, 193, 7, 0.1)';
-                                        $textColor = '#ffc107';
-                                        break;
-                                    case 'dairy':
-                                    case 'dairy & eggs':
-                                        $icon = 'fa-egg';
-                                        $color = 'info';
-                                        $bgColor = 'rgba(13, 202, 240, 0.1)';
-                                        $textColor = '#0dcaf0';
-                                        break;
-                                    case 'meat':
-                                    case 'poultry':
-                                        $icon = 'fa-drumstick-bite';
-                                        $color = 'danger';
-                                        $bgColor = 'rgba(220, 53, 69, 0.1)';
-                                        $textColor = '#dc3545';
-                                        break;
-                                    default:
-                                        $icon = 'fa-seedling';
-                                        $color = 'success';
-                                        $bgColor = 'rgba(25, 135, 84, 0.1)';
-                                        $textColor = '#198754';
-                                }
-                                ?>
-                                <div class="position-absolute top-0 start-0 m-3 z-1">
-                                    <span class="badge rounded-pill px-3 py-2" style="background-color: <?php echo $bgColor; ?>; color: <?php echo $textColor; ?>">
-                                        <i class="fas <?php echo $icon; ?> me-1"></i> <?php echo htmlspecialchars($product['category']); ?>
-                                    </span>
-                                </div>
-                                
-                                <!-- Product Status Badge -->
-                                <?php if ($product['stock'] <= 5 && $product['stock'] > 0): ?>
-                                    <div class="position-absolute top-0 end-0 m-3 z-1">
-                                        <span class="badge bg-warning text-dark">Limited Stock</span>
-                                    </div>
-                                <?php elseif ($product['stock'] <= 0): ?>
-                                    <div class="position-absolute top-0 end-0 m-3 z-1">
-                                        <span class="badge bg-danger">Out of Stock</span>
-                                    </div>
-                                <?php elseif (strtotime($product['date_added']) > strtotime('-7 days')): ?>
-                                    <div class="position-absolute top-0 end-0 m-3 z-1">
-                                        <span class="badge bg-success">New</span>
-                                    </div>
-                                <?php endif; ?>
-                                
+                        <div class="col" data-aos="fade-up" data-aos-duration="400">
+                            <div class="card h-100 product-card position-relative">
                                 <!-- Product Image -->
-                                <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 180px; background-color: <?php echo $bgColor; ?>">
-                                    <i class="fas <?php echo $icon; ?> fa-4x" style="color: <?php echo $textColor; ?>"></i>
+                                <div class="product-image-container" style="height: 200px; background: #f8f9fa; border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden;">
+                                    <img src="<?php echo htmlspecialchars($product['image']); ?>" 
+                                         alt="<?php echo htmlspecialchars($product['name']); ?>" 
+                                         class="product-image w-100 h-100" 
+                                         style="object-fit: cover; object-position: center;">
+                                    
+                                    <!-- Category Badge -->
+                                    <div class="position-absolute bottom-0 start-0 m-2">
+                                        <span class="badge bg-primary text-white">
+                                            <?php echo htmlspecialchars($product['category']); ?>
+                                        </span>
+                                    </div>
                                 </div>
                                 
-                                <div class="card-body d-flex flex-column p-4">
-                                    <!-- Product Title -->
-                                    <h5 class="card-title fw-bold mb-1"><?php echo htmlspecialchars($product['name']); ?></h5>
+                                <!-- Product Info -->
+                                <div class="product-card-body">
+                                    <h5 class="product-title">
+                                        <?php echo htmlspecialchars($product['name']); ?>
+                                    </h5>
                                     
-                                    <!-- Farmer Info -->
-                                    <div class="mb-2">
-                                        <small class="text-muted">By <span class="text-primary"><?php echo htmlspecialchars($product['farmer_name']); ?></span></small>
+                                    <div class="product-price">
+                                        K<?php echo number_format($product['price'], 2); ?>
                                     </div>
                                     
-                                    <!-- Description -->
-                                    <p class="card-text text-muted mb-3"><?php echo substr(htmlspecialchars($product['description']), 0, 80) . (strlen($product['description']) > 80 ? '...' : ''); ?></p>
+                                    <div class="product-meta">
+                                        <span>
+                                            <i class="fas fa-box me-1"></i>
+                                            <?php echo $product['stock']; ?> in stock
+                                        </span>
+                                        <span>
+                                            <i class="fas fa-store me-1"></i>
+                                            <?php echo htmlspecialchars($product['farmer_name']); ?>
+                                        </span>
+                                    </div>
                                     
-                                    <!-- Spacer to push the price and button to the bottom -->
-                                    <div class="mt-auto">
-                                        <!-- Price -->
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <h4 class="mb-0 fw-bold text-primary">$<?php echo number_format($product['price'], 2); ?></h4>
-                                            <a href="product.php?id=<?php echo $product['id']; ?>" class="btn btn-sm btn-outline-secondary rounded-circle" title="View Details">
-                                                <i class="fas fa-info"></i>
-                                            </a>
-                                        </div>
-                                        
-                                        <!-- Action Button -->
-                                        <div class="d-grid">
-                                            <?php if ($product['stock'] > 0): ?>
-                                                <a href="cart.php?add=<?php echo $product['id']; ?>" class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-2"></i>Add to Cart
-                                                </a>
-                                            <?php else: ?>
-                                                <button class="btn btn-secondary" disabled>
-                                                    <i class="fas fa-exclamation-circle me-2"></i>Out of Stock
-                                                </button>
-                                            <?php endif; ?>
-                                        </div>
+                                    <p class="product-description">
+                                        <?php echo htmlspecialchars($product['description']); ?>
+                                    </p>
+                                    
+                                    <div class="product-actions">
+                                        <form action="cart.php" method="POST" class="d-inline">
+                                            <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
+                                            <input type="hidden" name="action" value="add">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button class="btn btn-sm btn-primary flex-grow-1" onclick="addToCart(<?php echo $product['id']; ?>, 1)" <?php echo $product['stock'] <= 0 ? 'disabled' : ''; ?>>
+                                                <i class="fas fa-<?php echo $product['stock'] > 0 ? 'shopping-cart' : 'times'; ?> me-1"></i> 
+                                                <?php echo $product['stock'] > 0 ? 'Add to Cart' : 'Out of Stock'; ?>
+                                            </button>
+                                        </form>
+                                        <button class="btn btn-favorite" title="Add to Wishlist">
+                                            <i class="far fa-heart"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -359,55 +515,112 @@
                 </div>
                 
                 <!-- List View (Hidden by default) -->
-                <div class="d-none" id="listView">
+                <div class="row g-4 d-none" id="listView">
                     <?php foreach ($products as $product): ?>
-                        <div class="card mb-3">
-                            <div class="row g-0">
-                                <div class="col-md-3">
-                                    <?php if (!empty($product['image'])): ?>
-                                        <img src="public/uploads/<?php echo $product['image']; ?>" class="img-fluid rounded-start h-100 w-100 object-fit-cover" alt="<?php echo $product['name']; ?>">
-                                    <?php else: ?>
-                                        <img src="images/<?php echo strtolower(str_replace(' ', '_', $product['category'])); ?>.jpg" class="img-fluid rounded-start h-100 w-100 object-fit-cover" alt="<?php echo $product['name']; ?>" onerror="this.src='images/default-product.jpg'">
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <h5 class="card-title"><?php echo $product['name']; ?></h5>
-                                            <span class="fw-bold text-primary"><?php echo format_price($product['price']); ?></span>
+                        <div class="col-12" data-aos="fade-up" data-aos-duration="400">
+                            <div class="card product-card border-0 shadow-sm rounded-3 h-100">
+                                <div class="row g-0 h-100">
+                                    <!-- Product Image -->
+                                    <div class="col-md-3">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="mb-0 fw-bold text-truncate" style="max-width: 70%;">
+                                                <?php echo htmlspecialchars($product['name']); ?>
+                                            </h5>
+                                            <div class="text-end">
+                                                <?php if (isset($product['original_price']) && $product['original_price'] > $product['price']): ?>
+                                                    <small class="text-decoration-line-through text-muted d-block">K<?php echo number_format($product['original_price'], 2); ?></small>
+                                                <?php endif; ?>
+                                                <span class="text-primary fw-bold">K<?php echo number_format($product['price'], 2); ?></span>
+                                                <?php if (!empty($product['unit'])): ?>
+                                                    <small class="text-muted d-block">/<?php echo htmlspecialchars($product['unit']); ?></small>
+                                                <?php endif; ?>
+                                            </div>
                                         </div>
-                                        <p class="card-text"><?php echo substr($product['description'], 0, 150) . (strlen($product['description']) > 150 ? '...' : ''); ?></p>
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <div class="fw-bold price-display">
-                                            ZMW <?php echo number_format($product['price'], 2); ?>
-                                        </div>
-                                        <div class="product-rating">
+                                        <div class="product-image-container h-100">
                                             <?php 
-                                            // Display ratings if they exist
-                                            $avg_rating = isset($product['avg_rating']) ? floatval($product['avg_rating']) : 0;
-                                            $review_count = isset($product['review_count']) ? intval($product['review_count']) : 0;
-                                            
-                                            // Star rating display
-                                            echo '<div class="rating-stars" title="' . number_format($avg_rating, 1) . ' out of 5 stars">';
-                                            for ($i = 1; $i <= 5; $i++) {
-                                                if ($i <= $avg_rating) {
-                                                    echo '<i class="fas fa-star text-warning"></i>';
-                                                } elseif ($i <= $avg_rating + 0.5) {
-                                                    echo '<i class="fas fa-star-half-alt text-warning"></i>';
-                                                } else {
-                                                    echo '<i class="far fa-star text-warning"></i>';
-                                                }
-                                            }
-                                            echo '</div>';
-                                            
-                                            // Display review count if any
-                                            if ($review_count > 0) {
-                                                echo '<small class="text-muted ms-2">(' . $review_count . ')</small>';
-                                            }
+                                            // Product image display logic similar to main products
+                                            if (!empty($product['image']) && file_exists('public/uploads/products/' . $product['image'])): 
                                             ?>
+                                            <img src="<?php echo htmlspecialchars($product['image']); ?>" 
+                                                 alt="<?php echo htmlspecialchars($product['name']); ?>" 
+                                                 class="product-image">
+                                            
+                                            <?php if (isset($product['is_organic']) && $product['is_organic']): ?>
+                                                <div class="product-badge organic-badge">
+                                                    <i class="fas fa-leaf me-1"></i> Organic
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php endif; // Close the file_exists condition ?>
                                         </div>
                                     </div>
-                                    <a href="controllers/product.php?action=view&id=<?php echo $product['id']; ?>" class="btn btn-sm btn-primary">View Details</a>
+                                    
+                                    <!-- Product Info -->
+                                    <div class="col-md-9">
+                                        <div class="product-card-body h-100 d-flex flex-column p-3">
+                                            <?php if (isset($product['rating'])): ?>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <div class="star-rating me-2">
+                                                    <?php
+                                                    $fullStars = floor($product['rating']);
+                                                    $hasHalfStar = $product['rating'] - $fullStars >= 0.5;
+                                                    $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                                    
+                                                    for ($i = 0; $i < $fullStars; $i++) {
+                                                        echo '<i class="fas fa-star text-warning"></i>';
+                                                    }
+                                                    if ($hasHalfStar) {
+                                                        echo '<i class="fas fa-star-half-alt text-warning"></i>';
+                                                    }
+                                                    for ($i = 0; $i < $emptyStars; $i++) {
+                                                        echo '<i class="far fa-star text-warning"></i>';
+                                                    }
+                                                    ?>
+                                                </div>
+                                                <small class="text-muted">(<?php echo isset($product['review_count']) ? $product['review_count'] : 0; ?>)</small>
+                                            </div>
+                                            <?php endif; ?>
+                                            
+                                            <div class="mb-2">
+                                                <h5 class="product-title h6 fw-bold mb-1">
+                                                    <?php echo htmlspecialchars($product['name']); ?>
+                                                </h5>
+                                                <div class="product-badge category-badge d-inline-block mb-2">
+                                                    <?php echo htmlspecialchars($product['category']); ?>
+                                                </div>
+                                            </div>
+                                            
+                                            <p class="text-muted small mb-3 flex-grow-1">
+                                                <?php echo htmlspecialchars(mb_substr($product['description'], 0, 150)) . (mb_strlen($product['description']) > 150 ? '...' : ''); ?>
+                                            </p>
+                                            
+                                            <div class="mt-auto pt-2 border-top">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <?php if (isset($product['original_price']) && $product['original_price'] > $product['price']): ?>
+                                                            <small class="text-decoration-line-through text-muted d-block">K<?php echo number_format($product['original_price'], 2); ?></small>
+                                                        <?php endif; ?>
+                                                        <span class="text-primary fw-bold">K<?php echo number_format($product['price'], 2); ?></span>
+                                                        <?php if (isset($product['unit']) && $product['unit']): ?>
+                                                            <small class="text-muted">/<?php echo htmlspecialchars($product['unit']); ?></small>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    <div class="d-flex gap-2">
+                                                        <a href="product-details.php?id=<?php echo $product['id']; ?>" class="btn btn-sm btn-outline-primary">
+                                                            <i class="fas fa-eye me-1"></i> View
+                                                        </a>
+                                                        <form action="cart.php" method="POST" class="d-inline">
+                                                            <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
+                                                            <input type="hidden" name="action" value="add">
+                                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                                            <input type="hidden" name="quantity" value="1">
+                                                            <button type="submit" class="btn btn-sm btn-primary" <?php echo $product['stock'] <= 0 ? 'disabled' : ''; ?>>
+                                                                <i class="fas fa-<?php echo $product['stock'] > 0 ? 'shopping-cart' : 'times'; ?> me-1"></i> 
+                                                                <?php echo $product['stock'] > 0 ? 'Add to Cart' : 'Out of Stock'; ?>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -417,8 +630,8 @@
                 </div>
                 
                 <!-- Pagination -->
-                <nav aria-label="Product pagination" class="mt-4">
-                    <ul class="pagination justify-content-center">
+                <nav aria-label="Product pagination" class="mt-5 pt-3">
+                    <ul class="pagination justify-content-center flex-wrap">
                         <li class="page-item <?php echo $page <= 1 ? 'disabled' : ''; ?>">
                             <a class="page-link" href="?page=<?php echo $page - 1; ?><?php echo isset($_GET['category']) ? '&category=' . $_GET['category'] : ''; ?><?php echo isset($_GET['location']) ? '&location=' . $_GET['location'] : ''; ?><?php echo isset($_GET['min_price']) ? '&min_price=' . $_GET['min_price'] : ''; ?><?php echo isset($_GET['max_price']) ? '&max_price=' . $_GET['max_price'] : ''; ?><?php echo isset($_GET['search']) ? '&search=' . $_GET['search'] : ''; ?>">Previous</a>
                         </li>
@@ -433,13 +646,10 @@
                     </ul>
                 </nav>
             <?php else: ?>
-                <div class="alert alert-info">
-                    <h4 class="alert-heading">No products found!</h4>
-                    <p>We couldn't find any products matching your criteria. Try adjusting your filters or check back later.</p>
-                    <hr>
-                    <p class="mb-0">
-                        <a href="marketplace.php" class="btn btn-info">Clear All Filters</a>
-                    </p>
+                <div class="text-center py-5" data-aos="fade-up">
+                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted">No products found</h4>
+                    <p class="text-muted">Try adjusting your search or filter criteria</p>
                 </div>
             <?php endif; ?>
         </div>
@@ -472,7 +682,7 @@
                     // Product image display logic similar to main products
                     if (!empty($product['image']) && file_exists('public/uploads/products/' . $product['image'])): 
                     ?>
-                    <img src="public/uploads/products/<?php echo $product['image']; ?>" 
+                    <img src="<?php echo htmlspecialchars($product['image']); ?>" 
                          alt="<?php echo htmlspecialchars($product['name']); ?>" 
                          class="card-img-top" 
                          onerror="this.src='public/images/default-product.jpg'">
@@ -561,8 +771,6 @@
             listView.classList.add('d-none');
             gridViewBtn.classList.add('active');
             listViewBtn.classList.remove('active');
-            // Refresh image loading when view changes
-            if (window.refreshImageLoading) window.refreshImageLoading();
         });
         
         listViewBtn.addEventListener('click', function() {
@@ -570,38 +778,7 @@
             listView.classList.remove('d-none');
             gridViewBtn.classList.remove('active');
             listViewBtn.classList.add('active');
-            // Refresh image loading when view changes
-            if (window.refreshImageLoading) window.refreshImageLoading();
         });
-        
-        // Mobile filter toggle
-        const mobileFilterBtn = document.getElementById('mobileFilterBtn');
-        const filterSection = document.getElementById('filter-section');
-        
-        if (mobileFilterBtn && filterSection) {
-            mobileFilterBtn.addEventListener('click', function() {
-                if (window.innerWidth < 768) {
-                    filterSection.classList.toggle('d-none');
-                    
-                    // Change button icon based on filter visibility
-                    const icon = this.querySelector('i');
-                    if (filterSection.classList.contains('d-none')) {
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-filter');
-                        this.setAttribute('aria-label', 'Show filters');
-                    } else {
-                        icon.classList.remove('fa-filter');
-                        icon.classList.add('fa-times');
-                        this.setAttribute('aria-label', 'Hide filters');
-                    }
-                }
-            });
-            
-            // Hide filters by default on mobile
-            if (window.innerWidth < 768) {
-                filterSection.classList.add('d-none');
-            }
-        }
         
         // Initialize sort order dropdown functionality
         const sortOrder = document.getElementById('sortOrder');

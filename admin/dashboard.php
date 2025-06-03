@@ -176,7 +176,7 @@ if ($result) {
 }
 
 // Get recent users (last 5)
-$query = "SELECT * FROM users ORDER BY date_registered DESC LIMIT 5";
+$query = "SELECT * FROM users ORDER BY date_joined DESC LIMIT 5";
 $result = mysqli_query($conn, $query);
 if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {

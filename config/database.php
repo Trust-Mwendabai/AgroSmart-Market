@@ -82,6 +82,8 @@ $messages_table = "CREATE TABLE IF NOT EXISTS messages (
     message TEXT NOT NULL,
     date_sent TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_read BOOLEAN DEFAULT 0,
+    date_read DATETIME DEFAULT NULL,
+    related_product_id INT(11) DEFAULT NULL,
     FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
 )";

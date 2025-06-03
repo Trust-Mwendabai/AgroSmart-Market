@@ -426,7 +426,7 @@ class Product {
      * @return array Associative array with min_price and max_price
      */
     public function get_price_range() {
-        $sql = "SELECT MIN(price) as min_price, MAX(price) as max_price FROM products WHERE is_active = 1";
+        $sql = "SELECT MIN(price) as min_price, MAX(price) as max_price FROM products";
         $result = mysqli_query($this->conn, $sql);
         $row = mysqli_fetch_assoc($result);
         
@@ -515,9 +515,6 @@ class Product {
                 $params[] = $search_term;
             }
         }
-        
-        // Always only include active products
-        $where_clauses[] = "p.is_active = 1";
         
         // Build WHERE clause
         $where_sql = "";
@@ -668,9 +665,6 @@ class Product {
                 $params[] = $search_term;
             }
         }
-        
-        // Always only include active products
-        $where_clauses[] = "p.is_active = 1";
         
         // Build WHERE clause
         $where_sql = "";

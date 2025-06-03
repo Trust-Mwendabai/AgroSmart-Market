@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Start session
 session_start();
 
@@ -18,18 +22,26 @@ $product_model = new Product($conn);
 $message = '';
 $error = '';
 
-if (isset($_POST['action'])) {
-    $csrf_valid = verify_csrf_token($_POST['csrf_token'] ?? '');
+// Get the action from either POST or GET
+$action = $_POST['action'] ?? $_GET['action'] ?? '';
+
+if ($action) {
+    // For POST requests, verify CSRF token
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $csrf_valid = verify_csrf_token($_POST['csrf_token'] ?? '');
+        if (!$csrf_valid) {
+            $error = "Invalid request. Please try again.";
+        }
+    }
     
-    if (!$csrf_valid) {
-        $error = "Invalid request. Please try again.";
-    } else {
-        switch ($_POST['action']) {
+    if (empty($error)) {
+        switch ($action) {
             case 'add':
-                if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
-                    $product_id = (int)$_POST['product_id'];
-                    $quantity = (int)$_POST['quantity'];
-                    
+                // Get product_id from either POST or GET
+                $product_id = (int)($_POST['product_id'] ?? $_GET['id'] ?? 0);
+                $quantity = (int)($_POST['quantity'] ?? 1);
+                
+                if ($product_id > 0) {
                     // Verify the product exists
                     $product = $product_model->get_product($product_id);
                     if (!$product) {
@@ -42,7 +54,22 @@ if (isset($_POST['action'])) {
                     if (isset($result['success'])) {
                         $message = $result['message'];
                         
-                        // Redirect back to the previous page or marketplace
+                        // Check if it's an AJAX request
+                        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' || 
+                            strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false) {
+                            // Get updated cart info
+                            $cart = $cart_model->get_cart();
+                            // Return JSON response
+                            header('Content-Type: application/json');
+                            echo json_encode([
+                                'success' => true,
+                                'message' => $result['message'],
+                                'cart_count' => $cart['total_quantity']
+                            ]);
+                            exit;
+                        }
+                        
+                        // For regular requests, redirect back to the previous page or marketplace
                         $redirect_url = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'marketplace.php';
                         header("Location: $redirect_url?cart_success=1");
                         exit;
@@ -327,8 +354,35 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Automatically submit the form when quantity changes
-            this.closest('form').submit();
+            const form = this.closest('form');
+            if (form) {
+                form.submit();
+            }
         });
+    });
+
+    // Handle quantity input changes
+    const quantityInputs = document.querySelectorAll('.quantity-input');
+    quantityInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            const form = this.closest('form');
+            if (form) {
+                form.submit();
+            }
+        });
+    });
+
+    // Handle remove item confirmation
+    const removeButtons = document.querySelectorAll('form[action="cart.php"] button[type="submit"]');
+    removeButtons.forEach(button => {
+        const form = button.closest('form');
+        if (form && form.querySelector('input[name="action"]').value === 'remove') {
+            button.addEventListener('click', function(e) {
+                if (!confirm('Are you sure you want to remove this item from your cart?')) {
+                    e.preventDefault();
+                }
+            });
+        }
     });
 });
 </script>

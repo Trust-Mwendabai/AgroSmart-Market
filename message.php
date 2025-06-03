@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 /**
  * Message Controller
  * 
@@ -61,7 +64,7 @@ switch ($action) {
             if (!empty($messages)) {
                 foreach ($messages as $msg) {
                     if (!$msg['is_read']) {
-                        $message->mark_as_read($msg['id']);
+                        $message->mark_as_read($msg['id'], $_SESSION['user_id']);
                     }
                 }
             }
@@ -69,8 +72,8 @@ switch ($action) {
             // Include the inbox view
             include 'views/messages/inbox.php';
         } catch (Exception $e) {
-            error_log('Error loading inbox: ' . $e->getMessage());
-            $error = 'An error occurred while loading your messages. Please try again.';
+            // Show the real error message for debugging
+            $error = 'Error loading inbox: ' . $e->getMessage();
             include 'views/error.php';
         }
         break;
@@ -276,7 +279,7 @@ switch ($action) {
             
             // Mark as read if this is a received message
             if ($message_data['receiver_id'] == $_SESSION['user_id'] && !$message_data['is_read']) {
-                $message->mark_as_read($message_id);
+                $message->mark_as_read($message_id, $_SESSION['user_id']);
             }
             
             // Get previous messages in this conversation

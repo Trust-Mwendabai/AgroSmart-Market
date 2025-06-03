@@ -149,7 +149,7 @@ class User {
      * @return array|false Associative array of user data or false if not found
      */
     public function get_user_by_id($user_id) {
-        $sql = "SELECT id, name, email, user_type, location, profile_image, bio, phone, nrc_number, literacy_level, date_registered AS registration_date, 
+        $sql = "SELECT id, name, email, user_type, location, profile_image, bio, phone, nrc_number, literacy_level, date_joined AS registration_date, 
                 last_login, email_verified, is_active 
                 FROM users WHERE id = ?";
         
@@ -236,7 +236,7 @@ class User {
      * @return array|false Associative array of public user data or false if not found
      */
     public function get_user($user_id) {
-        $sql = "SELECT id, name, email, user_type, location, profile_image, bio, phone, date_registered 
+        $sql = "SELECT id, name, email, user_type, location, profile_image, bio, phone, date_joined 
                 FROM users WHERE id = ?";
         
         $stmt = mysqli_prepare($this->conn, $sql);
@@ -297,8 +297,8 @@ class User {
      * @return array Array of user data
      */
     public function get_all_users($limit = 20, $offset = 0) {
-        $sql = "SELECT id, name, email, user_type, location, date_registered, is_active 
-                FROM users ORDER BY date_registered DESC 
+        $sql = "SELECT id, name, email, user_type, location, date_joined, is_active 
+                FROM users ORDER BY date_joined DESC 
                 LIMIT ? OFFSET ?";
         
         $stmt = mysqli_prepare($this->conn, $sql);
